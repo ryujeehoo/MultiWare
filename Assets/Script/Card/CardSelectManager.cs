@@ -11,7 +11,6 @@ public class CardSelectManager : MonoBehaviour
     public int maxSelectCount = 5;
 
     [Header("UI 연결")]
-    public Button useCardButton;
     public TMP_Text handResultText;
     public Canvas mainCanvas;
 
@@ -31,19 +30,19 @@ public class CardSelectManager : MonoBehaviour
     {
         if (selectedCards.Count >= maxSelectCount)
         {
-            Debug.Log("Max 5 cards!");
+            Debug.Log("최대 5장까지 선택 가능합니다!");
             return;
         }
 
         selectedCards.Add(card);
-        Debug.Log($"Selected: {card.cardData.cardName} ({selectedCards.Count})");
+        Debug.Log($"선택: {card.cardData.cardName} ({selectedCards.Count}장)");
         UpdateUI();
     }
 
     public void DeselectCard(CardView card)
     {
         selectedCards.Remove(card);
-        Debug.Log($"Deselected: {card.cardData.cardName} ({selectedCards.Count})");
+        Debug.Log($"선택 해제: {card.cardData.cardName} ({selectedCards.Count}장)");
         UpdateUI();
     }
 
@@ -53,8 +52,6 @@ public class CardSelectManager : MonoBehaviour
         {
             if (handResultText != null)
                 handResultText.text = "Select Cards";
-            if (useCardButton != null)
-                useCardButton.interactable = false;
             return;
         }
 
@@ -67,137 +64,24 @@ public class CardSelectManager : MonoBehaviour
         if (handResultText != null)
             handResultText.text = $"{result.GetRankName()} (DMG: {result.baseDamage})";
 
-        if (useCardButton != null)
-            useCardButton.interactable = true;
-
-        Debug.Log($"Now: {result.GetRankName()} / Damage: {result.baseDamage}");
+        Debug.Log($"현재 족보: {result.GetRankName()} / 데미지: {result.baseDamage}");
     }
 
-    public void OnClickUseCard()
+    public void ShowMessage(string message)
     {
-        if (selectedCards.Count == 0) return;
-
-        // 족보 판정
-        List<CardData> cardDataList = new List<CardData>();
-        foreach (CardView cv in selectedCards)
-            cardDataList.Add(cv.cardData);
-
-        HandResult result = HandEvaluator.Evaluate(cardDataList);
-        Debug.Log($"족보 사용! {result.GetRankName()} / 데미지: {result.baseDamage}");
-
-        // 문양 시너지 효과 적용
-        ApplySuitEffect(result);
-
-        // 카드 뭉탱이 생성
-        CreateCardBundle(result, cardDataList);
-
-        // 선택한 카드 제거
-        List<CardView> cardsToRemove = new List<CardView>(selectedCards);
-        foreach (CardView cv in cardsToRemove)
-        {
-            if (cv != null && cv.gameObject != null)
-                Destroy(cv.gameObject);
-        }
-        selectedCards.Clear();
-
-        UpdateUI();
-    }
-
-    private void ApplySuitEffect(HandResult result)
-    {
-        int spadeCount = 0, heartCount = 0,
-            diamondCount = 0, cloverCount = 0;
-
-        foreach (CardView cv in selectedCards)
-        {
-            switch (cv.cardData.suit)
-            {
-                case SuitType.Spade: spadeCount++; break;
-                case SuitType.Heart: heartCount++; break;
-                case SuitType.Diamond: diamondCount++; break;
-                case SuitType.Clover: cloverCount++; break;
-            }
-        }
-
-        if (spadeCount >= heartCount &&
-            spadeCount >= diamondCount &&
-            spadeCount >= cloverCount)
-        {
-            Debug.Log($"♠ 추가 공격! +{spadeCount * 5}");
-        }
-        else if (heartCount >= spadeCount &&
-                 heartCount >= diamondCount &&
-                 heartCount >= cloverCount)
-        {
-            float healAmount = heartCount * 5;
-            Player player = FindFirstObjectByType<Player>();
-            if (player != null)
-                player.Heal(healAmount);
-            Debug.Log($"♥ 회복! +{healAmount} HP");
-        }
-        else if (diamondCount >= spadeCount &&
-                 diamondCount >= heartCount &&
-                 diamondCount >= cloverCount)
-        {
-            int goldAmount = diamondCount * 3;
-
-            // GoldManager로 골드 추가
-            if (GoldManager.Instance != null)
-                GoldManager.Instance.AddGold(goldAmount);
-
-            Debug.Log($"♦ 골드 획득! +{goldAmount}");
-        }
-        else
-        {
-            Debug.Log($"♣ 버프! +{cloverCount * 3}");
-        }
-    }
-
-    private void CreateCardBundle(HandResult result, List<CardData> cardDataList)
-    {
-        GameObject bundleObj = new GameObject("CardBundle");
-
-        Canvas canvas = mainCanvas != null ?
-            mainCanvas : FindFirstObjectByType<Canvas>();
-
-        bundleObj.transform.SetParent(canvas.transform, false);
-        bundleObj.transform.SetAsLastSibling();
-
-        RectTransform rect = bundleObj.AddComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(120, 180);
-        rect.anchorMin = new Vector2(0.5f, 0.5f);
-        rect.anchorMax = new Vector2(0.5f, 0.5f);
-        rect.pivot = new Vector2(0.5f, 0.5f);
-        rect.anchoredPosition = new Vector2(0, -200f);
-
-        Image img = bundleObj.AddComponent<Image>();
-        img.color = new Color(1f, 0.8f, 0f, 0.9f);
-        img.raycastTarget = true;
-
-        CardBundle bundle = bundleObj.AddComponent<CardBundle>();
-        bundle.Setup(result, cardDataList);
-
-        GameObject textObj = new GameObject("BundleText");
-        textObj.transform.SetParent(bundleObj.transform, false);
-
-        RectTransform textRect = textObj.AddComponent<RectTransform>();
-        textRect.anchorMin = Vector2.zero;
-        textRect.anchorMax = Vector2.one;
-        textRect.sizeDelta = Vector2.zero;
-        textRect.anchoredPosition = Vector2.zero;
-
-        TMPro.TMP_Text text = textObj.AddComponent<TMPro.TextMeshProUGUI>();
-        text.text = $"{result.GetRankName()}\nDMG:{result.baseDamage}";
-        text.alignment = TMPro.TextAlignmentOptions.Center;
-        text.fontSize = 14;
-        text.raycastTarget = false;
-        text.color = Color.black;
-
-        Debug.Log("카드 뭉탱이 생성! 몬스터에게 드래그하세요.");
+        if (handResultText != null)
+            handResultText.text = message;
     }
 
     public List<CardView> GetSelectedCards()
     {
         return selectedCards;
+    }
+
+    // 선택 카드 초기화
+    public void ClearSelected()
+    {
+        selectedCards.Clear();
+        UpdateUI();
     }
 }
