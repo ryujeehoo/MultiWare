@@ -20,6 +20,10 @@ MonoBehaviour:
     value: 3
     scaleWithTurn: 0
     scaleAmount: 0
+  - actionType: 1
+    value: 3
+    scaleWithTurn: 0
+    scaleAmount: 0
   - actionType: 0
     value: 3
     scaleWithTurn: 0

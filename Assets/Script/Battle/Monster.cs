@@ -6,6 +6,8 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 {
     public MonsterData Data;
     private int currentHP;
+    private int defense = 0;
+    private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
     void Awake()
     {
@@ -14,8 +16,44 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
     public void TakeDamage(float damage)
     {
-        currentHP -= (int)damage;
+        int finalDamage = Mathf.Max(0, (int)damage - defense);
+        defense = 0;
+        currentHP -= finalDamage;
         Debug.Log($"몬스터 HP: {currentHP}");
+    }
+
+    public void AddDefense(int amount)
+    {
+        defense += amount;
+        Debug.Log($"[{gameObject.name}] 방어력 {defense} 획득!");
+    }
+
+    public void ApplyEffect(StatusEffect effect)
+    {
+        StatusEffect existing = activeEffects.Find(e => e.effectName == effect.effectName);
+        if (existing != null && existing is PoisonEffect existingPoison && effect is PoisonEffect newPoison)
+        {
+            existingPoison.stack += newPoison.stack;
+            Debug.Log($"{Data.monsterName} 독 중첩! 현재 중첩: {existingPoison.stack}");
+        }
+        else
+        {
+            activeEffects.Add(effect);
+            Debug.Log($"{Data.monsterName}에게 {effect.effectName} 적용! 중첩: {((PoisonEffect)effect).stack}");
+        }
+    }
+
+    public void TickEffects()
+    {
+        for (int i = activeEffects.Count - 1; i >= 0; i--)
+        {
+            activeEffects[i].OnTurnEnd(this);
+            if (activeEffects[i].IsExpired())
+            {
+                Debug.Log($"{activeEffects[i].effectName} 효과 종료!");
+                activeEffects.RemoveAt(i);
+            }
+        }
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -23,26 +61,22 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         // CardBundle 방식 제거 - CardView 드래그 방식으로 변경됨
     }
 
-    // 최종 데미지 계산
     int CalculateFinalDamage(List<CardData> cards, HandResult result)
     {
         int baseDamage = result.baseDamage;
 
-        // 집중 효과 적용
         float focusMultiplier = 1.0f;
         if (BattleManager.Instance != null)
             focusMultiplier = BattleManager.Instance.ConsumeFocus();
 
         baseDamage = Mathf.RoundToInt(baseDamage * focusMultiplier);
 
-        // 노출 효과 적용 (적 방어력 -20% → 데미지 +20%)
         if (BattleManager.Instance != null && BattleManager.Instance.isExposed)
         {
             baseDamage = Mathf.RoundToInt(baseDamage * 1.2f);
             Debug.Log($"노출 효과! 데미지 +20% → {baseDamage}");
         }
 
-        // 스페이드 비율 계산 (5장 기준)
         int spadeCount = 0;
         foreach (CardData c in cards)
             if (c.suit == SuitType.Spade) spadeCount++;
@@ -64,7 +98,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         return finalDamage;
     }
 
-    // 문양별 추가 효과 적용
     void ApplySuitEffects(List<CardData> cards)
     {
         int spadeCount = 0, heartCount = 0,
@@ -85,7 +118,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         float diamondRatio = (float)diamondCount / 5f;
         float cloverRatio = (float)cloverCount / 5f;
 
-        // 하트: HP 회복
         if (heartCount > 0)
         {
             float healAmount = 0f;
@@ -105,7 +137,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             }
         }
 
-        // 다이아: 골드 획득
         if (diamondCount > 0)
         {
             int goldAmount = 0;
@@ -124,12 +155,10 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             }
         }
 
-        // 클로버: 버프/디버프
         if (cloverCount > 0)
             ApplyCloverEffect(cloverRatio);
     }
 
-    // 클로버 효과 적용
     void ApplyCloverEffect(float ratio)
     {
         if (ratio <= 0) return;
@@ -265,7 +294,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         }
     }
 
-    // CardView 드래그로 데미지 받는 함수
     public void ReceiveCardBundle(HandResult result, List<CardData> cards)
     {
         int finalDamage = CalculateFinalDamage(cards, result);

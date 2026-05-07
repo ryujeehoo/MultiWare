@@ -59,7 +59,7 @@ public class TurnManager : MonoBehaviour
                     yield return StartCoroutine(enemy.EnemyAction());
             }
         }
-
+        player.TickEffects(); // 추가 - 독 데미지 처리
         // 적 행동 끝난 후 턴 종료 처리
         if (BattleManager.Instance != null)
             BattleManager.Instance.OnTurnEnd();
