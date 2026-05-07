@@ -14,4 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: monsterTest1
   maxHP: 100
-  attackDamage: 5
+  gold: 5
+  actionPattern:
+  - actionType: 2
+    value: 3
+    scaleWithTurn: 0
+    scaleAmount: 0
+  - actionType: 0
+    value: 3
+    scaleWithTurn: 0
+    scaleAmount: 0
