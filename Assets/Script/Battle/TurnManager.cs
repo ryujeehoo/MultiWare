@@ -39,7 +39,6 @@ public class TurnManager : MonoBehaviour
     IEnumerator EnemyTurnRoutine()
     {
         currentState = GameState.EnemyTurn;
-
         SetInputBlock(true);
         endTurnButton.interactable = false;
 
@@ -51,8 +50,9 @@ public class TurnManager : MonoBehaviour
                 yield return StartCoroutine(enemy.EnemyAction());
         }
 
-        Debug.Log("적 턴 종료");
+        player.TickEffects(); // 추가 - 독 등 상태이상 처리
 
+        Debug.Log("적 턴 종료");
         StartPlayerTurn();
     }
 

@@ -5,7 +5,8 @@ public class EnemyController : MonoBehaviour
 {
     public Player player;
     private MonsterData data;
-    private int patternIndex = 0; // 현재 패턴 인덱스
+    private int patternIndex = 0;
+    private int turnCount = 0; // 추가
 
     private void Start()
     {
@@ -28,30 +29,30 @@ public class EnemyController : MonoBehaviour
             yield break;
         }
 
-        // 현재 턴 패턴 가져오기
         MonsterAction action = data.actionPattern[patternIndex];
 
         switch (action.actionType)
         {
             case ActionType.Attack:
-                yield return StartCoroutine(DoAttack(action.value));
+                yield return StartCoroutine(DoAttack(action.GetValue(turnCount)));
                 break;
-
             case ActionType.Defend:
-                yield return StartCoroutine(DoDefend(action.value));
+                yield return StartCoroutine(DoDefend(action.GetValue(turnCount)));
+                break;
+            case ActionType.Poison:
+                yield return StartCoroutine(DoPoison(action.GetValue(turnCount)));
                 break;
         }
 
-        // 다음 패턴으로 (끝나면 처음으로)
         patternIndex = (patternIndex + 1) % data.actionPattern.Count;
+        turnCount++; // 턴 카운트 증가
     }
 
     IEnumerator DoAttack(float damage)
     {
         Debug.Log($"[{gameObject.name}] 공격! {damage} 데미지");
         yield return new WaitForSeconds(1f);
-        DamageEffect dmg = new DamageEffect(damage);
-        dmg.Apply(player);
+        new DamageEffect(damage).Apply(player);
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -59,8 +60,15 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"[{gameObject.name}] 방어! {amount} 방어력");
         yield return new WaitForSeconds(1f);
-        // 방어 로직 (Player의 다음 공격 데미지 감소 등)
         GetComponent<Monster>().AddDefense((int)amount);
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    IEnumerator DoPoison(float stack)
+    {
+        Debug.Log($"[{gameObject.name}] 독 공격! {stack} 중첩");
+        yield return new WaitForSeconds(1f);
+        player.ApplyEffect(new PoisonEffect((int)stack));
         yield return new WaitForSeconds(0.5f);
     }
 }

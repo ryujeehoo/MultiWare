@@ -8,6 +8,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     private int currentHP;
     private int monsterGold;
     private int defense = 0;
+    private List<StatusEffect> activeEffects = new List<StatusEffect>();
     void Awake() 
     {
         // Data가 이미 있으면 초기화 (인스펙터에서 직접 할당한 경우)
@@ -36,7 +37,32 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         defense = 0; // 방어력 턴마다 초기화
         Debug.Log($"[{gameObject.name}] {finalDamage} 데미지! HP: {currentHP}");
     }
-
+    public void ApplyEffect(StatusEffect effect)
+    {
+        StatusEffect existing = activeEffects.Find(e => e.effectName == effect.effectName);
+        if (existing != null && existing is PoisonEffect existingPoison && effect is PoisonEffect newPoison)
+        {
+            existingPoison.stack += newPoison.stack;
+            Debug.Log($"{Data.monsterName} 독 중첩! 현재 중첩: {existingPoison.stack}");
+        }
+        else
+        {
+            activeEffects.Add(effect);
+            Debug.Log($"{Data.monsterName}에게 {effect.effectName} 적용! 중첩: {((PoisonEffect)effect).stack}");
+        }
+    }
+    public void TickEffects()
+    {
+        for (int i = activeEffects.Count - 1; i >= 0; i--)
+        {
+            activeEffects[i].OnTurnEnd(this);
+            if (activeEffects[i].IsExpired())
+            {
+                Debug.Log($"{activeEffects[i].effectName} 효과 종료!");
+                activeEffects.RemoveAt(i);
+            }
+        }
+    }
     public void OnDrop(PointerEventData eventData)
     {
         CardBundle bundle = eventData.pointerDrag?.GetComponent<CardBundle>();

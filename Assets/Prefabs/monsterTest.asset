@@ -16,15 +16,11 @@ MonoBehaviour:
   maxHP: 100
   gold: 5
   actionPattern:
-  - actionType: 0
-    value: 10
-    scaleWithTurn: 0
-    scaleAmount: 0
-  - actionType: 1
-    value: 5
+  - actionType: 2
+    value: 3
     scaleWithTurn: 0
     scaleAmount: 0
   - actionType: 0
-    value: 5
+    value: 3
     scaleWithTurn: 0
     scaleAmount: 0
