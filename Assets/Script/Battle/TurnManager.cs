@@ -15,6 +15,7 @@ public class TurnManager : MonoBehaviour
     public Player player;
 
     [Header("Enemy")]
+    public MonsterSpawner spawner;
     private EnemyController[] enemies;
 
     private void Awake()
@@ -24,10 +25,20 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
-        enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+        RefreshEnemies();
         StartPlayerTurn();
     }
-
+    public void RefreshEnemies()
+    {
+        List<EnemyController> list = new List<EnemyController>();
+        foreach (GameObject obj in spawner.spawnedMonsters)
+        {
+            if (obj == null) continue;
+            EnemyController ec = obj.GetComponent<EnemyController>();
+            if (ec != null) list.Add(ec);
+        }
+        enemies = list.ToArray();
+    }
     // 턴 종료 버튼
     public void OnClickEndTurn()
     {
@@ -44,7 +55,9 @@ public class TurnManager : MonoBehaviour
         endTurnButton.interactable = false;
 
         Debug.Log("적 턴 시작");
-
+        Monster[] monsters = FindObjectsByType<Monster>(FindObjectsSortMode.None);
+        foreach (Monster monster in monsters)
+            monster.ResetDefense();
         // 둔화 효과 먼저 체크 (OnTurnEnd 전에!)
         if (BattleManager.Instance != null && BattleManager.Instance.isSlowed)
         {

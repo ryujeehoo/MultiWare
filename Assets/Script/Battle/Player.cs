@@ -108,24 +108,4 @@ public class Player : MonoBehaviour, IEffectTarget
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         Debug.Log($"플레이어 HP 회복! 현재 HP: {currentHealth}");
     }
-    public void AddGold(int amount)
-    {
-        gold += amount;
-        Debug.Log($"골드 추가 +{amount} (현재 골드: {gold})");
-        OnGoldChanged?.Invoke(gold);
-    }
-
-    public bool SpendGold(int amount)
-    {
-        if (gold < amount)
-        {
-            Debug.Log("골드 부족!");
-            return false;
-        }
-
-        gold -= amount;
-        OnGoldChanged?.Invoke(gold);
-        return true;
-    }
-
 }

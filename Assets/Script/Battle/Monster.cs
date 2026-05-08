@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 {
@@ -9,9 +10,43 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     private int defense = 0;
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
+    [Header("UI")]
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI defenseText;
+
     void Awake()
     {
         currentHP = Data.maxHP;
+        UpdateUI();
+    }
+
+    void UpdateUI()
+    {
+        if (hpText != null)
+        {
+            hpText.fontSize = 15; // hp 폰트 사이즈
+            hpText.text = $"{currentHP}/{Data.maxHP}";
+
+            if ((float)currentHP / Data.maxHP <= 0.3f)
+                hpText.color = new Color(1f, 0.5f, 0f);
+            else
+                hpText.color = new Color(0.9f, 0.2f, 0.2f);
+        }
+
+        if (defenseText != null)
+        {
+            defenseText.fontSize = 15; // 가드 폰트 사이즈
+            if (defense > 0)
+            {
+                defenseText.text = $"{defense}";
+                defenseText.color = new Color(0.7f, 0.7f, 0.75f);
+                defenseText.gameObject.SetActive(true);
+            }
+            else
+            {
+                defenseText.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void TakeDamage(float damage)
@@ -20,12 +55,21 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         defense = 0;
         currentHP -= finalDamage;
         Debug.Log($"몬스터 HP: {currentHP}");
+        UpdateUI();
+    }
+
+    public void ResetDefense()
+    {
+        defense = 0;
+        Debug.Log($"[{gameObject.name}] 방어력 초기화!");
+        UpdateUI();
     }
 
     public void AddDefense(int amount)
     {
         defense += amount;
         Debug.Log($"[{gameObject.name}] 방어력 {defense} 획득!");
+        UpdateUI();
     }
 
     public void ApplyEffect(StatusEffect effect)
@@ -302,6 +346,11 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
         ApplySuitEffects(cards);
 
+        foreach (var relic in Player.Instance.relics)
+        {
+            relic.OnAttack(Player.Instance, cards, this, result);
+        }
+
         if (currentHP <= 0)
             Die();
     }
@@ -309,6 +358,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     void Die()
     {
         Debug.Log("몬스터 사망!");
+        GoldManager.Instance.AddGold(Data.gold);
         Destroy(gameObject);
     }
 }

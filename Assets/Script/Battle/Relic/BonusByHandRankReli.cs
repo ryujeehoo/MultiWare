@@ -5,11 +5,12 @@ using UnityEngine;
 public class BonusByHandRankRelic : Relic
 {
     [Header("발동 족보")]
-    public List<HandRankType> triggerRanks; // 발동할 족보 선택
+    public List<HandRankType> triggerRanks;
 
     [Header("효과")]
     public int bonusDamage;
     public int bonusGold;
+    public int bonusHeal;
 
     public override void OnAttack(Player player, List<CardData> usedCards, Monster target, HandResult handResult)
     {
@@ -23,8 +24,14 @@ public class BonusByHandRankRelic : Relic
 
         if (bonusGold > 0)
         {
-            player.AddGold(bonusGold);
+            GoldManager.Instance.AddGold(bonusGold);
             Debug.Log($"[{relicName}] 골드 {bonusGold} 획득!");
+        }
+
+        if (bonusHeal > 0)
+        {
+            player.Heal(bonusHeal);
+            Debug.Log($"[{relicName}] HP +{bonusHeal} 회복!");
         }
     }
 }

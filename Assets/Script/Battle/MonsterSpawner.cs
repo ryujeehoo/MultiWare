@@ -13,6 +13,7 @@ public class MonsterSpawner : MonoBehaviour
 
     public GameObject[] spawnedMonsters { get; private set; } = new GameObject[3];
 
+
     public void SpawnFromEncounterTable()
     {
         if (encounterTable == null || encounterTable.encounters.Length == 0)

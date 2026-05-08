@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   encounterName: 
   monsterPrefabSlots:
-  - {fileID: 780495344109137746, guid: ebd68376c12ad494199b5e5cd537f8cd, type: 3}
-  - {fileID: 780495344109137746, guid: ebd68376c12ad494199b5e5cd537f8cd, type: 3}
-  - {fileID: 780495344109137746, guid: ebd68376c12ad494199b5e5cd537f8cd, type: 3}
+  - {fileID: 780495344109137746, guid: 3d3b4f43d5b109a43be4ae8d65f6b4d7, type: 3}
+  - {fileID: 780495344109137746, guid: 3d3b4f43d5b109a43be4ae8d65f6b4d7, type: 3}
+  - {fileID: 780495344109137746, guid: 3d3b4f43d5b109a43be4ae8d65f6b4d7, type: 3}
