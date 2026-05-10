@@ -24,7 +24,7 @@ public class CardData_csj : MonoBehaviour
 
     void Start()
     {
-        SetupCard();
+       // SetupCard();
     }
 
     public void SetupCard()
@@ -52,6 +52,7 @@ public class CardData_csj : MonoBehaviour
         return number switch
         {
             1 => "A",
+            14 => "A",  // ← 14도 A로 표시 추가!
             11 => "J",
             12 => "Q",
             13 => "K",

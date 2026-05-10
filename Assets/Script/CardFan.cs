@@ -33,12 +33,10 @@ public class CardFan : MonoBehaviour
             GameObject card = Instantiate(cardPrefab, transform);
             cards[i] = card;
 
-            // CardDrag 비활성화
             CardDrag cardDrag = card.GetComponent<CardDrag>();
             if (cardDrag != null)
                 cardDrag.SetDraggable(false);
 
-            // CardData 자동 연결
             CardView cardView = card.GetComponent<CardView>();
             if (cardView != null)
             {
@@ -47,8 +45,7 @@ public class CardFan : MonoBehaviour
                     cardView.Setup(cardData);
             }
 
-            if (card.GetComponent<CardHover>() == null)
-                card.AddComponent<CardHover>();
+            // CardHover 추가 제거! ← 이 부분 삭제
         }
         ArrangeCards();
     }
@@ -57,16 +54,22 @@ public class CardFan : MonoBehaviour
     {
         for (int i = 0; i < cards.Length; i++)
         {
+            // null 체크 추가!
+            if (cards[i] == null) continue;
+
             float normPos = cards.Length == 1 ? 0f :
                 (i / (float)(cards.Length - 1)) - 0.5f;
             float x = spacing * normPos * cards.Length;
             float y = Mathf.Sqrt(Mathf.Max(0, radius * radius - x * x));
             RectTransform cardTransform = cards[i].GetComponent<RectTransform>();
+
+            // null 체크 추가!
+            if (cardTransform == null) continue;
+
             cardTransform.anchoredPosition = new Vector2(x, y - radius);
             cardTransform.rotation = Quaternion.Euler(0, 0, -normPos * maxAngle);
         }
     }
-
     [ContextMenu("Draw Card")]
     public void DrawCard()
     {
@@ -85,8 +88,13 @@ public class CardFan : MonoBehaviour
     public void RemoveCardObject(GameObject card)
     {
         if (cards == null) return;
+
         List<GameObject> list = new List<GameObject>(cards);
         list.Remove(card);
+
+        // null 제거 추가!
+        list.RemoveAll(c => c == null);
+
         cards = list.ToArray();
         cardCount = cards.Length;
         ArrangeCards();
@@ -121,8 +129,7 @@ public class CardFan : MonoBehaviour
         if (cardView != null)
             cardView.Setup(cardData);
 
-        if (card.GetComponent<CardHover>() == null)
-            card.AddComponent<CardHover>();
+       
 
         List<GameObject> cardList = cards != null ?
             new List<GameObject>(cards) : new List<GameObject>();

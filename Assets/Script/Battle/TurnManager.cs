@@ -30,6 +30,16 @@ public class TurnManager : MonoBehaviour
     }
     public void RefreshEnemies()
     {
+        //Monster Spawner가 없어서 뜨는 오류 방지용 코드
+        if (spawner == null)
+        {
+            // spawner 없으면 Scene에서 직접 찾기
+            enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+            Debug.Log($"MonsterSpawner 없음 → Scene에서 {enemies.Length}개 찾음");
+            return;
+        }
+        //여기까지가 오류 방지용 코드
+
         List<EnemyController> list = new List<EnemyController>();
         foreach (GameObject obj in spawner.spawnedMonsters)
         {
@@ -39,6 +49,23 @@ public class TurnManager : MonoBehaviour
         }
         enemies = list.ToArray();
     }
+    /*
+     RefreshEnemies()의 오류 방지용으로 변경 전 코드 
+ public void RefreshEnemies()
+ {
+     List<EnemyController> list = new List<EnemyController>();
+     foreach (GameObject obj in spawner.spawnedMonsters)
+     {
+         if (obj == null) continue;
+         EnemyController ec = obj.GetComponent<EnemyController>();
+         if (ec != null) list.Add(ec);
+     }
+     enemies = list.ToArray();
+ }
+
+*/
+
+
     // 턴 종료 버튼
     public void OnClickEndTurn()
     {

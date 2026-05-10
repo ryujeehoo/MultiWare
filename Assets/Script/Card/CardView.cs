@@ -23,22 +23,17 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
     private LineRenderer lineRenderer;
     private bool isDraggingArrow = false;
 
-    private void Awake()
-    {
-    }
-
     private void Update()
     {
         if (isDraggingArrow && lineRenderer != null)
-        {
             UpdateArrow(Input.mousePosition);
-        }
     }
 
     public void Setup(CardData data)
     {
         cardData = data;
 
+        // CardContainer 찾기
         Transform container = transform.Find("CardContainer");
         if (container != null)
         {
@@ -46,32 +41,37 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
             containerOriginalPos = cardContainer.anchoredPosition;
         }
 
-        Image[] images = GetComponentsInChildren<Image>();
-        foreach (Image img in images)
+        // CardData_csj 컴포넌트 찾기 및 설정
+        CardData_csj cardVisual = GetComponentInChildren<CardData_csj>();
+        if (cardVisual != null)
         {
-            if (img.gameObject.name == "CardImage")
-            {
-                cardImage = img;
-                break;
-            }
-        }
-
-        if (cardImage != null && data.cardSprite != null)
-        {
-            cardImage.sprite = data.cardSprite;
-            cardImage.color = Color.white;
-            Debug.Log($"이미지 설정 완료: {data.cardName}");
+            cardVisual.suit = ConvertSuit(data.suit);
+            cardVisual.number = data.cardNumber;
+            cardVisual.SetupCard();
+            Debug.Log($"카드 설정 완료: {data.cardName}");
         }
         else
         {
-            Debug.Log($"이미지 설정 실패 - cardImage: {cardImage}, sprite: {data.cardSprite}");
+            Debug.Log("CardData_csj 컴포넌트를 찾을 수 없습니다!");
         }
 
-        if (cardNameText == null)
-            cardNameText = GetComponentInChildren<TMP_Text>();
-
-        if (cardNameText != null)
-            cardNameText.gameObject.SetActive(false);
+        // cardNameText 비활성화 코드 제거! ← 이 부분 삭제
+        // if (cardNameText == null)
+        //     cardNameText = GetComponentInChildren<TMP_Text>();
+        // if (cardNameText != null)
+        //     cardNameText.gameObject.SetActive(false);
+    }
+    // SuitType → Suit 변환
+    private Suit ConvertSuit(SuitType suitType)
+    {
+        switch (suitType)
+        {
+            case SuitType.Spade: return Suit.Spade;
+            case SuitType.Heart: return Suit.Heart;
+            case SuitType.Diamond: return Suit.Diamond;
+            case SuitType.Clover: return Suit.Club;
+            default: return Suit.Spade;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -79,7 +79,6 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
         if (eventData.button == PointerEventData.InputButton.Right)
             return;
 
-        // 좌클릭 → 전투 선택만
         ToggleSelect();
     }
 
@@ -91,8 +90,6 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
         if (selected.Count == 0) return;
 
         isDraggingArrow = true;
-
-        // 화살표 생성
         CreateArrow();
     }
 
@@ -103,10 +100,8 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
         if (!isDraggingArrow) return;
         isDraggingArrow = false;
 
-        // 화살표 제거
         DestroyArrow();
 
-        // 마우스 아래 오브젝트 감지
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
 
@@ -116,28 +111,25 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
             RerollZone rerollZone = result.gameObject.GetComponent<RerollZone>();
             if (rerollZone != null)
             {
-                // 선택된 카드들 리롤
                 List<CardView> selected = CardSelectManager.Instance.GetSelectedCards();
-
                 int rerollCount = selected.Count;
                 int totalCost = CardRerollManager.Instance != null ?
                     CardRerollManager.Instance.rerollCost * rerollCount : 5 * rerollCount;
 
-                // 골드 확인
                 if (GoldManager.Instance.currentGold < totalCost)
                 {
                     Debug.Log($"골드 부족! 필요: {totalCost}G");
                     return;
                 }
 
-                // 골드 소모
                 GoldManager.Instance.SpendGold(totalCost);
                 Debug.Log($"리롤! -{totalCost}G / {rerollCount}장 교체");
 
-                // 선택 카드 제거
+                // 카드 제거 전에 rerollCount 저장
                 List<CardView> cardsToRemove = new List<CardView>(selected);
                 CardSelectManager.Instance.ClearSelected();
 
+                // 카드 먼저 제거
                 foreach (CardView cv in cardsToRemove)
                 {
                     if (cv != null && cv.gameObject != null)
@@ -149,9 +141,10 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
                     }
                 }
 
-                // 새 카드 드로우
-                if (CardDealAnimator.Instance != null)
-                    StartCoroutine(CardDealAnimator.Instance.DealCardsAnimation(rerollCount));
+                // TurnManager에서 코루틴 실행 (CardView가 Destroy되기 전에!)
+                if (CardDealAnimator.Instance != null && TurnManager.Instance != null)
+                    TurnManager.Instance.StartCoroutine(
+                        CardDealAnimator.Instance.DealCardsAnimation(rerollCount));
 
                 return;
             }
@@ -192,9 +185,8 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
         GameObject lineObj = new GameObject("ArrowLine");
         lineRenderer = lineObj.AddComponent<LineRenderer>();
 
-        // 두께 줄이기
-        lineRenderer.startWidth = 0.05f;  // ← 5f → 0.05f
-        lineRenderer.endWidth = 0.05f;    // ← 5f → 0.05f
+        lineRenderer.startWidth = 0.05f;
+        lineRenderer.endWidth = 0.05f;
         lineRenderer.positionCount = 2;
         lineRenderer.useWorldSpace = true;
         lineRenderer.sortingOrder = 999;
@@ -217,22 +209,13 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
             new Vector3(
                 GetComponent<RectTransform>().position.x,
                 GetComponent<RectTransform>().position.y,
-                cam.nearClipPlane + 1f
-            )
-        );
+                cam.nearClipPlane + 1f));
 
         Vector3 endWorld = cam.ScreenToWorldPoint(
-            new Vector3(
-                endPos.x,
-                endPos.y,
-                cam.nearClipPlane + 1f
-            )
-        );
+            new Vector3(endPos.x, endPos.y, cam.nearClipPlane + 1f));
 
         lineRenderer.SetPosition(0, startWorld);
         lineRenderer.SetPosition(1, endWorld);
-
-        Debug.Log($"화살표 업데이트! 시작: {startWorld} / 끝: {endWorld}");
     }
 
     // 화살표 제거
@@ -256,8 +239,7 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
         {
             cardContainer.anchoredPosition = new Vector2(
                 containerOriginalPos.x,
-                containerOriginalPos.y + 30
-            );
+                containerOriginalPos.y + 30);
             if (CardSelectManager.Instance != null)
                 CardSelectManager.Instance.SelectCard(this);
             Debug.Log($"{cardData.cardName} 선택됨");
