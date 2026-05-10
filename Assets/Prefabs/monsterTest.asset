@@ -20,11 +20,17 @@ MonoBehaviour:
     value: 30
     scaleWithTurn: 0
     scaleAmount: 0
+    attackCount: 2
+    summonPrefab: {fileID: 0}
   - actionType: 1
     value: 30
     scaleWithTurn: 0
     scaleAmount: 0
+    attackCount: 2
+    summonPrefab: {fileID: 0}
   - actionType: 0
     value: 30
     scaleWithTurn: 0
     scaleAmount: 0
+    attackCount: 2
+    summonPrefab: {fileID: 0}

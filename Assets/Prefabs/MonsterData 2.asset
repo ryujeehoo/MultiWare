@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d83eddbea62c34680639e616433f5f, type: 3}
+  m_Name: MonsterData 2
+  m_EditorClassIdentifier: 
+  monsterName: monster2
+  maxHP: 100
+  gold: 0
+  actionPattern:
+  - actionType: 3
+    value: 1
+    scaleWithTurn: 0
+    scaleAmount: 0
+    attackCount: 3
+    summonPrefab: {fileID: 780495344109137746, guid: 2ba37b91a2d45a241b55f3923ccb9d54, type: 3}

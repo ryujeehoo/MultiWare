@@ -354,11 +354,13 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         if (currentHP <= 0)
             Die();
     }
-
+    // 몬스터 사망 시 남은 몬스터를 계산할 때 사망 전에 검사하는 것을 수정함
     void Die()
     {
-        Debug.Log("몬스터 사망!");
+        Debug.Log("Die() 호출됨!");
         GoldManager.Instance.AddGold(Data.gold);
+        gameObject.SetActive(false);
+        TurnManager.Instance.OnMonsterDied();
         Destroy(gameObject);
     }
 }

@@ -29,7 +29,6 @@ public class EnemyController : MonoBehaviour
             yield break;
         }
 
-        // 공황 상태 체크
         if (BattleManager.Instance != null && BattleManager.Instance.isPanicked)
         {
             int random = Random.Range(0, 2);
@@ -58,6 +57,12 @@ public class EnemyController : MonoBehaviour
             case ActionType.Poison:
                 yield return StartCoroutine(DoPoison(action.GetValue(turnCount)));
                 break;
+            case ActionType.MultiAttack:
+                yield return StartCoroutine(DoMultiAttack(action.GetValue(turnCount), action.attackCount));
+                break;
+            case ActionType.Summon:
+                yield return StartCoroutine(DoSummon(action.summonPrefab, (int)action.GetValue(turnCount)));
+                break;
         }
 
         patternIndex = (patternIndex + 1) % data.actionPattern.Count;
@@ -66,7 +71,6 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator DoAttack(float damage)
     {
-        // 약화 효과 적용
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
         {
             damage *= 0.8f;
@@ -93,5 +97,35 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         player.ApplyEffect(new PoisonEffect((int)stack));
         yield return new WaitForSeconds(0.5f);
+    }
+
+    IEnumerator DoMultiAttack(float damage, int count)
+    {
+        Debug.Log($"[{gameObject.name}] 멀티 어택! {damage} 데미지 x {count}회");
+        for (int i = 0; i < count; i++)
+        {
+            yield return new WaitForSeconds(0.5f);
+            new DamageEffect(damage).Apply(player);
+            Debug.Log($"[{gameObject.name}] {i + 1}번째 공격! {damage} 데미지");
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    IEnumerator DoSummon(GameObject prefab, int count)
+    {
+        if (prefab == null || count <= 0)
+        {
+            Debug.LogWarning($"[{gameObject.name}] 소환 조건 미충족");
+            yield break;
+        }
+
+        Debug.Log($"[{gameObject.name}] {prefab.name} {count}마리 소환!");
+        yield return new WaitForSeconds(1f);
+
+        for (int i = 0; i < count; i++)
+        {
+            SpawnManager.Instance.SummonMonster(prefab);
+            yield return new WaitForSeconds(0.3f);
+        }
     }
 }

@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        SceneManager.LoadScene("BattleScene MonsterSpawn"); // 여기에 전투씬 이름 정확하게
+        SceneManager.LoadScene("BattleScene"); // 여기에 전투씬 이름 정확하게
     }
 
     public void OnVictory()

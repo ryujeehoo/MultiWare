@@ -80,7 +80,6 @@
     <Compile Include="Assets\Script\Battle\Relic\TestRelic.cs" />
     <Compile Include="Assets\Script\Battle\MonsterSpawner.cs" />
     <Compile Include="Assets\Script\Battle\EncounterTable.cs" />
-    <Compile Include="Assets\Script\Battle\PlayManager.cs" />
     <Compile Include="Assets\Script\Card\HandResult.cs" />
     <Compile Include="Assets\Script\CardTurn.cs" />
     <Compile Include="Assets\Script\Battle\Effect\DamageEffect.cs" />

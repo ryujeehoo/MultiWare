@@ -91,7 +91,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ea763737b00b540a7d9a127715d4bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Data: {fileID: 11400000, guid: e4922ecdbee63354ca6a95d3a0bd160a, type: 2}
+  Data: {fileID: 11400000, guid: 3668c501ff696be4ca7e819a7b05b866, type: 2}
   hpText: {fileID: 55806017565515661}
   defenseText: {fileID: 8340772073921725115}
 --- !u!114 &8401098739051398833

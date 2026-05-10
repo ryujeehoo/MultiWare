@@ -13,7 +13,6 @@ public class MonsterSpawner : MonoBehaviour
 
     public GameObject[] spawnedMonsters { get; private set; } = new GameObject[3];
 
-
     public void SpawnFromEncounterTable()
     {
         if (encounterTable == null || encounterTable.encounters.Length == 0)
@@ -32,7 +31,6 @@ public class MonsterSpawner : MonoBehaviour
             GameObject prefab = encounter.monsterPrefabSlots[i];
             if (prefab == null) continue;
 
-            // 프리팹에 Monster 컴포넌트 + MonsterData 있는지 검증
             if (prefab.GetComponent<Monster>() == null)
             {
                 Debug.LogError($"{prefab.name} 프리팹에 Monster 컴포넌트가 없습니다.");
@@ -43,16 +41,36 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
+    public GameObject SpawnSingleMonster(GameObject prefab)
+    {
+        if (prefab == null)
+        {
+            Debug.LogError("소환할 프리팹이 없습니다!");
+            return null;
+        }
+
+        for (int i = 0; i < spawnedMonsters.Length; i++)
+        {
+            if (spawnedMonsters[i] == null)
+            {
+                GameObject obj = SpawnAtSlot(prefab, slots[i]);
+                spawnedMonsters[i] = obj;
+                Debug.Log($"슬롯 {i}에 {prefab.name} 소환!");
+                return obj;
+            }
+        }
+
+        return null;
+    }
+
     private GameObject SpawnAtSlot(GameObject prefab, RectTransform slot)
     {
         GameObject obj = Instantiate(prefab, spawnParent);
-
         RectTransform rect = obj.GetComponent<RectTransform>();
         rect.anchorMin = slot.anchorMin;
         rect.anchorMax = slot.anchorMax;
         rect.anchoredPosition = slot.anchoredPosition;
         rect.sizeDelta = slot.sizeDelta;
-
         return obj;
     }
 

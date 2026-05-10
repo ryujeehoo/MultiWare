@@ -64,7 +64,20 @@ public class TurnManager : MonoBehaviour
  }
 
 */
+    //모든 몬스터 사망시 씬 전환
+    public void OnMonsterDied()
+    {
+        Debug.Log("OnMonsterDied 호출됨!");
 
+        Monster[] aliveMonsters = FindObjectsByType<Monster>(FindObjectsSortMode.None);
+        Debug.Log($"남은 몬스터 수: {aliveMonsters.Length}");
+
+        if (aliveMonsters.Length == 0)
+        {
+            Debug.Log("모든 몬스터 사망!");
+            GameManager.Instance.OnVictory(); // ← 이걸로 변경
+        }
+    }
 
     // 턴 종료 버튼
     public void OnClickEndTurn()

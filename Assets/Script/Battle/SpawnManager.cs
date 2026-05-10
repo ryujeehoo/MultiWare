@@ -18,9 +18,8 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         spawner.SpawnFromEncounterTable();
-
-        // 소환된 몬스터 추적 목록 초기화
         aliveMonsters.Clear();
+
         foreach (var obj in spawner.spawnedMonsters)
         {
             if (obj == null) continue;
@@ -29,10 +28,26 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    public void SummonMonster(GameObject prefab)
+    {
+        GameObject spawned = spawner.SpawnSingleMonster(prefab);
+        if (spawned == null)
+        {
+            Debug.LogWarning("소환 슬롯이 가득 찼습니다!");
+            return;
+        }
+
+        Monster m = spawned.GetComponent<Monster>();
+        if (m != null)
+        {
+            aliveMonsters.Add(m);
+            Debug.Log($"{prefab.name} 소환 완료! 현재 몬스터 수: {aliveMonsters.Count}");
+        }
+    }
+
     public void OnMonsterDied(Monster monster)
     {
         aliveMonsters.Remove(monster);
-
         if (aliveMonsters.Count == 0)
             GameManager.Instance.OnVictory();
     }
