@@ -109,11 +109,11 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     {
         int baseDamage = result.baseDamage;
 
-        float focusMultiplier = 1.0f;
-        if (BattleManager.Instance != null)
-            focusMultiplier = BattleManager.Instance.ConsumeFocus();
+        float focusMultiplier = BattleManager.Instance?.ConsumeFocus() ?? 1.0f;
+        float damageMultiplier = BattleManager.Instance?.ConsumeDamageMultiplier() ?? 1.0f;
+        float handRankMultiplier = BattleManager.Instance?.ConsumeHandRankMultiplier() ?? 1.0f;
 
-        baseDamage = Mathf.RoundToInt(baseDamage * focusMultiplier);
+        baseDamage = Mathf.RoundToInt(baseDamage * focusMultiplier * damageMultiplier * handRankMultiplier);
 
         if (BattleManager.Instance != null && BattleManager.Instance.isExposed)
         {
@@ -340,16 +340,15 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
     public void ReceiveCardBundle(HandResult result, List<CardData> cards)
     {
+        foreach (var relic in Player.Instance.relics)
+            relic.OnAttack(Player.Instance, cards, this, result);
+
         int finalDamage = CalculateFinalDamage(cards, result);
         TakeDamage(finalDamage);
         Debug.Log($"몬스터에게 {finalDamage} 데미지!");
 
         ApplySuitEffects(cards);
 
-        foreach (var relic in Player.Instance.relics)
-        {
-            relic.OnAttack(Player.Instance, cards, this, result);
-        }
 
         if (currentHP <= 0)
             Die();

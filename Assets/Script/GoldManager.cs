@@ -4,6 +4,7 @@ using TMPro;
 public class GoldManager : MonoBehaviour
 {
     public static GoldManager Instance;
+    private float goldMultiplier = 1.0f;
 
     [Header("°ñµå ¼³Á¤")]
     public int currentGold = 0;
@@ -22,13 +23,18 @@ public class GoldManager : MonoBehaviour
         UpdateGoldUI();
         Debug.Log($"½ÃÀÛ °ñµå: {currentGold}G");
     }
-
+    public void AddGoldMultiplier(float amount)
+    {
+        goldMultiplier += amount;
+        Debug.Log($"°ñµå ¹èÀ² Ãß°¡! ÇöÀç ¹èÀ²: {goldMultiplier}");
+    }
     // °ñµå È¹µæ
     public void AddGold(int amount)
     {
-        currentGold += amount;
+        int finalGold = Mathf.RoundToInt(amount * goldMultiplier);
+        currentGold += finalGold;
         UpdateGoldUI();
-        Debug.Log($"°ñµå È¹µæ! +{amount} / ÇöÀç °ñµå: {currentGold}");
+        Debug.Log($"°ñµå È¹µæ! +{finalGold} / ÇöÀç °ñµå: {currentGold}");
     }
 
     // °ñµå »ç¿ë

@@ -12,4 +12,5 @@ public abstract class Relic : ScriptableObject
     public virtual void OnAttack(Player player, List<CardData> usedCards, Monster target, HandResult handResult) { }
     public virtual void OnRelicAcquired(Player player, DeckManager deck) { }  // ¿Øπ∞ »πµÊ Ω√ (µ¶ ¡∂¿€)
     public virtual void OnDeckShuffled(Player player, DeckManager deck) { }   // º≈«√ Ω√
+    public virtual void OnBattleEnd(Player player) { } // ¿¸≈ı ¡æ∑· Ω√
 }

@@ -18,6 +18,13 @@ public class BattleManager : MonoBehaviour
     public bool isPanicked = false;     // 공황: 적 랜덤 행동
     public bool isSlowed = false;       // 둔화: 적 행동 1턴 지연
 
+    [Header("데미지 배율")]
+    private float damageMultiplier = 1.0f; // 기본 배율
+
+    [Header("족보 배율")]
+    private float handRankMultiplier = 1.0f;
+    private int handRankMultiplierMaxStack = 3; // 최대 중첩
+
     private void Awake()
     {
         Instance = this;
@@ -117,5 +124,37 @@ public class BattleManager : MonoBehaviour
         isPanicked = false;
         isSlowed = false;
         isInvincible = false;
+    }
+
+    // 배율 추가 (유물에서 호출)
+    public void AddDamageMultiplier(float amount)
+    {
+        damageMultiplier += amount;
+        damageMultiplier = Mathf.Min(damageMultiplier, 3.0f); // 최대 3배 제한
+        Debug.Log($"데미지 배율 추가! 현재 배율: {damageMultiplier}");
+    }
+
+    // 배율 소비 (CalculateFinalDamage에서 호출)
+    public float ConsumeDamageMultiplier()
+    {
+        float current = damageMultiplier;
+        damageMultiplier = 1.0f; // 소비 후 초기화
+        return current;
+    }
+    // 족보 배율 추가
+    public void AddHandRankMultiplier(float amount, int maxStack = 3)
+    {
+        handRankMultiplierMaxStack = maxStack;
+        handRankMultiplier += amount;
+        handRankMultiplier = Mathf.Min(handRankMultiplier, 1.0f + (amount * maxStack));
+        Debug.Log($"족보 배율 추가! 현재 배율: {handRankMultiplier}");
+    }
+
+    // 족보 배율 소비
+    public float ConsumeHandRankMultiplier()
+    {
+        float current = handRankMultiplier;
+        handRankMultiplier = 1.0f;
+        return current;
     }
 }

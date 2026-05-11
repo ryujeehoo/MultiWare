@@ -7,6 +7,8 @@ public class Player : MonoBehaviour, IEffectTarget
     public float maxHealth = 100f;
     public float currentHealth;
     public int gold = 0;
+    private int defense = 0;
+    public float healMultiplier = 1.0f;
     public System.Action<float, float> OnHealthChanged;
     public System.Action<int> OnGoldChanged;
     public List<Relic> relics = new List<Relic>(); // 유물 리스트
@@ -37,7 +39,6 @@ public class Player : MonoBehaviour, IEffectTarget
 
     public void TakeDamage(float damage)
     {
-        // 무적 상태면 피해 0 (턴 내내 유지)
         if (BattleManager.Instance != null &&
             BattleManager.Instance.IsInvincible())
         {
@@ -45,7 +46,6 @@ public class Player : MonoBehaviour, IEffectTarget
             return;
         }
 
-        // 약화 효과: 적 공격력 -20%
         if (BattleManager.Instance != null &&
             BattleManager.Instance.isWeakened)
         {
@@ -53,11 +53,12 @@ public class Player : MonoBehaviour, IEffectTarget
             Debug.Log($"약화 효과! 받는 피해 -20% → {damage}");
         }
 
-        currentHealth -= damage;
+        int finalDamage = Mathf.Max(0, Mathf.RoundToInt(damage) - ConsumeDefense());
+        currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
         foreach (var relic in relics)
-            relic.OnTakeDamage(this, damage);
+            relic.OnTakeDamage(this, finalDamage);
 
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
@@ -101,11 +102,29 @@ public class Player : MonoBehaviour, IEffectTarget
             relic.OnTurnStart(this);
         }
     }
+    public void AddHealMultiplier(float amount)
+    {
+        healMultiplier += amount;
+        Debug.Log($"회복 배율 추가! 현재 배율: {healMultiplier}");
+    }
     public void Heal(float amount)
     {
-        currentHealth += amount;
+        float finalHeal = amount * healMultiplier;
+        currentHealth += Mathf.RoundToInt(finalHeal);
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        Debug.Log($"플레이어 HP 회복! 현재 HP: {currentHealth}");
+        Debug.Log($"플레이어 HP 회복! +{Mathf.RoundToInt(finalHeal)} 현재 HP: {currentHealth}");
+    }
+    public void AddDefense(int amount)
+    {
+        defense += amount;
+        Debug.Log($"방어막 +{amount} (현재: {defense})");
+    }
+
+    public int ConsumeDefense()
+    {
+        int current = defense;
+        defense = 0;
+        return current;
     }
 }

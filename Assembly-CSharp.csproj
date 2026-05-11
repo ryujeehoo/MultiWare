@@ -70,6 +70,7 @@
     <Compile Include="Assets\Script\Card\CardData.cs" />
     <Compile Include="Assets\Script\Battle\Effect\StatusEffect.cs" />
     <Compile Include="Assets\Script\Card\CardDealAnimator.cs" />
+    <Compile Include="Assets\Script\Battle\Relic\BonusRelic.cs" />
     <Compile Include="Assets\Script\Card\CardDrawer.cs" />
     <Compile Include="Assets\Script\CardClick.cs" />
     <Compile Include="Assets\Script\Battle\Relic\BonusByCardNumberRelic.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Assets\Script\Card\CardData_csj.cs" />
     <Compile Include="Assets\Script\Card\CardView.cs" />
     <Compile Include="Assets\Script\Card\HandEvaluator.cs" />
+    <Compile Include="Assets\Script\Battle\Relic\GamblerDiceRelic.cs" />
     <Compile Include="Assets\Script\Battle\HealthBar.cs" />
     <Compile Include="Assets\Script\CardHover.cs" />
     <Compile Include="Assets\Script\Battle\Player.cs" />

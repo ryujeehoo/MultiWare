@@ -8,7 +8,8 @@ public class TurnManager : MonoBehaviour
     public static TurnManager Instance;
     public GameState currentState;
     public CardFan cardFan;
-
+    public int turnCount = 0;
+    public int bonusDrawCount = 0;
     [Header("UI")]
     public CanvasGroup inputBlocker;
     public Button endTurnButton;
@@ -75,6 +76,9 @@ public class TurnManager : MonoBehaviour
         if (aliveMonsters.Length == 0)
         {
             Debug.Log("모든 몬스터 사망!");
+            // 전투 종료 유물 발동
+            foreach (var relic in Player.Instance.relics)
+                relic.OnBattleEnd(Player.Instance);
             GameManager.Instance.OnVictory(); // ← 이걸로 변경
         }
     }
@@ -123,17 +127,17 @@ public class TurnManager : MonoBehaviour
 
     void StartPlayerTurn()
     {
+        turnCount++;
         currentState = GameState.PlayerTurn;
         player.OnTurnStart();
         SetInputBlock(false);
         endTurnButton.interactable = true;
 
-        // 7장 기준으로 변경
         int currentCount = cardFan.GetCurrentCardCount();
-        int drawCount = 7 - currentCount;  // ← 5 → 7로 변경
+        int drawCount = 7 - currentCount + bonusDrawCount; // 보정값 추가
+        bonusDrawCount = 0; // 초기화
 
         Debug.Log($"현재 카드: {currentCount}장 / 드로우할 카드: {drawCount}장");
-
         if (drawCount > 0)
         {
             if (CardDealAnimator.Instance != null)
@@ -141,6 +145,9 @@ public class TurnManager : MonoBehaviour
             else
                 cardFan.DrawStartingHand();
         }
+
+        foreach (var relic in Player.Instance.relics)
+            relic.OnTurnStart(Player.Instance);
 
         Debug.Log("플레이어 턴 시작");
     }
