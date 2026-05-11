@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d83eddbea62c34680639e616433f5f, type: 3}
+  m_Name: Worm A
+  m_EditorClassIdentifier: 
+  monsterName: Worm A
+  maxHP: 70
+  gold: 15
+  actionPattern:
+  - actionType: 1
+    value: 999
+    scaleWithTurn: 0
+    scaleAmount: 0
+    attackCount: 0
+    summonPrefab: {fileID: 0}
+    poisonStack: 0
+    shockDamagePerActivation: 0
+    shockDuration: 0
+    attackEffectType: 0
+    attackPoisonStack: 0
+    reflectDamage: 0
+    reflectDefense: 0
+  - actionType: 0
+    value: 24
+    scaleWithTurn: 0
+    scaleAmount: 0
+    attackCount: 0
+    summonPrefab: {fileID: 0}
+    poisonStack: 0
+    shockDamagePerActivation: 0
+    shockDuration: 0
+    attackEffectType: 0
+    attackPoisonStack: 0
+    reflectDamage: 0
+    reflectDefense: 0
+  hpTriggers:
+  - hpThreshold: 0.5
+    action:
+      actionType: 3
+      value: 12
+      scaleWithTurn: 0
+      scaleAmount: 0
+      attackCount: 2
+      summonPrefab: {fileID: 0}
+      poisonStack: 0
+      shockDamagePerActivation: 0
+      shockDuration: 0
+      attackEffectType: 0
+      attackPoisonStack: 0
+      reflectDamage: 0
+      reflectDefense: 0
+  allyDeathTriggers: []

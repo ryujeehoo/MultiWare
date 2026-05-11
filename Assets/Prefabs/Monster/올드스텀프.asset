@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d83eddbea62c34680639e616433f5f, type: 3}
+  m_Name: "\uC62C\uB4DC\uC2A4\uD140\uD504"
+  m_EditorClassIdentifier: 
+  monsterName: "\uC62C\uB4DC\uC2A4\uD140\uD504"
+  maxHP: 120
+  gold: 15
+  actionPattern:
+  - actionType: 0
+    value: 15
+    scaleWithTurn: 0
+    scaleAmount: 0
+    attackCount: 0
+    summonPrefab: {fileID: 0}
+    poisonStack: 2
+    shockDamagePerActivation: 0
+    shockDuration: 0
+    attackEffectType: 0
+    attackPoisonStack: 2
+    reflectDamage: 3
+    reflectDefense: 0
+  - actionType: 7
+    value: 2
+    scaleWithTurn: 0
+    scaleAmount: 0
+    attackCount: 0
+    summonPrefab: {fileID: 0}
+    poisonStack: 2
+    shockDamagePerActivation: 0
+    shockDuration: 0
+    attackEffectType: 0
+    attackPoisonStack: 2
+    reflectDamage: 3
+    reflectDefense: 0
+  - actionType: 11
+    value: 0
+    scaleWithTurn: 0
+    scaleAmount: 0
+    attackCount: 0
+    summonPrefab: {fileID: 0}
+    poisonStack: 2
+    shockDamagePerActivation: 0
+    shockDuration: 0
+    attackEffectType: 0
+    attackPoisonStack: 2
+    reflectDamage: 3
+    reflectDefense: 15
+  hpTriggers:
+  - hpThreshold: 0.3
+    action:
+      actionType: 0
+      value: 25
+      scaleWithTurn: 0
+      scaleAmount: 0
+      attackCount: 0
+      summonPrefab: {fileID: 0}
+      poisonStack: 2
+      shockDamagePerActivation: 0
+      shockDuration: 0
+      attackEffectType: 0
+      attackPoisonStack: 2
+      reflectDamage: 0
+      reflectDefense: 0
+  allyDeathTriggers: []

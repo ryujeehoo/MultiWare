@@ -97,12 +97,12 @@ public class TurnManager : MonoBehaviour
         currentState = GameState.EnemyTurn;
         SetInputBlock(true);
         endTurnButton.interactable = false;
-
         Debug.Log("적 턴 시작");
+
         Monster[] monsters = FindObjectsByType<Monster>(FindObjectsSortMode.None);
         foreach (Monster monster in monsters)
             monster.ResetDefense();
-        // 둔화 효과 먼저 체크 (OnTurnEnd 전에!)
+
         if (BattleManager.Instance != null && BattleManager.Instance.isSlowed)
         {
             Debug.Log("둔화 효과! 적 행동 1턴 지연");
@@ -110,14 +110,21 @@ public class TurnManager : MonoBehaviour
         }
         else
         {
+            RefreshEnemies();
             foreach (EnemyController enemy in enemies)
             {
                 if (enemy != null)
                     yield return StartCoroutine(enemy.EnemyAction());
             }
         }
-        player.TickEffects(); // 추가 - 독 데미지 처리
-        // 적 행동 끝난 후 턴 종료 처리
+
+        player.TickEffects();
+
+        // 몬스터 상태이상 처리 (반사 등 턴 종료 시 만료)
+        monsters = FindObjectsByType<Monster>(FindObjectsSortMode.None);
+        foreach (Monster monster in monsters)
+            monster.TickEffects();
+
         if (BattleManager.Instance != null)
             BattleManager.Instance.OnTurnEnd();
 
@@ -134,10 +141,15 @@ public class TurnManager : MonoBehaviour
         endTurnButton.interactable = true;
 
         int currentCount = cardFan.GetCurrentCardCount();
-        int drawCount = 7 - currentCount + bonusDrawCount; // 보정값 추가
-        bonusDrawCount = 0; // 초기화
+        int drawCount = 7 - currentCount + bonusDrawCount;
+        bonusDrawCount = 0;
+
+        // 속박 효과 적용
+        drawCount -= player.GetBindReduction();
+        drawCount = Mathf.Max(0, drawCount);
 
         Debug.Log($"현재 카드: {currentCount}장 / 드로우할 카드: {drawCount}장");
+
         if (drawCount > 0)
         {
             if (CardDealAnimator.Instance != null)

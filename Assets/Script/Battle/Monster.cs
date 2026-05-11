@@ -51,11 +51,14 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
     public void TakeDamage(float damage)
     {
-        int finalDamage = Mathf.Max(0, (int)damage - defense);
-        defense = 0;
+        int dmg = Mathf.RoundToInt(damage);
+        int finalDamage = Mathf.Max(0, dmg - defense);
+        defense = Mathf.Max(0, defense - dmg); // defense = 0 → 남은 방어막 유지
         currentHP -= finalDamage;
-        Debug.Log($"몬스터 HP: {currentHP}");
+        currentHP = Mathf.Max(0, currentHP);
+        Debug.Log($"몬스터 HP: {currentHP} (데미지: {finalDamage}, 남은 방어막: {defense})");
         UpdateUI();
+        CheckReflect();
     }
 
     public void ResetDefense()
@@ -83,10 +86,21 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         else
         {
             activeEffects.Add(effect);
-            Debug.Log($"{Data.monsterName}에게 {effect.effectName} 적용! 중첩: {((PoisonEffect)effect).stack}");
+            Debug.Log($"{Data.monsterName}에게 {effect.effectName} 적용!");
         }
     }
 
+    void CheckReflect()
+    {
+        foreach (var effect in activeEffects)
+        {
+            if (effect is ReflectEffect reflect)
+            {
+                Player.Instance.TakeDamage(reflect.reflectDamage);
+                Debug.Log($"[반사] 플레이어에게 {reflect.reflectDamage} 반사 데미지!");
+            }
+        }
+    }
     public void TickEffects()
     {
         for (int i = activeEffects.Count - 1; i >= 0; i--)
@@ -337,18 +351,33 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
                 BattleManager.Instance.ApplyInvincible();
         }
     }
+    public float GetHPRatio()
+    {
+        return (float)currentHP / Data.maxHP;
+    }
+
+    public void Heal(int amount)
+    {
+        currentHP += amount;
+        currentHP = Mathf.Min(currentHP, Data.maxHP);
+        Debug.Log($"[{gameObject.name}] HP {amount} 회복! 현재 HP: {currentHP}");
+        UpdateUI();
+    }
 
     public void ReceiveCardBundle(HandResult result, List<CardData> cards)
     {
         foreach (var relic in Player.Instance.relics)
             relic.OnAttack(Player.Instance, cards, this, result);
 
+        // 감전 체크 - 족보 발동 시 추가 데미지 (High Card 제외)
+        if (result.rank != HandRankType.HighCard)
+            Player.Instance.OnHandActivated();
+
         int finalDamage = CalculateFinalDamage(cards, result);
         TakeDamage(finalDamage);
         Debug.Log($"몬스터에게 {finalDamage} 데미지!");
 
         ApplySuitEffects(cards);
-
 
         if (currentHP <= 0)
             Die();

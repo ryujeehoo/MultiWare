@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyController : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class EnemyController : MonoBehaviour
     private MonsterData data;
     private int patternIndex = 0;
     private int turnCount = 0;
+    private float attackBonus = 0f;
+    private HashSet<int> triggeredHPActions = new HashSet<int>();
 
     private void Start()
     {
@@ -44,32 +47,94 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        MonsterAction action = data.actionPattern[patternIndex];
+        // HP 트리거 체크
+        bool triggered = false;
+        yield return StartCoroutine(CheckAndExecuteHPTriggers(result => triggered = result));
 
+        if (!triggered)
+        {
+            MonsterAction action = data.actionPattern[patternIndex];
+            yield return StartCoroutine(ExecuteAction(action));
+            patternIndex = (patternIndex + 1) % data.actionPattern.Count;
+        }
+
+        turnCount++;
+    }
+
+    IEnumerator CheckAndExecuteHPTriggers(System.Action<bool> result)
+    {
+        if (data.hpTriggers == null) { result(false); yield break; }
+
+        Monster monster = GetComponent<Monster>();
+        if (monster == null) { result(false); yield break; }
+
+        for (int i = 0; i < data.hpTriggers.Count; i++)
+        {
+            if (triggeredHPActions.Contains(i)) continue;
+
+            float hpRatio = monster.GetHPRatio();
+            if (hpRatio <= data.hpTriggers[i].hpThreshold)
+            {
+                triggeredHPActions.Add(i);
+                Debug.Log($"{data.monsterName} HP 트리거 발동! 원래 패턴은 다음 턴으로");
+                yield return StartCoroutine(ExecuteAction(data.hpTriggers[i].action));
+                result(true);
+                yield break;
+            }
+        }
+
+        result(false);
+    }
+
+    IEnumerator ExecuteAction(MonsterAction action)
+    {
         switch (action.actionType)
         {
             case ActionType.Attack:
-                yield return StartCoroutine(DoAttack(action.GetValue(turnCount)));
+                yield return StartCoroutine(DoAttack(action.GetValue(turnCount) + attackBonus));
                 break;
             case ActionType.Defend:
                 yield return StartCoroutine(DoDefend(action.GetValue(turnCount)));
                 break;
             case ActionType.Poison:
-                yield return StartCoroutine(DoPoison(action.GetValue(turnCount)));
+                yield return StartCoroutine(DoPoison(action.poisonStack));
                 break;
             case ActionType.MultiAttack:
-                yield return StartCoroutine(DoMultiAttack(action.GetValue(turnCount), action.attackCount));
+                yield return StartCoroutine(DoMultiAttack(action.GetValue(turnCount) + attackBonus, action.attackCount));
                 break;
             case ActionType.Summon:
                 yield return StartCoroutine(DoSummon(action.summonPrefab, (int)action.GetValue(turnCount)));
                 break;
+            case ActionType.AttackBuff:
+                yield return StartCoroutine(DoBuffAttack(action.GetValue(turnCount)));
+                break;
+            case ActionType.Heal:
+                yield return StartCoroutine(DoHeal(action.GetValue(turnCount)));
+                break;
+            case ActionType.Bind:
+                yield return StartCoroutine(DoBind((int)action.GetValue(turnCount)));
+                break;
+            case ActionType.Shock:
+                yield return StartCoroutine(DoShock(action.shockDuration, action.shockDamagePerActivation));
+                break;
+            case ActionType.AllyDefend:
+                yield return StartCoroutine(DoAllyDefend(action.GetValue(turnCount)));
+                break;
+            case ActionType.AttackAndEffect:
+                yield return StartCoroutine(DoAttackAndEffect(
+                    action.GetValue(turnCount),
+                    action.attackEffectType,
+                    action.attackPoisonStack,
+                    action.shockDuration,
+                    action.shockDamagePerActivation));
+                break;
+            case ActionType.Reflect:
+                yield return StartCoroutine(DoReflect(action.reflectDamage, action.reflectDefense));
+                break;
         }
-
-        patternIndex = (patternIndex + 1) % data.actionPattern.Count;
-        turnCount++;
     }
 
-    IEnumerator DoAttack(float damage)
+    public IEnumerator DoAttack(float damage)
     {
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
         {
@@ -83,7 +148,7 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-    IEnumerator DoDefend(float amount)
+    public IEnumerator DoDefend(float amount)
     {
         Debug.Log($"[{gameObject.name}] 방어! {amount} 방어력");
         yield return new WaitForSeconds(1f);
@@ -91,15 +156,15 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-    IEnumerator DoPoison(float stack)
+    public IEnumerator DoPoison(int stack)
     {
         Debug.Log($"[{gameObject.name}] 독 공격! {stack} 중첩");
         yield return new WaitForSeconds(1f);
-        player.ApplyEffect(new PoisonEffect((int)stack));
+        player.ApplyEffect(new PoisonEffect(stack));
         yield return new WaitForSeconds(0.5f);
     }
 
-    IEnumerator DoMultiAttack(float damage, int count)
+    public IEnumerator DoMultiAttack(float damage, int count)
     {
         Debug.Log($"[{gameObject.name}] 멀티 어택! {damage} 데미지 x {count}회");
         for (int i = 0; i < count; i++)
@@ -111,7 +176,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    IEnumerator DoSummon(GameObject prefab, int count)
+    public IEnumerator DoSummon(GameObject prefab, int count)
     {
         if (prefab == null || count <= 0)
         {
@@ -126,6 +191,121 @@ public class EnemyController : MonoBehaviour
         {
             SpawnManager.Instance.SummonMonster(prefab);
             yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    public IEnumerator DoBuffAttack(float amount)
+    {
+        attackBonus += amount;
+        Debug.Log($"[{gameObject.name}] 공격력 +{amount} 증가! 현재 보너스: {attackBonus}");
+        yield return new WaitForSeconds(1f);
+    }
+
+    public IEnumerator DoHeal(float amount)
+    {
+        Monster monster = GetComponent<Monster>();
+        if (monster == null) yield break;
+
+        Debug.Log($"[{gameObject.name}] HP {amount} 회복!");
+        yield return new WaitForSeconds(1f);
+        monster.Heal((int)amount);
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public IEnumerator DoBind(int duration)
+    {
+        Debug.Log($"[{gameObject.name}] 속박! 드로우 -1 ({duration}턴)");
+        yield return new WaitForSeconds(1f);
+        player.ApplyEffect(new BindEffect(duration));
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public IEnumerator DoShock(int duration, int damagePerActivation)
+    {
+        Debug.Log($"[{gameObject.name}] 감전! {duration}턴 지속, 족보 발동마다 {damagePerActivation} 데미지");
+        yield return new WaitForSeconds(1f);
+        player.ApplyEffect(new ShockEffect(duration, damagePerActivation));
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public IEnumerator DoAllyDefend(float amount)
+    {
+        Debug.Log($"[{gameObject.name}] 아군 전체 방어막 {amount} 부여!");
+        yield return new WaitForSeconds(1f);
+
+        foreach (Monster monster in SpawnManager.Instance.GetAliveMonsters())
+        {
+            if (monster.gameObject == gameObject) continue;
+            monster.AddDefense((int)amount);
+            Debug.Log($"{monster.Data.monsterName}에게 방어막 {amount} 부여!");
+        }
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public IEnumerator DoAttackAndEffect(float damage, AttackEffectType effectType, int attackPoisonStack, int shockDuration, int shockDamagePerActivation)
+    {
+        if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
+            damage *= 0.8f;
+
+        Debug.Log($"[{gameObject.name}] 공격 + {effectType}! {damage} 데미지");
+        yield return new WaitForSeconds(1f);
+        new DamageEffect(damage).Apply(player);
+
+        switch (effectType)
+        {
+            case AttackEffectType.Poison:
+                player.ApplyEffect(new PoisonEffect(attackPoisonStack));
+                Debug.Log($"독 {attackPoisonStack}중첩 부여!");
+                break;
+            case AttackEffectType.Shock:
+                player.ApplyEffect(new ShockEffect(shockDuration, shockDamagePerActivation));
+                Debug.Log($"감전 {shockDuration}턴 부여!");
+                break;
+        }
+
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public IEnumerator DoReflect(int reflectDamage, int reflectDefense)
+    {
+        Monster monster = GetComponent<Monster>();
+        if (monster == null) yield break;
+
+        Debug.Log($"[{gameObject.name}] 반사 방어! 반사 {reflectDamage} / 방어막 {reflectDefense}");
+        yield return new WaitForSeconds(1f);
+        monster.ApplyEffect(new ReflectEffect(reflectDamage)); // duration 제거
+        if (reflectDefense > 0)
+            monster.AddDefense(reflectDefense);
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public void OnAllyDied(string deadMonsterName)
+    {
+        if (data.allyDeathTriggers == null) return;
+
+        foreach (AllyDeathTrigger trigger in data.allyDeathTriggers)
+        {
+            if (trigger.allyMonsterName == deadMonsterName)
+            {
+                patternIndex = trigger.patternIndex;
+                Debug.Log($"[{gameObject.name}] 아군 {deadMonsterName} 사망! 패턴 {patternIndex}로 변경!");
+
+                if (trigger.boostPoison)
+                    BoostPlayerPoison();
+            }
+        }
+    }
+
+    void BoostPlayerPoison()
+    {
+        foreach (var effect in Player.Instance.activeEffects)
+        {
+            if (effect is PoisonEffect poison)
+            {
+                poison.damageMultiplier *= 2f;
+                Debug.Log($"[독 강화] 독 데미지 2배!");
+            }
         }
     }
 }

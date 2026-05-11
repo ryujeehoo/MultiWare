@@ -1,9 +1,11 @@
 using UnityEngine;
+
 public class PoisonEffect : StatusEffect
 {
-    public int stack; // 중첩 수
+    public int stack;
+    public float damageMultiplier = 1f;
 
-    public PoisonEffect(int stack) : base()
+    public PoisonEffect(int stack)
     {
         effectName = "독";
         this.stack = stack;
@@ -11,9 +13,10 @@ public class PoisonEffect : StatusEffect
 
     public override void OnTurnEnd(IEffectTarget target)
     {
-        target.TakeDamage(stack); // 중첩 수만큼 데미지
-        stack--;                  // 턴마다 1중첩 감소
-        Debug.Log($"[독] {stack + 1} 데미지! 남은 중첩: {stack}");
+        int damage = Mathf.RoundToInt(stack * damageMultiplier);
+        target.TakeDamage(damage);
+        stack--;
+        Debug.Log($"[독] {damage} 데미지! 남은 중첩: {stack}");
     }
 
     public override bool IsExpired() => stack <= 0;
