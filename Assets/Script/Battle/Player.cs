@@ -9,6 +9,8 @@ public class Player : MonoBehaviour, IEffectTarget
     public int gold = 0;
     private int defense = 0;
     public float healMultiplier = 1.0f;
+    public float heartHealMultiplier = 1.0f;
+    public float spadeBonus = 1.0f; 
     public System.Action<float, float> OnHealthChanged;
     public System.Action<int> OnGoldChanged;
     public List<Relic> relics = new List<Relic>();

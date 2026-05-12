@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   relicName: 
   description: 
+  icon: {fileID: 0}
   triggers:
   - triggerType: 0
     conditionType: 0
@@ -23,5 +24,5 @@ MonoBehaviour:
     turnInterval: 0
     hpThreshold: 0
     effects:
-    - effectType: 7
+    - effectType: 11
       effectValue: 0.5

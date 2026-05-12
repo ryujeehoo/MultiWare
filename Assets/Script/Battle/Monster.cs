@@ -190,8 +190,8 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             {
                 Player player = FindFirstObjectByType<Player>();
                 if (player != null)
-                    player.Heal(healAmount);
-                Debug.Log($"하트 회복 +{healAmount} HP");
+                    player.Heal(healAmount * player.heartHealMultiplier);
+                Debug.Log($"하트 회복 +{healAmount * player.heartHealMultiplier} HP");
             }
         }
 
@@ -207,9 +207,9 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
             if (goldAmount > 0)
             {
-                if (GoldManager.Instance != null)
-                    GoldManager.Instance.AddGold(goldAmount);
-                Debug.Log($"다이아 골드 +{goldAmount}G");
+                int finalGold = Mathf.RoundToInt(goldAmount * GoldManager.Instance.diamondGoldMultiplier);
+                GoldManager.Instance.AddGold(finalGold);
+                Debug.Log($"다이아 골드 +{finalGold}G");
             }
         }
 

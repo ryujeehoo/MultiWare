@@ -36,6 +36,9 @@ public class BonusRelic : Relic
         GoldMultiplier,         // 골드 배율
         HealMultiplier,         // 회복 배율
         AddDefense,             // 방어막
+        HeartHealMultiplier,    // 하트 회복 배율
+        DiamondGoldMultiplier,  // 다이아 골드 배율
+        DebuffDurationBonus, // 디버프 지속 턴 +n
     }
 
     [System.Serializable]
@@ -160,6 +163,19 @@ public class BonusRelic : Relic
                 case EffectType.AddDefense:
                     player.AddDefense((int)effect.effectValue);
                     Debug.Log($"[{relicName}] 방어막 +{effect.effectValue}");
+                    break;
+                case EffectType.HeartHealMultiplier:
+                    player.heartHealMultiplier += effect.effectValue;
+                    Debug.Log($"[{relicName}] 하트 회복 배율 +{effect.effectValue}");
+                    break;
+
+                case EffectType.DiamondGoldMultiplier:
+                    GoldManager.Instance.diamondGoldMultiplier += effect.effectValue;
+                    Debug.Log($"[{relicName}] 다이아 골드 배율 +{effect.effectValue}");
+                    break;
+                case EffectType.DebuffDurationBonus:
+                    BattleManager.Instance.debuffDurationBonus += (int)effect.effectValue;
+                    Debug.Log($"[{relicName}] 디버프 지속 턴 +{effect.effectValue}");
                     break;
             }
         }

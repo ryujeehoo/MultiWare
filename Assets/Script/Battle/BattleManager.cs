@@ -25,6 +25,8 @@ public class BattleManager : MonoBehaviour
     private float handRankMultiplier = 1.0f;
     private int handRankMultiplierMaxStack = 3; // 최대 중첩
 
+    [Header("디버프 지속 턴 보너스")]
+    public int debuffDurationBonus = 0;
     private void Awake()
     {
         Instance = this;
@@ -72,16 +74,16 @@ public class BattleManager : MonoBehaviour
     public void ApplyWeaken(int turns)
     {
         isWeakened = true;
-        weakenedTurns = turns;
-        Debug.Log($"약화 적용! 적 공격력 -20% ({turns}턴)");
+        weakenedTurns = turns + debuffDurationBonus;
+        Debug.Log($"약화 적용! 적 공격력 -20% ({weakenedTurns}턴)");
     }
 
     // 노출 효과 적용
     public void ApplyExpose(int turns)
     {
         isExposed = true;
-        exposedTurns = turns;
-        Debug.Log($"노출 적용! 적 방어력 -20% ({turns}턴)");
+        exposedTurns = turns + debuffDurationBonus;
+        Debug.Log($"노출 적용! 적 방어력 -20% ({exposedTurns}턴)");
     }
 
     // 공황 효과 적용

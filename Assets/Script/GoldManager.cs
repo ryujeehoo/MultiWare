@@ -5,7 +5,7 @@ public class GoldManager : MonoBehaviour
 {
     public static GoldManager Instance;
     private float goldMultiplier = 1.0f;
-
+    public float diamondGoldMultiplier = 1.0f;
     [Header("°ñµå ¼³Á¤")]
     public int currentGold = 0;
 

@@ -5,7 +5,7 @@ public abstract class Relic : ScriptableObject
 {
     public string relicName;
     public string description;
-
+    public Sprite icon;
     public virtual void OnBattleStart(Player player) { } // 전투 시작 시
     public virtual void OnTurnStart(Player player) { } // 턴 시작 시
     public virtual void OnTakeDamage(Player player, float damage) { } // 데미지를 받을 시

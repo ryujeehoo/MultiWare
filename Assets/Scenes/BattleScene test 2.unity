@@ -762,6 +762,7 @@ MonoBehaviour:
   currentHealth: 0
   gold: 0
   healMultiplier: 1
+  heartHealMultiplier: 1
   relics:
   - {fileID: 11400000, guid: 55fc1d62043ee4e4a8fa58a49136d1cc, type: 2}
 --- !u!4 &262655207
@@ -1763,6 +1764,7 @@ MonoBehaviour:
   exposedTurns: 0
   isPanicked: 0
   isSlowed: 0
+  debuffDurationBonus: 0
 --- !u!4 &924878737
 Transform:
   m_ObjectHideFlags: 0
@@ -1812,7 +1814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68506c52b45e05741987d5894b569836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testRelic: {fileID: 11400000, guid: 6f489b53ba7a5b44d94de0e52c1de5f3, type: 2}
+  testRelic: {fileID: 11400000, guid: 6b7f14b74b8e2d641827b29ec09cde0c, type: 2}
 --- !u!4 &980201049
 Transform:
   m_ObjectHideFlags: 0
@@ -2971,6 +2973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c522734723c4244b587a96a6d1edc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diamondGoldMultiplier: 1
   currentGold: 0
   goldText: {fileID: 138139249}
 --- !u!4 &1427514904
