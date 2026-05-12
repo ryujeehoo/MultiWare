@@ -5,6 +5,7 @@ Obj/
 Build/
 Builds/
 UserSettings/
+.claude/
 .vs/
 /.vs
 /.vs
