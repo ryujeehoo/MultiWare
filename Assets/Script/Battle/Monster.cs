@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using TMPro;
 
 public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
@@ -11,8 +12,8 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
     [Header("UI")]
-    public TextMeshProUGUI hpText;
-    public TextMeshProUGUI defenseText;
+    public Image hpBar;          // HP 바
+    public TextMeshProUGUI defenseText; // 방어력 텍스트
 
     void Awake()
     {
@@ -22,20 +23,23 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
     void UpdateUI()
     {
-        if (hpText != null)
+        if (hpBar != null)
         {
-            hpText.fontSize = 15; // hp 폰트 사이즈
-            hpText.text = $"{currentHP}/{Data.maxHP}";
+            float ratio = (float)currentHP / Data.maxHP;
+            hpBar.fillAmount = ratio;
 
-            if ((float)currentHP / Data.maxHP <= 0.3f)
-                hpText.color = new Color(1f, 0.5f, 0f);
+            // HP 비율에 따라 색상 변경
+            if (ratio <= 0.3f)
+                hpBar.color = new Color(1f, 0.5f, 0f); // 주황 (위험)
+            else if (ratio <= 0.6f)
+                hpBar.color = new Color(1f, 1f, 0f);   // 노랑 (경고)
             else
-                hpText.color = new Color(0.9f, 0.2f, 0.2f);
+                hpBar.color = new Color(0.9f, 0.2f, 0.2f); // 빨강 (기본)
         }
 
         if (defenseText != null)
         {
-            defenseText.fontSize = 15; // 가드 폰트 사이즈
+            defenseText.fontSize = 15;
             if (defense > 0)
             {
                 defenseText.text = $"{defense}";

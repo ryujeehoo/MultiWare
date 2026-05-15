@@ -1953,7 +1953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: e4922ecdbee63354ca6a95d3a0bd160a, type: 2}
-  hpText: {fileID: 0}
+  hpBar: {fileID: 0}
   defenseText: {fileID: 0}
 --- !u!114 &806589149
 MonoBehaviour:
@@ -2305,7 +2305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: e4922ecdbee63354ca6a95d3a0bd160a, type: 2}
-  hpText: {fileID: 0}
+  hpBar: {fileID: 0}
   defenseText: {fileID: 0}
 --- !u!114 &929672296
 MonoBehaviour:
@@ -2889,7 +2889,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: e4922ecdbee63354ca6a95d3a0bd160a, type: 2}
-  hpText: {fileID: 0}
+  hpBar: {fileID: 0}
   defenseText: {fileID: 0}
 --- !u!114 &1171978558
 MonoBehaviour:
