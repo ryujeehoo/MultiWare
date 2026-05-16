@@ -54,20 +54,18 @@ public class CardFan : MonoBehaviour
     {
         for (int i = 0; i < cards.Length; i++)
         {
-            // null 체크 추가!
             if (cards[i] == null) continue;
 
+            RectTransform cardTransform = cards[i].GetComponent<RectTransform>();
+            if (cardTransform == null) continue;
+
+            // 1자 배치 - spacing만큼 가로로 배치
             float normPos = cards.Length == 1 ? 0f :
                 (i / (float)(cards.Length - 1)) - 0.5f;
             float x = spacing * normPos * cards.Length;
-            float y = Mathf.Sqrt(Mathf.Max(0, radius * radius - x * x));
-            RectTransform cardTransform = cards[i].GetComponent<RectTransform>();
 
-            // null 체크 추가!
-            if (cardTransform == null) continue;
-
-            cardTransform.anchoredPosition = new Vector2(x, y - radius);
-            cardTransform.rotation = Quaternion.Euler(0, 0, -normPos * maxAngle);
+            cardTransform.anchoredPosition = new Vector2(x, 0); // y는 0 고정
+            cardTransform.rotation = Quaternion.identity; // 회전 없음
         }
     }
     [ContextMenu("Draw Card")]
@@ -102,7 +100,7 @@ public class CardFan : MonoBehaviour
 
     public void DrawStartingHand()
     {
-        cardCount = 7;  // ← 5 → 7로 변경
+        cardCount = 8;  // ← 7 → 8로 변경
         CreateCards(cardCount);
     }
     // 현재 남아있는 카드 수 반환

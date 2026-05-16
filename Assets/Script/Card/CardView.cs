@@ -79,7 +79,18 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
         if (eventData.button == PointerEventData.InputButton.Right)
             return;
 
-        ToggleSelect();
+        // 리롤 모드일 때 → 리롤 선택
+        if (CardRerollManager.Instance != null &&
+            CardRerollManager.Instance.isRerollMode)
+        {
+            ToggleSelect();
+            CardRerollManager.Instance.ToggleRerollSelect(this);
+        }
+        // 일반 모드일 때 → 전투 선택
+        else
+        {
+            ToggleSelect();
+        }
     }
 
     public void OnBeginDrag(PointerEventData eventData)

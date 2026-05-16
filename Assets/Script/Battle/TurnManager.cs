@@ -141,10 +141,9 @@ public class TurnManager : MonoBehaviour
         endTurnButton.interactable = true;
 
         int currentCount = cardFan.GetCurrentCardCount();
-        int drawCount = 7 - currentCount + bonusDrawCount;
+        int drawCount = 8 - currentCount + bonusDrawCount; // ← 7 → 8로 변경
         bonusDrawCount = 0;
 
-        // 속박 효과 적용
         drawCount -= player.GetBindReduction();
         drawCount = Mathf.Max(0, drawCount);
 
