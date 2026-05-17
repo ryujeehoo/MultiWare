@@ -8,33 +8,43 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 {
     public MonsterData Data;
     private int currentHP;
+    private int maxHP; // 스케일링된 최대 HP 저장
     private int defense = 0;
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
     [Header("UI")]
-    public Image hpBar;          // HP 바
-    public TextMeshProUGUI defenseText; // 방어력 텍스트
+    public Image hpBar;
+    public TextMeshProUGUI hpText;
+    public TextMeshProUGUI defenseText;
 
     void Awake()
     {
-        currentHP = Data.maxHP;
+        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
+        maxHP = Mathf.RoundToInt(Data.maxHP * scale);
+        currentHP = maxHP;
         UpdateUI();
     }
 
     void UpdateUI()
     {
+        if (Data == null) return;
+
+        float ratio = (float)currentHP / Data.maxHP;
+
         if (hpBar != null)
         {
-            float ratio = (float)currentHP / Data.maxHP;
             hpBar.fillAmount = ratio;
+        }
 
-            // HP 비율에 따라 색상 변경
-            if (ratio <= 0.3f)
-                hpBar.color = new Color(1f, 0.5f, 0f); // 주황 (위험)
-            else if (ratio <= 0.6f)
-                hpBar.color = new Color(1f, 1f, 0f);   // 노랑 (경고)
+        if (hpText != null)
+        {
+            hpText.fontSize = 15;
+            hpText.text = $"{currentHP}/{maxHP}"; // Data.maxHP → maxHP로 변경
+
+            if ((float)currentHP / maxHP <= 0.3f)
+                hpText.color = new Color(1f, 0.5f, 0f);
             else
-                hpBar.color = new Color(0.9f, 0.2f, 0.2f); // 빨강 (기본)
+                hpText.color = new Color(0.9f, 0.2f, 0.2f);
         }
 
         if (defenseText != null)
@@ -357,25 +367,35 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     }
     public float GetHPRatio()
     {
-        return (float)currentHP / Data.maxHP;
+        return (float)currentHP / maxHP; // Data.maxHP → maxHP로 변경
     }
 
     public void Heal(int amount)
     {
         currentHP += amount;
-        currentHP = Mathf.Min(currentHP, Data.maxHP);
+        currentHP = Mathf.Min(currentHP, maxHP); // Data.maxHP → maxHP로 변경
         Debug.Log($"[{gameObject.name}] HP {amount} 회복! 현재 HP: {currentHP}");
         UpdateUI();
     }
-
+    public void SelfDestruct()
+    {
+        Debug.Log($"[{gameObject.name}] 자폭으로 사망!");
+        GoldManager.Instance.AddGold(Data.gold);
+        gameObject.SetActive(false);
+        TurnManager.Instance.OnMonsterDied();
+        Destroy(gameObject);
+    }
     public void ReceiveCardBundle(HandResult result, List<CardData> cards)
     {
         foreach (var relic in Player.Instance.relics)
             relic.OnAttack(Player.Instance, cards, this, result);
 
-        // 감전 체크 - 족보 발동 시 추가 데미지 (High Card 제외)
-        if (result.rank != HandRankType.HighCard)
-            Player.Instance.OnHandActivated();
+        // 감전 체크 - 두 번째 공격부터 하이카드 강제
+        if (Player.Instance.ShouldForceHighCard())
+        {
+            result = new HandResult(HandRankType.HighCard, HandResult.CalculateDamage(HandRankType.HighCard, cards), cards);
+            Debug.Log($"[감전] 하이카드 강제! 데미지: {result.baseDamage}");
+        }
 
         int finalDamage = CalculateFinalDamage(cards, result);
         TakeDamage(finalDamage);

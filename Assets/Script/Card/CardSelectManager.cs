@@ -35,7 +35,8 @@ public class CardSelectManager : MonoBehaviour
         }
 
         selectedCards.Add(card);
-        Debug.Log($"선택: {card.cardData.cardName} ({selectedCards.Count}장)");
+        //감전 적용 체크용
+        Debug.Log($"선택: {card.cardData.cardName} ({selectedCards.Count}장) / 감전: {Player.Instance.IsShocked()} / hasAttacked: {Player.Instance.hasAttackedWhileShocked}");
         UpdateUI();
     }
 
@@ -61,10 +62,18 @@ public class CardSelectManager : MonoBehaviour
 
         HandResult result = HandEvaluator.Evaluate(cardDataList);
 
-        if (handResultText != null)
-            handResultText.text = $"{result.GetRankName()} (DMG: {result.baseDamage})";
-
-        Debug.Log($"현재 족보: {result.GetRankName()} / 데미지: {result.baseDamage}");
+        // 감전 상태면 두 번째 공격부터 하이카드 표시
+        if (Player.Instance != null && Player.Instance.IsShocked() && Player.Instance.hasAttackedWhileShocked)
+        {
+            HandResult highCard = new HandResult(HandRankType.HighCard, HandResult.CalculateDamage(HandRankType.HighCard, cardDataList), cardDataList);
+            if (handResultText != null)
+                handResultText.text = $"{result.GetRankName()} → High Card (DMG: {highCard.baseDamage})";
+        }
+        else
+        {
+            if (handResultText != null)
+                handResultText.text = $"{result.GetRankName()} (DMG: {result.baseDamage})";
+        }
     }
 
     public void ShowMessage(string message)

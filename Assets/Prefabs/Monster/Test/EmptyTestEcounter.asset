@@ -15,5 +15,5 @@ MonoBehaviour:
   encounterName: 
   monsterPrefabSlots:
   - {fileID: 0}
-  - {fileID: 780495344109137746, guid: 96c1837fb40420f43a807bf7ae4e5640, type: 3}
+  - {fileID: 780495344109137746, guid: 31a789059c87903479553f215293e2c0, type: 3}
   - {fileID: 0}

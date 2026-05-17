@@ -16,21 +16,24 @@ MonoBehaviour:
   maxHP: 30
   gold: 5
   actionPattern:
-  - actionType: 10
+  - actionType: 0
     value: 8
     scaleWithTurn: 0
     scaleAmount: 0
     attackCount: 0
     summonPrefab: {fileID: 0}
-    poisonStack: 0
-    shockDamagePerActivation: 0
-    shockDuration: 0
+    effectDuration: 2
     attackEffectType: 1
-    attackPoisonStack: 2
+    reflectDamage: 0
+    reflectDefense: 0
+  - actionType: 10
+    value: 5
+    scaleWithTurn: 0
+    scaleAmount: 0
+    attackCount: 0
+    summonPrefab: {fileID: 0}
+    effectDuration: 2
+    attackEffectType: 1
     reflectDamage: 0
     reflectDefense: 0
   hpTriggers: []
-  allyDeathTriggers:
-  - allyMonsterName: Bug1
-    patternIndex: 0
-    boostPoison: 1

@@ -106,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Data: {fileID: 11400000, guid: 3e943e7b3ebf92844a26464e0162d690, type: 2}
   hpBar: {fileID: 3294859000590476725}
+  hpText: {fileID: 8830382908996591011}
   defenseText: {fileID: 696046947462822496}
 --- !u!1001 &518218749339946291
 PrefabInstance:
@@ -233,6 +234,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8830382908996591011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9059772732311785616, guid: 782c33549eeb0c0428fedbe9010c47ac, type: 3}
+  m_PrefabInstance: {fileID: 518218749339946291}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &8024681644465080419

@@ -99,6 +99,9 @@ public class TurnManager : MonoBehaviour
         endTurnButton.interactable = false;
         Debug.Log("적 턴 시작");
 
+        // 적 턴 시작 시 플레이어 상태이상 처리
+        player.TickEffects();
+
         Monster[] monsters = FindObjectsByType<Monster>(FindObjectsSortMode.None);
         foreach (Monster monster in monsters)
             monster.ResetDefense();
@@ -118,9 +121,7 @@ public class TurnManager : MonoBehaviour
             }
         }
 
-        player.TickEffects();
-
-        // 몬스터 상태이상 처리 (반사 등 턴 종료 시 만료)
+        // 몬스터 상태이상 처리
         monsters = FindObjectsByType<Monster>(FindObjectsSortMode.None);
         foreach (Monster monster in monsters)
             monster.TickEffects();

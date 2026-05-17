@@ -22,24 +22,8 @@ MonoBehaviour:
     scaleAmount: 0
     attackCount: 0
     summonPrefab: {fileID: 0}
-    poisonStack: 2
-    shockDamagePerActivation: 0
-    shockDuration: 0
+    effectDuration: 2
     attackEffectType: 0
-    attackPoisonStack: 2
-    reflectDamage: 3
-    reflectDefense: 0
-  - actionType: 0
-    value: 22
-    scaleWithTurn: 0
-    scaleAmount: 0
-    attackCount: 0
-    summonPrefab: {fileID: 0}
-    poisonStack: 2
-    shockDamagePerActivation: 0
-    shockDuration: 0
-    attackEffectType: 0
-    attackPoisonStack: 2
     reflectDamage: 3
     reflectDefense: 0
   hpTriggers:
@@ -51,11 +35,7 @@ MonoBehaviour:
       scaleAmount: 0
       attackCount: 0
       summonPrefab: {fileID: 0}
-      poisonStack: 2
-      shockDamagePerActivation: 0
-      shockDuration: 0
+      effectDuration: 2
       attackEffectType: 0
-      attackPoisonStack: 2
       reflectDamage: 3
       reflectDefense: 0
-  allyDeathTriggers: []

@@ -10,11 +10,12 @@ public class Player : MonoBehaviour, IEffectTarget
     private int defense = 0;
     public float healMultiplier = 1.0f;
     public float heartHealMultiplier = 1.0f;
-    public float spadeBonus = 1.0f; 
+    public float spadeBonus = 1.0f;
+    public bool hasAttackedWhileShocked = false; // 감전 중 첫 공격 여부
     public System.Action<float, float> OnHealthChanged;
     public System.Action<int> OnGoldChanged;
     public List<Relic> relics = new List<Relic>();
-    public List<StatusEffect> activeEffects = new List<StatusEffect>(); // private → public으로 변경 (BoostPlayerPoison 접근용)
+    public List<StatusEffect> activeEffects = new List<StatusEffect>(); 
 
     private void Awake()
     {
@@ -73,8 +74,8 @@ public class Player : MonoBehaviour, IEffectTarget
 
         if (existing != null && existing is PoisonEffect existingPoison && effect is PoisonEffect newPoison)
         {
-            existingPoison.stack += newPoison.stack;
-            Debug.Log($"독 중첩! 현재 중첩: {existingPoison.stack}");
+            existingPoison.stack += newPoison.stack; // 지속 턴 합산
+            Debug.Log($"독 중첩! 남은 턴: {existingPoison.stack}");
         }
         else if (existing != null && existing is ShockEffect existingShock && effect is ShockEffect newShock)
         {
@@ -93,14 +94,6 @@ public class Player : MonoBehaviour, IEffectTarget
         }
     }
 
-    public void OnHandActivated()
-    {
-        foreach (var effect in activeEffects)
-        {
-            if (effect is ShockEffect shock)
-                shock.OnHandActivated(this);
-        }
-    }
 
     public int GetBindReduction()
     {
@@ -128,6 +121,7 @@ public class Player : MonoBehaviour, IEffectTarget
 
     public void OnTurnStart()
     {
+        hasAttackedWhileShocked = false;
         foreach (var relic in relics)
             relic.OnTurnStart(this);
     }
@@ -158,5 +152,27 @@ public class Player : MonoBehaviour, IEffectTarget
         int current = defense;
         defense = 0;
         return current;
+    }
+    public bool IsShocked()
+    {
+        foreach (var effect in activeEffects)
+        {
+            if (effect is ShockEffect)
+                return true;
+        }
+        return false;
+    }
+    public bool ShouldForceHighCard()
+    {
+        if (!IsShocked()) return false;
+
+        if (hasAttackedWhileShocked)
+        {
+            Debug.Log("[감전] 두 번째 공격! 하이카드로 강제 계산");
+            return true;
+        }
+
+        hasAttackedWhileShocked = true;
+        return false;
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ActionType { Attack, Defend, Poison, MultiAttack, Summon, AttackBuff, Heal, Bind, Shock, AllyDefend, AttackAndEffect, Reflect }
+public enum ActionType { Attack, Defend, Poison, MultiAttack, Summon, AttackBuff, Heal, Bind, Shock, AllyDefend, AttackAndEffect, Reflect, StackUp, StackAttack, SelfDestruct }
 
 public enum AttackEffectType { None, Poison, Shock }
 
@@ -20,16 +20,11 @@ public class MonsterAction
     [Header("소환 설정 (Summon일 때만 사용)")]
     public GameObject summonPrefab;
 
-    [Header("독 설정 (Poison일 때만 사용)")]
-    public int poisonStack = 2;
-
-    [Header("감전 설정 (Shock / AttackAndEffect-Shock일 때만 사용)")]
-    public int shockDamagePerActivation = 5;
-    public int shockDuration = 3;
+    [Header("효과 지속 턴 (Poison / Shock / AttackAndEffect일 때만 사용)")]
+    public int effectDuration = 2;
 
     [Header("AttackAndEffect 설정")]
     public AttackEffectType attackEffectType = AttackEffectType.None;
-    public int attackPoisonStack = 2;  // AttackAndEffect-Poison일 때만 사용
 
     [Header("반사 설정 (Reflect일 때만 사용)")]
     public int reflectDamage = 3;

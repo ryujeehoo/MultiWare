@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PoisonEffect : StatusEffect
 {
-    public int stack;
-    public float damageMultiplier = 1f;
+    public int stack;        // 지속 턴 수
+    public int damagePerTurn = 3; // 고정 데미지
 
     public PoisonEffect(int stack)
     {
@@ -13,10 +13,9 @@ public class PoisonEffect : StatusEffect
 
     public override void OnTurnEnd(IEffectTarget target)
     {
-        int damage = Mathf.RoundToInt(stack * damageMultiplier);
-        target.TakeDamage(damage);
+        target.TakeDamage(damagePerTurn);
         stack--;
-        Debug.Log($"[독] {damage} 데미지! 남은 중첩: {stack}");
+        Debug.Log($"[독] {damagePerTurn} 데미지! 남은 턴: {stack}");
     }
 
     public override bool IsExpired() => stack <= 0;

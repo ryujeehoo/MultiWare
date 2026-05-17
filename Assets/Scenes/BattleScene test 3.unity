@@ -971,6 +971,7 @@ MonoBehaviour:
   healMultiplier: 1
   heartHealMultiplier: 1
   spadeBonus: 1
+  hasAttackedWhileShocked: 0
   relics:
   - {fileID: 11400000, guid: 55fc1d62043ee4e4a8fa58a49136d1cc, type: 2}
 --- !u!4 &262655207
@@ -4087,7 +4088,7 @@ MonoBehaviour:
   - {fileID: 1173321317}
   - {fileID: 272103097}
   - {fileID: 1141904225}
-  encounterTable: {fileID: 11400000, guid: 51fe393d8235c454daaefe72b4ba2c13, type: 2}
+  encounterTable: {fileID: 11400000, guid: b9cb782eae83ce94e9ecebf4eeed28d1, type: 2}
 --- !u!4 &2025519044
 Transform:
   m_ObjectHideFlags: 0

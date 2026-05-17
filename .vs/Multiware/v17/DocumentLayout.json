@@ -1,58 +1,46 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\",
+  "WorkspaceRootPath": "C:\\4-1 Capstone\\MultiWare\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|c:\\users\\danny\\onedrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\multiware\\assets\\script\\card\\carddata_csj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\card\\carddata_csj.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|c:\\4-1 capstone\\multiware\\assets\\script\\battle\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\goldmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\goldmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\turnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\turnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\card\\cardview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\card\\cardview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\battle\\monsterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monsterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\battle\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|c:\\4-1 capstone\\multiware\\assets\\script\\battle\\effect\\damageeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\effect\\damageeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\battle\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\enemycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\card\\rerollzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\card\\rerollzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|c:\\4-1 capstone\\multiware\\assets\\script\\card\\cardselectmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\card\\cardselectmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\battle\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\battlemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\monsterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monsterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\battle\\relic\\gamblerdicerelic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\gamblerdicerelic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\effect\\shockeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\effect\\shockeffect.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\battle\\relic\\bonusrelic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\bonusrelic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\battle\\relic\\relic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\relic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\assets\\script\\battle\\turnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\turnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\monsteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monsteraction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -65,165 +53,131 @@
           "SelectedChildIndex": 1,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CardData_csj.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Card\\CardData_csj.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Card\\CardData_csj.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Card\\CardData_csj.cs",
-              "RelativeToolTip": "Assets\\Script\\Card\\CardData_csj.cs",
-              "ViewState": "AQIAACMAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "DocumentIndex": 3,
+              "Title": "DamageEffect.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Effect\\DamageEffect.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Effect\\DamageEffect.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Effect\\DamageEffect.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\Effect\\DamageEffect.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-16T06:36:14.671Z",
+              "WhenOpened": "2026-05-17T18:21:33.665Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\GameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\GameManager.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\GameManager.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\GameManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T18:11:49.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TurnManager.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\TurnManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\TurnManager.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\TurnManager.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\TurnManager.cs",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAswHgAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T12:28:40.437Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Monster.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Monster.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Monster.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Monster.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\Monster.cs",
+              "ViewState": "AgIAAEcBAAAAAAAAAAAowHYBAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-17T11:41:38.243Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Player.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Player.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Player.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\Player.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAAwCsAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-16T18:34:04.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "MonsterSpawner.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\MonsterSpawner.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterSpawner.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\MonsterSpawner.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\MonsterSpawner.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterSpawner.cs",
               "RelativeToolTip": "Assets\\Script\\Battle\\MonsterSpawner.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-15T09:24:12.41Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "RerollZone.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Card\\RerollZone.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Card\\RerollZone.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Card\\RerollZone.cs",
-              "RelativeToolTip": "Assets\\Script\\Card\\RerollZone.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "CardSelectManager.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Card\\CardSelectManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Card\\CardSelectManager.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Card\\CardSelectManager.cs",
+              "RelativeToolTip": "Assets\\Script\\Card\\CardSelectManager.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAIwCUAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-13T08:02:55.696Z"
+              "WhenOpened": "2026-05-16T18:23:19.979Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "BattleManager.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\BattleManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\BattleManager.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\BattleManager.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\BattleManager.cs",
-              "ViewState": "AgIAAHEAAAAAAAAAAAAkwE0AAAA7AAAAAAAAAA==",
+              "Title": "ShockEffect.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Effect\\ShockEffect.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Effect\\ShockEffect.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Effect\\ShockEffect.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\Effect\\ShockEffect.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T15:24:22.71Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "GoldManager.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\GoldManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\GoldManager.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\GoldManager.cs",
-              "RelativeToolTip": "Assets\\Script\\GoldManager.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAADwvwAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T11:48:23.769Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Relic.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Relic\\Relic.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\Relic.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Relic\\Relic.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\Relic\\Relic.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwcAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T11:42:42.426Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CardView.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Card\\CardView.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Card\\CardView.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Card\\CardView.cs",
-              "RelativeToolTip": "Assets\\Script\\Card\\CardView.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T11:29:19.051Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "TurnManager.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\TurnManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\TurnManager.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\TurnManager.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\TurnManager.cs",
-              "ViewState": "AgIAAGcAAAAAAAAAAAAswHkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T16:01:28.104Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "EnemyController.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\EnemyController.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\EnemyController.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\EnemyController.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\EnemyController.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAuwI8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T15:16:03.94Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Player.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Player.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Player.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\Player.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAuwDMAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T13:10:10.679Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Monster.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Monster.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Monster.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Monster.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\Monster.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T13:04:58.795Z"
+              "WhenOpened": "2026-05-16T17:11:56.427Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "GamblerDiceRelic.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Relic\\GamblerDiceRelic.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\GamblerDiceRelic.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Relic\\GamblerDiceRelic.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\Relic\\GamblerDiceRelic.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAhAAAAAAAAAA==",
+              "Title": "MonsterAction.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterAction.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\MonsterAction.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterAction.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\MonsterAction.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAIwBAAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T12:53:20.269Z"
+              "WhenOpened": "2026-05-16T16:40:45.819Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "BonusRelic.cs",
-              "DocumentMoniker": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
-              "ToolTip": "C:\\Users\\danny\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uCEA1\uC2A4\uD1A4 \uB514\uC790\uC778\\MultiWare\\Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
-              "ViewState": "AgIAAJgAAAAAAAAAAAAuwKoAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 5,
+              "Title": "EnemyController.cs",
+              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\EnemyController.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\EnemyController.cs",
+              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\EnemyController.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\EnemyController.cs",
+              "ViewState": "AgIAADMBAAAAAAAAAADwv0ABAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-11T12:28:45.723Z"
+              "WhenOpened": "2026-05-11T15:16:03.94Z",
+              "EditorCaption": ""
             }
           ]
         }

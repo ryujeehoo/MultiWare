@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     private int patternIndex = 0;
     private int turnCount = 0;
     private float attackBonus = 0f;
+    private int actionStack = 0;
     private HashSet<int> triggeredHPActions = new HashSet<int>();
 
     private void Start()
@@ -97,7 +98,7 @@ public class EnemyController : MonoBehaviour
                 yield return StartCoroutine(DoDefend(action.GetValue(turnCount)));
                 break;
             case ActionType.Poison:
-                yield return StartCoroutine(DoPoison(action.poisonStack));
+                yield return StartCoroutine(DoPoison(action.effectDuration));
                 break;
             case ActionType.MultiAttack:
                 yield return StartCoroutine(DoMultiAttack(action.GetValue(turnCount) + attackBonus, action.attackCount));
@@ -115,7 +116,7 @@ public class EnemyController : MonoBehaviour
                 yield return StartCoroutine(DoBind((int)action.GetValue(turnCount)));
                 break;
             case ActionType.Shock:
-                yield return StartCoroutine(DoShock(action.shockDuration, action.shockDamagePerActivation));
+                yield return StartCoroutine(DoShock(action.effectDuration));
                 break;
             case ActionType.AllyDefend:
                 yield return StartCoroutine(DoAllyDefend(action.GetValue(turnCount)));
@@ -124,18 +125,28 @@ public class EnemyController : MonoBehaviour
                 yield return StartCoroutine(DoAttackAndEffect(
                     action.GetValue(turnCount),
                     action.attackEffectType,
-                    action.attackPoisonStack,
-                    action.shockDuration,
-                    action.shockDamagePerActivation));
+                    action.effectDuration));
                 break;
             case ActionType.Reflect:
                 yield return StartCoroutine(DoReflect(action.reflectDamage, action.reflectDefense));
+                break;
+            case ActionType.StackUp:
+                yield return StartCoroutine(DoStackUp((int)action.GetValue(turnCount)));
+                break;
+            case ActionType.StackAttack:
+                yield return StartCoroutine(DoStackAttack(action.GetValue(turnCount)));
+                break;
+            case ActionType.SelfDestruct:
+                yield return StartCoroutine(DoSelfDestruct(action.GetValue(turnCount)));
                 break;
         }
     }
 
     public IEnumerator DoAttack(float damage)
     {
+        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
+        damage = damage * scale;
+
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
         {
             damage *= 0.8f;
@@ -156,16 +167,19 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-    public IEnumerator DoPoison(int stack)
+    public IEnumerator DoPoison(int duration)
     {
-        Debug.Log($"[{gameObject.name}] 독 공격! {stack} 중첩");
+        Debug.Log($"[{gameObject.name}] 독 공격! {duration}턴");
         yield return new WaitForSeconds(1f);
-        player.ApplyEffect(new PoisonEffect(stack));
+        player.ApplyEffect(new PoisonEffect(duration));
         yield return new WaitForSeconds(0.5f);
     }
 
     public IEnumerator DoMultiAttack(float damage, int count)
     {
+        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
+        damage = damage * scale;
+
         Debug.Log($"[{gameObject.name}] 멀티 어택! {damage} 데미지 x {count}회");
         for (int i = 0; i < count; i++)
         {
@@ -220,11 +234,11 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-    public IEnumerator DoShock(int duration, int damagePerActivation)
+    public IEnumerator DoShock(int duration)
     {
-        Debug.Log($"[{gameObject.name}] 감전! {duration}턴 지속, 족보 발동마다 {damagePerActivation} 데미지");
+        Debug.Log($"[{gameObject.name}] 감전! {duration}턴");
         yield return new WaitForSeconds(1f);
-        player.ApplyEffect(new ShockEffect(duration, damagePerActivation));
+        player.ApplyEffect(new ShockEffect(duration));
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -243,8 +257,11 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
 
-    public IEnumerator DoAttackAndEffect(float damage, AttackEffectType effectType, int attackPoisonStack, int shockDuration, int shockDamagePerActivation)
+    public IEnumerator DoAttackAndEffect(float damage, AttackEffectType effectType, int duration)
     {
+        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
+        damage = damage * scale;
+
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
             damage *= 0.8f;
 
@@ -255,12 +272,12 @@ public class EnemyController : MonoBehaviour
         switch (effectType)
         {
             case AttackEffectType.Poison:
-                player.ApplyEffect(new PoisonEffect(attackPoisonStack));
-                Debug.Log($"독 {attackPoisonStack}중첩 부여!");
+                player.ApplyEffect(new PoisonEffect(duration));
+                Debug.Log($"독 {duration}턴 부여!");
                 break;
             case AttackEffectType.Shock:
-                player.ApplyEffect(new ShockEffect(shockDuration, shockDamagePerActivation));
-                Debug.Log($"감전 {shockDuration}턴 부여!");
+                player.ApplyEffect(new ShockEffect(duration));
+                Debug.Log($"감전 {duration}턴 부여!");
                 break;
         }
 
@@ -279,33 +296,37 @@ public class EnemyController : MonoBehaviour
             monster.AddDefense(reflectDefense);
         yield return new WaitForSeconds(0.5f);
     }
-
-    public void OnAllyDied(string deadMonsterName)
+    IEnumerator DoStackUp(int amount)
     {
-        if (data.allyDeathTriggers == null) return;
-
-        foreach (AllyDeathTrigger trigger in data.allyDeathTriggers)
-        {
-            if (trigger.allyMonsterName == deadMonsterName)
-            {
-                patternIndex = trigger.patternIndex;
-                Debug.Log($"[{gameObject.name}] 아군 {deadMonsterName} 사망! 패턴 {patternIndex}로 변경!");
-
-                if (trigger.boostPoison)
-                    BoostPlayerPoison();
-            }
-        }
+        actionStack += amount;
+        Debug.Log($"[{gameObject.name}] 스택 +{amount}! 현재 스택: {actionStack}");
+        yield return new WaitForSeconds(1f);
     }
 
-    void BoostPlayerPoison()
+    IEnumerator DoStackAttack(float damagePerStack)
     {
-        foreach (var effect in Player.Instance.activeEffects)
-        {
-            if (effect is PoisonEffect poison)
-            {
-                poison.damageMultiplier *= 2f;
-                Debug.Log($"[독 강화] 독 데미지 2배!");
-            }
-        }
+        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
+        damagePerStack = damagePerStack * scale;
+
+        int totalDamage = (int)damagePerStack * actionStack;
+        Debug.Log($"[{gameObject.name}] 스택 공격! {damagePerStack} × {actionStack} = {totalDamage} 데미지");
+        yield return new WaitForSeconds(1f);
+        new DamageEffect(totalDamage).Apply(player);
+        actionStack = 0;
+        yield return new WaitForSeconds(0.5f);
+    }
+    IEnumerator DoSelfDestruct(float damage)
+    {
+        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
+        damage = damage * scale;
+
+        Debug.Log($"[{gameObject.name}] 자폭! {damage} 데미지");
+        yield return new WaitForSeconds(1f);
+        new DamageEffect(damage).Apply(player);
+        yield return new WaitForSeconds(0.5f);
+
+        Monster monster = GetComponent<Monster>();
+        if (monster != null)
+            monster.SelfDestruct();
     }
 }
