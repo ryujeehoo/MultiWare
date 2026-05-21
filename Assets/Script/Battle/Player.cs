@@ -175,4 +175,26 @@ public class Player : MonoBehaviour, IEffectTarget
         hasAttackedWhileShocked = true;
         return false;
     }
+    public bool WillForceHighCard()
+    {
+        return IsShocked() && hasAttackedWhileShocked;
+    }
+    public void LogActiveEffects()
+    {
+        if (activeEffects.Count == 0)
+        {
+            Debug.Log("[상태이상] 없음");
+            return;
+        }
+
+        foreach (var effect in activeEffects)
+        {
+            if (effect is PoisonEffect poison)
+                Debug.Log($"[상태이상] 독 - 남은 턴: {poison.stack}");
+            else if (effect is ShockEffect shock)
+                Debug.Log($"[상태이상] 감전 - 남은 턴: {shock.stack}");
+            else if (effect is BindEffect bind)
+                Debug.Log($"[상태이상] 속박 - 남은 턴: {bind.stack}");
+        }
+    }
 }

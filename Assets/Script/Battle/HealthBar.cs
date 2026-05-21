@@ -4,29 +4,33 @@ using TMPro;
 
 public class HealthBar : MonoBehaviour
 {
-    public Image hpFill;          // HP_fill 이미지
-    public Image hpBar;           // HP_bar 배경
+    public Image hpFill;
+    public Image hpBar;
     public TextMeshProUGUI healthText;
     public Player player;
 
-    void Start()
+    void OnEnable()
     {
         if (player == null)
-            player = FindFirstObjectByType<Player>();
+            player = Player.Instance;
 
         if (player != null)
         {
             player.OnHealthChanged += UpdateHealth;
-            UpdateHealth(player.currentHealth, player.maxHealth);
+            UpdateHealth(player.currentHealth, player.maxHealth); // 즉시 반영
         }
+    }
+
+    void OnDisable()
+    {
+        if (player != null)
+            player.OnHealthChanged -= UpdateHealth;
     }
 
     public void UpdateHealth(float current, float max)
     {
-        // HP fill 비율 업데이트
         if (hpFill != null)
             hpFill.fillAmount = current / max;
-
         if (healthText != null)
             healthText.text = $"{current} / {max}";
     }

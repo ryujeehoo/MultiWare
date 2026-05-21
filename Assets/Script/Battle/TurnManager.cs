@@ -98,7 +98,7 @@ public class TurnManager : MonoBehaviour
         SetInputBlock(true);
         endTurnButton.interactable = false;
         Debug.Log("적 턴 시작");
-
+        Player.Instance.LogActiveEffects();
         // 적 턴 시작 시 플레이어 상태이상 처리
         player.TickEffects();
 

@@ -4537,7 +4537,7 @@ MonoBehaviour:
   - {fileID: 1173321317}
   - {fileID: 272103097}
   - {fileID: 1141904225}
-  encounterTable: {fileID: 11400000, guid: b9cb782eae83ce94e9ecebf4eeed28d1, type: 2}
+  encounterTable: {fileID: 11400000, guid: 4c16719f0cc1e2541a7e45b6600fe305, type: 2}
 --- !u!4 &2025519044
 Transform:
   m_ObjectHideFlags: 0
@@ -4682,8 +4682,8 @@ RectTransform:
   m_LocalScale: {x: 5.1255317, y: 0.1960448, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2125427317}
   - {fileID: 659478282}
+  - {fileID: 2125427317}
   m_Father: {fileID: 898620478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

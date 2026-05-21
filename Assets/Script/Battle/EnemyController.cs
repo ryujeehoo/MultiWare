@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour
 {
     public Player player;
     private MonsterData data;
+    private Animator anim;  // ← 추가
     private int patternIndex = 0;
     private int turnCount = 0;
     private float attackBonus = 0f;
@@ -14,6 +15,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        anim = GetComponentInChildren<Animator>();  // ← 추가
         player = FindAnyObjectByType<Player>();
         if (player == null)
             Debug.LogError($"[{gameObject.name}] Player를 찾을 수 없습니다!");
@@ -154,6 +156,7 @@ public class EnemyController : MonoBehaviour
         }
 
         Debug.Log($"[{gameObject.name}] 공격! {damage} 데미지");
+        if (anim != null) anim.SetTrigger("Attack");  // ← 추가
         yield return new WaitForSeconds(1f);
         new DamageEffect(damage).Apply(player);
         yield return new WaitForSeconds(0.5f);
@@ -183,6 +186,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log($"[{gameObject.name}] 멀티 어택! {damage} 데미지 x {count}회");
         for (int i = 0; i < count; i++)
         {
+            if (anim != null) anim.SetTrigger("Attack");  // ← 추가
             yield return new WaitForSeconds(0.5f);
             new DamageEffect(damage).Apply(player);
             Debug.Log($"[{gameObject.name}] {i + 1}번째 공격! {damage} 데미지");
