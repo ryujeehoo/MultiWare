@@ -47,7 +47,7 @@ public class CardSelectManager : MonoBehaviour
         UpdateUI();
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         if (selectedCards.Count == 0)
         {
@@ -62,17 +62,22 @@ public class CardSelectManager : MonoBehaviour
 
         HandResult result = HandEvaluator.Evaluate(cardDataList);
 
+        // 노출 배율
+        float exposeMultiplier = (BattleManager.Instance != null && BattleManager.Instance.isExposed) ? 1.2f : 1f;
+
         // 감전 상태면 두 번째 공격부터 하이카드 표시
         if (Player.Instance != null && Player.Instance.IsShocked() && Player.Instance.hasAttackedWhileShocked)
         {
             HandResult highCard = new HandResult(HandRankType.HighCard, HandResult.CalculateDamage(HandRankType.HighCard, cardDataList), cardDataList);
+            int displayDmg = Mathf.RoundToInt(highCard.baseDamage * exposeMultiplier);
             if (handResultText != null)
-                handResultText.text = $"{result.GetRankName()} → High Card (DMG: {highCard.baseDamage})";
+                handResultText.text = $"{result.GetRankName()} → High Card (DMG: {displayDmg})";
         }
         else
         {
+            int displayDmg = Mathf.RoundToInt(result.baseDamage * exposeMultiplier);
             if (handResultText != null)
-                handResultText.text = $"{result.GetRankName()} (DMG: {result.baseDamage})";
+                handResultText.text = $"{result.GetRankName()} (DMG: {displayDmg})";
         }
     }
 

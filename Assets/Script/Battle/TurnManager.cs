@@ -98,7 +98,7 @@ public class TurnManager : MonoBehaviour
         SetInputBlock(true);
         endTurnButton.interactable = false;
         Debug.Log("적 턴 시작");
-
+        Player.Instance.LogActiveEffects();
         // 적 턴 시작 시 플레이어 상태이상 처리
         player.TickEffects();
 
@@ -160,7 +160,7 @@ public class TurnManager : MonoBehaviour
 
         foreach (var relic in Player.Instance.relics)
             relic.OnTurnStart(Player.Instance);
-
+        RefreshAllMonsterIntents();
         Debug.Log("플레이어 턴 시작");
     }
 
@@ -168,5 +168,13 @@ public class TurnManager : MonoBehaviour
     {
         inputBlocker.blocksRaycasts = block;
         inputBlocker.interactable = !block;
+    }
+    void RefreshAllMonsterIntents()
+    {
+        foreach (Monster m in SpawnManager.Instance.GetAliveMonsters())
+        {
+            EnemyController ec = m.GetComponent<EnemyController>();
+            if (ec != null) ec.RefreshIntentUI();
+        }
     }
 }

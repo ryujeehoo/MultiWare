@@ -62,6 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Battle\Effect\IEffectTarget.cs" />
+    <Compile Include="Assets\Script\Battle\MonsterIntentUI.cs" />
+    <Compile Include="Assets\Script\Battle\StatusEffectSlot.cs" />
     <Compile Include="Assets\Script\Battle\Relic\BonusByHandRankReli.cs" />
     <Compile Include="Assets\Script\Card\DeckManager.cs" />
     <Compile Include="Assets\Script\Battle\Relic\RemoveSpecificNumbersRelic.cs" />
@@ -100,10 +102,12 @@
     <Compile Include="Assets\Script\GameState.cs" />
     <Compile Include="Assets\Script\Card\CardSelectManager.cs" />
     <Compile Include="Assets\Script\Battle\Relic\RemoveSuitRelic.cs" />
+    <Compile Include="Assets\Script\TitleScreen.cs" />
     <Compile Include="Assets\Script\Battle\Relic\RelicTestHelper.cs" />
     <Compile Include="Assets\Script\Card\CardRerollManager.cs" />
     <Compile Include="Assets\Script\Battle\Effect\BindEffect.cs" />
     <Compile Include="Assets\Script\Battle\GameManager.cs" />
+    <Compile Include="Assets\Script\Battle\StatusEffectDisplay.cs" />
     <Compile Include="Assets\Script\Card\Deckmanager_csj.cs" />
     <Compile Include="Assets\Script\Battle\SpawnManager.cs" />
     <Compile Include="Assets\Script\Battle\Relic\RemoveSpecificCardRelic.cs" />
@@ -114,6 +118,7 @@
     <Compile Include="Assets\Script\Card\CardData_csj.cs" />
     <Compile Include="Assets\Script\Card\CardView.cs" />
     <Compile Include="Assets\Script\Card\HandEvaluator.cs" />
+    <Compile Include="Assets\Script\Battle\PlayerEffectDisplay.cs" />
     <Compile Include="Assets\Script\Battle\Relic\GamblerDiceRelic.cs" />
     <Compile Include="Assets\Script\Battle\Effect\ShockEffect.cs" />
     <Compile Include="Assets\Script\Battle\HealthBar.cs" />
@@ -638,6 +643,14 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Types">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.0.69f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Unity.Android.Gradle">
+      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.0.69f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

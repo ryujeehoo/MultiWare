@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uC62C\uB4DC\uC2A4\uD140\uD504"
   m_EditorClassIdentifier: 
   monsterName: "\uC62C\uB4DC\uC2A4\uD140\uD504"
-  maxHP: 120
+  maxHP: 500
   gold: 15
   actionPattern:
   - actionType: 0
@@ -22,11 +22,8 @@ MonoBehaviour:
     scaleAmount: 0
     attackCount: 0
     summonPrefab: {fileID: 0}
-    poisonStack: 2
-    shockDamagePerActivation: 0
-    shockDuration: 0
+    effectDuration: 2
     attackEffectType: 0
-    attackPoisonStack: 2
     reflectDamage: 3
     reflectDefense: 0
   - actionType: 7
@@ -35,11 +32,8 @@ MonoBehaviour:
     scaleAmount: 0
     attackCount: 0
     summonPrefab: {fileID: 0}
-    poisonStack: 2
-    shockDamagePerActivation: 0
-    shockDuration: 0
+    effectDuration: 2
     attackEffectType: 0
-    attackPoisonStack: 2
     reflectDamage: 3
     reflectDefense: 0
   - actionType: 11
@@ -48,11 +42,8 @@ MonoBehaviour:
     scaleAmount: 0
     attackCount: 0
     summonPrefab: {fileID: 0}
-    poisonStack: 2
-    shockDamagePerActivation: 0
-    shockDuration: 0
+    effectDuration: 2
     attackEffectType: 0
-    attackPoisonStack: 2
     reflectDamage: 3
     reflectDefense: 15
   hpTriggers:
@@ -64,11 +55,7 @@ MonoBehaviour:
       scaleAmount: 0
       attackCount: 0
       summonPrefab: {fileID: 0}
-      poisonStack: 2
-      shockDamagePerActivation: 0
-      shockDuration: 0
+      effectDuration: 2
       attackEffectType: 0
-      attackPoisonStack: 2
       reflectDamage: 0
       reflectDefense: 0
-  allyDeathTriggers: []

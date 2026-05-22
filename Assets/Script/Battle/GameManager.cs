@@ -18,7 +18,11 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
+    public void GoToTitle()          
+    {
+        currentStage = 0;            
+        SceneManager.LoadScene("TitleScene");
+    }
     public void StartGame()
     {
         SceneManager.LoadScene("BattleScene");

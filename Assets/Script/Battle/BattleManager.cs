@@ -37,6 +37,7 @@ public class BattleManager : MonoBehaviour
     {
         isFocused = true;
         Debug.Log("집중 효과 적용! 다음 족보 데미지 +40%");
+        PlayerEffectDisplay.Instance?.Refresh();
     }
 
     // 집중 효과 사용 후 해제
@@ -56,6 +57,7 @@ public class BattleManager : MonoBehaviour
     {
         isInvincible = true;
         Debug.Log("무적 효과 적용! 이번 턴 받는 피해 0");
+        PlayerEffectDisplay.Instance?.Refresh();
     }
 
     // 무적 효과 소비
@@ -73,17 +75,24 @@ public class BattleManager : MonoBehaviour
     // 약화 효과 적용
     public void ApplyWeaken(int turns)
     {
+        int newTurns = turns + debuffDurationBonus;
+        weakenedTurns = Mathf.Max(weakenedTurns, newTurns);
         isWeakened = true;
-        weakenedTurns = turns + debuffDurationBonus;
         Debug.Log($"약화 적용! 적 공격력 -20% ({weakenedTurns}턴)");
+        StatusEffectDisplay.RefreshAll();
+        RefreshAllIntents(); // ← 추가
     }
 
     // 노출 효과 적용
     public void ApplyExpose(int turns)
     {
+        int newTurns = turns + debuffDurationBonus;
+        exposedTurns = Mathf.Max(exposedTurns, newTurns);
         isExposed = true;
-        exposedTurns = turns + debuffDurationBonus;
         Debug.Log($"노출 적용! 적 방어력 -20% ({exposedTurns}턴)");
+        StatusEffectDisplay.RefreshAll();
+        RefreshAllIntents();
+        CardSelectManager.Instance?.UpdateUI(); // ← 추가 (private → public으로 변경 필요)
     }
 
     // 공황 효과 적용
@@ -91,6 +100,7 @@ public class BattleManager : MonoBehaviour
     {
         isPanicked = true;
         Debug.Log("공황 적용! 적이 이번 턴 랜덤 행동");
+        StatusEffectDisplay.RefreshAll();
     }
 
     // 둔화 효과 적용
@@ -98,6 +108,7 @@ public class BattleManager : MonoBehaviour
     {
         isSlowed = true;
         Debug.Log("둔화 적용! 적 행동 1턴 지연");
+        StatusEffectDisplay.RefreshAll();
     }
 
     // 턴 종료 시 디버프 턴 감소
@@ -126,6 +137,11 @@ public class BattleManager : MonoBehaviour
         isPanicked = false;
         isSlowed = false;
         isInvincible = false;
+
+        StatusEffectDisplay.RefreshAll(); // ← 턴 감소 후 갱신
+        RefreshAllIntents();
+        CardSelectManager.Instance?.UpdateUI();
+        PlayerEffectDisplay.Instance?.Refresh();
     }
 
     // 배율 추가 (유물에서 호출)
@@ -159,4 +175,11 @@ public class BattleManager : MonoBehaviour
         handRankMultiplier = 1.0f;
         return current;
     }
+    void RefreshAllIntents()
+    {
+        EnemyController[] enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+        foreach (EnemyController ec in enemies)
+            ec.RefreshIntentUI();
+    }
+
 }

@@ -7,9 +7,11 @@ using TMPro;
 public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 {
     public MonsterData Data;
+    public StatusEffectDisplay effectDisplay;
     private int currentHP;
     private int maxHP; // 스케일링된 최대 HP 저장
     private int defense = 0;
+    private Animator anim;
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
     [Header("UI")]
@@ -19,6 +21,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
     void Awake()
     {
+        anim = GetComponentInChildren<Animator>();
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
         maxHP = Mathf.RoundToInt(Data.maxHP * scale);
         currentHP = maxHP;
@@ -70,6 +73,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         defense = Mathf.Max(0, defense - dmg); // defense = 0 → 남은 방어막 유지
         currentHP -= finalDamage;
         currentHP = Mathf.Max(0, currentHP);
+        if (anim != null) anim.SetTrigger("Damage");
         Debug.Log($"몬스터 HP: {currentHP} (데미지: {finalDamage}, 남은 방어막: {defense})");
         UpdateUI();
         CheckReflect();
@@ -102,6 +106,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             activeEffects.Add(effect);
             Debug.Log($"{Data.monsterName}에게 {effect.effectName} 적용!");
         }
+        effectDisplay?.Refresh(activeEffects);
     }
 
     void CheckReflect()
@@ -126,6 +131,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
                 activeEffects.RemoveAt(i);
             }
         }
+        effectDisplay?.Refresh(activeEffects);
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -405,10 +411,12 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
         if (currentHP <= 0)
             Die();
+        PlayerEffectDisplay.Instance?.Refresh();
     }
     // 몬스터 사망 시 남은 몬스터를 계산할 때 사망 전에 검사하는 것을 수정함
     void Die()
     {
+        //if (anim != null) anim.SetTrigger("Die");
         Debug.Log("Die() 호출됨!");
         GoldManager.Instance.AddGold(Data.gold);
         gameObject.SetActive(false);
