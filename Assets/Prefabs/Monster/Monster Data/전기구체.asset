@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uC804\uAE30\uAD6C\uCCB4"
   m_EditorClassIdentifier: 
   monsterName: "\uC804\uAE30\uAD6C\uCCB4"
-  maxHP: 10000
+  maxHP: 150
   gold: 12
   actionPattern:
   - actionType: 0

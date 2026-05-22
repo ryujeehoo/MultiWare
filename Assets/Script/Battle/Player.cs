@@ -47,12 +47,6 @@ public class Player : MonoBehaviour, IEffectTarget
             return;
         }
 
-        if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
-        {
-            damage *= 0.8f;
-            Debug.Log($"약화 효과! 받는 피해 -20% → {damage}");
-        }
-
         int finalDamage = Mathf.Max(0, Mathf.RoundToInt(damage) - ConsumeDefense());
         currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
@@ -66,6 +60,7 @@ public class Player : MonoBehaviour, IEffectTarget
     public void ApplyEffect(Effect effect)
     {
         effect.Apply(this);
+        PlayerEffectDisplay.Instance?.Refresh();
     }
 
     public void ApplyEffect(StatusEffect effect)
@@ -117,6 +112,7 @@ public class Player : MonoBehaviour, IEffectTarget
                 activeEffects.RemoveAt(i);
             }
         }
+        PlayerEffectDisplay.Instance?.Refresh();
     }
 
     public void OnTurnStart()

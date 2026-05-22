@@ -160,7 +160,7 @@ public class TurnManager : MonoBehaviour
 
         foreach (var relic in Player.Instance.relics)
             relic.OnTurnStart(Player.Instance);
-
+        RefreshAllMonsterIntents();
         Debug.Log("플레이어 턴 시작");
     }
 
@@ -168,5 +168,13 @@ public class TurnManager : MonoBehaviour
     {
         inputBlocker.blocksRaycasts = block;
         inputBlocker.interactable = !block;
+    }
+    void RefreshAllMonsterIntents()
+    {
+        foreach (Monster m in SpawnManager.Instance.GetAliveMonsters())
+        {
+            EnemyController ec = m.GetComponent<EnemyController>();
+            if (ec != null) ec.RefreshIntentUI();
+        }
     }
 }

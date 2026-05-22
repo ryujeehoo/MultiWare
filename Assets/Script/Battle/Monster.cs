@@ -7,6 +7,7 @@ using TMPro;
 public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 {
     public MonsterData Data;
+    public StatusEffectDisplay effectDisplay;
     private int currentHP;
     private int maxHP; // 스케일링된 최대 HP 저장
     private int defense = 0;
@@ -105,6 +106,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             activeEffects.Add(effect);
             Debug.Log($"{Data.monsterName}에게 {effect.effectName} 적용!");
         }
+        effectDisplay?.Refresh(activeEffects);
     }
 
     void CheckReflect()
@@ -129,6 +131,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
                 activeEffects.RemoveAt(i);
             }
         }
+        effectDisplay?.Refresh(activeEffects);
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -408,6 +411,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
         if (currentHP <= 0)
             Die();
+        PlayerEffectDisplay.Instance?.Refresh();
     }
     // 몬스터 사망 시 남은 몬스터를 계산할 때 사망 전에 검사하는 것을 수정함
     void Die()

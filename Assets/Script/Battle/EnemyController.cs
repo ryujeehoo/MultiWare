@@ -22,7 +22,10 @@ public class EnemyController : MonoBehaviour
 
         Monster monster = GetComponent<Monster>();
         if (monster != null && monster.Data != null)
+        {
             data = monster.Data;
+            RefreshIntentUI();
+        }
         else
             Debug.LogError($"[{gameObject.name}] MonsterData가 없습니다!");
     }
@@ -332,5 +335,33 @@ public class EnemyController : MonoBehaviour
         Monster monster = GetComponent<Monster>();
         if (monster != null)
             monster.SelfDestruct();
+    }
+    public MonsterAction GetNextAction()
+    {
+        if (data == null || data.actionPattern.Count == 0) return null;
+
+        // HP 트리거 확인
+        if (data.hpTriggers != null)
+        {
+            Monster monster = GetComponent<Monster>();
+            if (monster != null)
+            {
+                for (int i = 0; i < data.hpTriggers.Count; i++)
+                {
+                    if (triggeredHPActions.Contains(i)) continue;
+                    if (monster.GetHPRatio() <= data.hpTriggers[i].hpThreshold)
+                        return data.hpTriggers[i].action;
+                }
+            }
+        }
+
+        return data.actionPattern[patternIndex];
+    }
+
+    public void RefreshIntentUI()
+    {
+        MonsterIntentUI ui = GetComponentInChildren<MonsterIntentUI>();
+        if (ui != null)
+            ui.UpdateIntent(GetNextAction(), turnCount, attackBonus);
     }
 }
