@@ -150,4 +150,28 @@ public class CardFan : MonoBehaviour
         cards = null;
         cardCount = 0;
     }
+    // 카드 리스트 반환
+    public List<GameObject> GetCardList()
+    {
+        if (cards == null) return new List<GameObject>();
+        List<GameObject> list = new List<GameObject>(cards);
+        list.RemoveAll(c => c == null);
+        return list;
+    }
+
+    // 카드 리스트 설정 후 재배치
+    public void SetCardList(List<GameObject> newCards)
+    {
+        cards = newCards.ToArray();
+        cardCount = cards.Length;
+
+        // Hierarchy 순서 변경
+        for (int i = 0; i < cards.Length; i++)
+        {
+            if (cards[i] != null)
+                cards[i].transform.SetSiblingIndex(i);
+        }
+
+        ArrangeCards();
+    }
 }

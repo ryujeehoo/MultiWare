@@ -41,25 +41,28 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
             containerOriginalPos = cardContainer.anchoredPosition;
         }
 
-        // CardData_csj 컴포넌트 찾기 및 설정
-        CardData_csj cardVisual = GetComponentInChildren<CardData_csj>();
-        if (cardVisual != null)
+        // 새 카드 이미지 직접 적용
+        if (data.cardSprite != null)
         {
-            cardVisual.suit = ConvertSuit(data.suit);
-            cardVisual.number = data.cardNumber;
-            cardVisual.SetupCard();
-            Debug.Log($"카드 설정 완료: {data.cardName}");
+            Transform cardFront = transform.Find("CardContainer/CardFront");
+            if (cardFront != null)
+            {
+                Image frontImage = cardFront.GetComponent<Image>();
+                if (frontImage != null)
+                {
+                    frontImage.sprite = data.cardSprite;
+                    Debug.Log($"이미지 적용: {data.cardName}");
+                }
+            }
+            else
+            {
+                Debug.Log("CardFront를 찾을 수 없습니다!");
+            }
         }
         else
         {
-            Debug.Log("CardData_csj 컴포넌트를 찾을 수 없습니다!");
+            Debug.Log($"cardSprite가 없습니다: {data.cardName}");
         }
-
-        // cardNameText 비활성화 코드 제거! ← 이 부분 삭제
-        // if (cardNameText == null)
-        //     cardNameText = GetComponentInChildren<TMP_Text>();
-        // if (cardNameText != null)
-        //     cardNameText.gameObject.SetActive(false);
     }
     // SuitType → Suit 변환
     private Suit ConvertSuit(SuitType suitType)

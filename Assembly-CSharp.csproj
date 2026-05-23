@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Script\Battle\Effect\IEffectTarget.cs" />
+    <Compile Include="Assets\Script\Card\CardSortManager.cs" />
     <Compile Include="Assets\Script\Battle\MonsterIntentUI.cs" />
     <Compile Include="Assets\Script\Battle\StatusEffectSlot.cs" />
     <Compile Include="Assets\Script\Battle\Relic\BonusByHandRankReli.cs" />
@@ -90,6 +91,7 @@
     <Compile Include="Assets\Script\GoldManager.cs" />
     <Compile Include="Assets\Script\Battle\Monster.cs" />
     <Compile Include="Assets\Script\Battle\TurnManager.cs" />
+    <Compile Include="Assets\Script\Card\CardSpriteAssigner.cs" />
     <Compile Include="Assets\Script\OutLine.cs" />
     <Compile Include="Assets\Script\CardFan.cs" />
     <Compile Include="Assets\Script\CardFanEditor.cs" />
