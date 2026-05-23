@@ -16,7 +16,7 @@ MonoBehaviour:
   description: 
   icon: {fileID: 0}
   triggers:
-  - triggerType: 0
+  - triggerType: 1
     conditionType: 0
     triggerRanks: 
     triggerSuit: 0

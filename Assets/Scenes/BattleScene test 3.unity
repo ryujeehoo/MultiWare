@@ -1274,7 +1274,7 @@ MonoBehaviour:
   spadeBonus: 1
   hasAttackedWhileShocked: 0
   relics:
-  - {fileID: 11400000, guid: 55fc1d62043ee4e4a8fa58a49136d1cc, type: 2}
+  - {fileID: 11400000, guid: 6b7f14b74b8e2d641827b29ec09cde0c, type: 2}
 --- !u!4 &262655207
 Transform:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GoldManager : MonoBehaviour
@@ -6,6 +7,7 @@ public class GoldManager : MonoBehaviour
     public static GoldManager Instance;
     private float goldMultiplier = 1.0f;
     public float diamondGoldMultiplier = 1.0f;
+
     [Header("골드 설정")]
     public int currentGold = 0;
 
@@ -14,30 +16,51 @@ public class GoldManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        // 씬 로드될 때마다 자동으로 goldText 재연결
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 새 씬에서 goldText 오브젝트 찾아서 재연결
+        GameObject goldUI = GameObject.Find("gold");
+        if (goldUI != null)
+            goldText = goldUI.GetComponent<TMP_Text>();
+
+        UpdateGoldUI();  // 재연결 후 즉시 UI 갱신
     }
 
     private void Start()
     {
-        currentGold = 30;  // ← 시작 골드 30G
+        currentGold = 30;
         UpdateGoldUI();
-        Debug.Log($"시작 골드: {currentGold}G");
     }
+
     public void AddGoldMultiplier(float amount)
     {
         goldMultiplier += amount;
-        Debug.Log($"골드 배율 추가! 현재 배율: {goldMultiplier}");
     }
-    // 골드 획득
+
     public void AddGold(int amount)
     {
         int finalGold = Mathf.RoundToInt(amount * goldMultiplier);
         currentGold += finalGold;
         UpdateGoldUI();
-        Debug.Log($"골드 획득! +{finalGold} / 현재 골드: {currentGold}");
     }
 
-    // 골드 사용
     public bool SpendGold(int amount)
     {
         if (currentGold < amount)
@@ -47,11 +70,9 @@ public class GoldManager : MonoBehaviour
         }
         currentGold -= amount;
         UpdateGoldUI();
-        Debug.Log($"골드 사용! -{amount} / 현재 골드: {currentGold}");
         return true;
     }
 
-    // UI 업데이트
     private void UpdateGoldUI()
     {
         if (goldText != null)

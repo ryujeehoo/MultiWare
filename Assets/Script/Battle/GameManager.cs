@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     {
         currentStage++; // 스테이지 증가
         Debug.Log($"전투 승리! 현재 스테이지: {currentStage}");
-        SceneManager.LoadScene("ShopScene");
+        SceneManager.LoadScene("ShopScene 1");
     }
 
     public void OnDefeat()
@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour
 
     public void OnShopDone()
     {
-        SceneManager.LoadScene("BattleScene");
+        SceneManager.LoadScene("BattleScene test 3");
     }
 
     public float GetStageScaling()

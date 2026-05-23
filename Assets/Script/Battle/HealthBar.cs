@@ -11,16 +11,32 @@ public class HealthBar : MonoBehaviour
 
     void OnEnable()
     {
-        if (player == null)
-            player = Player.Instance;
+        // Player.Instance가 없으면 잠깐 기다림
+        player = Player.Instance;
 
         if (player != null)
         {
+            player.OnHealthChanged -= UpdateHealth; // 중복 구독 방지
             player.OnHealthChanged += UpdateHealth;
-            UpdateHealth(player.currentHealth, player.maxHealth); // 즉시 반영
+            UpdateHealth(player.currentHealth, player.maxHealth);
+        }
+        else
+        {
+            // Instance가 아직 없으면 1프레임 후 재시도
+            StartCoroutine(WaitAndSubscribe());
         }
     }
-
+    private System.Collections.IEnumerator WaitAndSubscribe()
+    {
+        yield return null; // 1프레임 대기
+        player = Player.Instance;
+        if (player != null)
+        {
+            player.OnHealthChanged -= UpdateHealth;
+            player.OnHealthChanged += UpdateHealth;
+            UpdateHealth(player.currentHealth, player.maxHealth);
+        }
+    }
     void OnDisable()
     {
         if (player != null)

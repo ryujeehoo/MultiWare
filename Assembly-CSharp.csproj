@@ -116,11 +116,13 @@
     <Compile Include="Assets\Script\CardNotifier.cs" />
     <Compile Include="Assets\Script\Battle\MonsterAction.cs" />
     <Compile Include="Assets\Script\CardSelectionManager.cs" />
+    <Compile Include="Assets\Script\RelicShopItem.cs" />
     <Compile Include="Assets\Script\Card\SuitType.cs" />
     <Compile Include="Assets\Script\Card\CardData_csj.cs" />
     <Compile Include="Assets\Script\Card\CardView.cs" />
     <Compile Include="Assets\Script\Card\HandEvaluator.cs" />
     <Compile Include="Assets\Script\Battle\PlayerEffectDisplay.cs" />
+    <Compile Include="Assets\Script\ShopManager.cs" />
     <Compile Include="Assets\Script\Battle\Relic\GamblerDiceRelic.cs" />
     <Compile Include="Assets\Script\Battle\Effect\ShockEffect.cs" />
     <Compile Include="Assets\Script\Battle\HealthBar.cs" />

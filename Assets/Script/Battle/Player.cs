@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour, IEffectTarget
 {
@@ -15,7 +16,7 @@ public class Player : MonoBehaviour, IEffectTarget
     public System.Action<float, float> OnHealthChanged;
     public System.Action<int> OnGoldChanged;
     public List<Relic> relics = new List<Relic>();
-    public List<StatusEffect> activeEffects = new List<StatusEffect>(); 
+    public List<StatusEffect> activeEffects = new List<StatusEffect>();
 
     private void Awake()
     {
@@ -23,16 +24,25 @@ public class Player : MonoBehaviour, IEffectTarget
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            currentHealth = maxHealth;
+            SceneManager.sceneLoaded += OnSceneLoaded; // ← 추가
         }
         else
         {
             Destroy(gameObject);
         }
     }
-
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded; // ← 추가
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        OnHealthChanged?.Invoke(currentHealth, maxHealth);
+        OnGoldChanged?.Invoke(gold);
+    }
     void Start()
     {
-        currentHealth = maxHealth;
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         OnGoldChanged?.Invoke(gold);
         foreach (var relic in relics)
