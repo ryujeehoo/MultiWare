@@ -3107,7 +3107,6 @@ MonoBehaviour:
   bonusDrawCount: 0
   inputBlocker: {fileID: 1250875263}
   endTurnButton: {fileID: 109291161}
-  player: {fileID: 262655206}
   spawner: {fileID: 2025519043}
 --- !u!4 &1063112728
 Transform:
@@ -4285,7 +4284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diamondGoldMultiplier: 1
-  currentGold: 0
+  currentGold: 100
   goldText: {fileID: 138139249}
 --- !u!4 &1427514904
 Transform:

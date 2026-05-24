@@ -15,13 +15,24 @@ public class DeckManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
     {
-        InitializeDeck();
-        ShuffleDeck();
+        if (deck.Count == 0)
+        {
+            InitializeDeck();
+            ShuffleDeck();
+        }
     }
 
     // 덱 초기화 (52장 복사)

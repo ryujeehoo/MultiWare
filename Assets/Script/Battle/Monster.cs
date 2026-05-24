@@ -77,6 +77,8 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         Debug.Log($"몬스터 HP: {currentHP} (데미지: {finalDamage}, 남은 방어막: {defense})");
         UpdateUI();
         CheckReflect();
+        EnemyController ec = GetComponent<EnemyController>();
+        if (ec != null) ec.RefreshIntentUI();
     }
 
     public void ResetDefense()

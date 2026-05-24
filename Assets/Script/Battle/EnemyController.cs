@@ -4,9 +4,11 @@ using System.Collections.Generic;
 
 public class EnemyController : MonoBehaviour
 {
-    public Player player;
+    // player 필드 제거 → Player.Instance 프로퍼티로 통일
+    private Player Player => Player.Instance;
+
     private MonsterData data;
-    private Animator anim;  // ← 추가
+    private Animator anim;
     private int patternIndex = 0;
     private int turnCount = 0;
     private float attackBonus = 0f;
@@ -15,10 +17,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        anim = GetComponentInChildren<Animator>();  // ← 추가
-        player = FindAnyObjectByType<Player>();
-        if (player == null)
-            Debug.LogError($"[{gameObject.name}] Player를 찾을 수 없습니다!");
+        anim = GetComponentInChildren<Animator>();
 
         Monster monster = GetComponent<Monster>();
         if (monster != null && monster.Data != null)
@@ -53,7 +52,6 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        // HP 트리거 체크
         bool triggered = false;
         yield return StartCoroutine(CheckAndExecuteHPTriggers(result => triggered = result));
 
@@ -150,7 +148,7 @@ public class EnemyController : MonoBehaviour
     public IEnumerator DoAttack(float damage)
     {
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damage = damage * scale;
+        damage *= scale;
 
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
         {
@@ -159,9 +157,9 @@ public class EnemyController : MonoBehaviour
         }
 
         Debug.Log($"[{gameObject.name}] 공격! {damage} 데미지");
-        if (anim != null) anim.SetTrigger("Attack");  // ← 추가
+        if (anim != null) anim.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
-        new DamageEffect(damage).Apply(player);
+        new DamageEffect(damage).Apply(Player); // ← Player.Instance
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -177,21 +175,27 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"[{gameObject.name}] 독 공격! {duration}턴");
         yield return new WaitForSeconds(1f);
-        player.ApplyEffect(new PoisonEffect(duration));
+        Player.ApplyEffect(new PoisonEffect(duration)); // ← Player.Instance
         yield return new WaitForSeconds(0.5f);
     }
 
     public IEnumerator DoMultiAttack(float damage, int count)
     {
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damage = damage * scale;
+        damage *= scale;
+
+        if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
+        {
+            damage *= 0.8f;
+            Debug.Log($"약화! 공격력 -20% → {damage}");
+        }
 
         Debug.Log($"[{gameObject.name}] 멀티 어택! {damage} 데미지 x {count}회");
         for (int i = 0; i < count; i++)
         {
-            if (anim != null) anim.SetTrigger("Attack");  // ← 추가
+            if (anim != null) anim.SetTrigger("Attack");
             yield return new WaitForSeconds(0.5f);
-            new DamageEffect(damage).Apply(player);
+            new DamageEffect(damage).Apply(Player);
             Debug.Log($"[{gameObject.name}] {i + 1}번째 공격! {damage} 데미지");
             yield return new WaitForSeconds(0.3f);
         }
@@ -237,7 +241,7 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"[{gameObject.name}] 속박! 드로우 -1 ({duration}턴)");
         yield return new WaitForSeconds(1f);
-        player.ApplyEffect(new BindEffect(duration));
+        Player.ApplyEffect(new BindEffect(duration)); // ← Player.Instance
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -245,18 +249,28 @@ public class EnemyController : MonoBehaviour
     {
         Debug.Log($"[{gameObject.name}] 감전! {duration}턴");
         yield return new WaitForSeconds(1f);
-        player.ApplyEffect(new ShockEffect(duration));
+        Player.ApplyEffect(new ShockEffect(duration)); // ← Player.Instance
         yield return new WaitForSeconds(0.5f);
     }
 
     public IEnumerator DoAllyDefend(float amount)
     {
+        // 자신 제외 살아있는 아군 확인
+        List<Monster> allies = SpawnManager.Instance.GetAliveMonsters()
+            .FindAll(m => m != null && m.gameObject != null && m.gameObject != gameObject);
+
+        // 아군이 없으면 그냥 스킵
+        if (allies.Count == 0)
+        {
+            Debug.Log($"[{gameObject.name}] 아군이 없어 방어막 부여 스킵!");
+            yield break;
+        }
+
         Debug.Log($"[{gameObject.name}] 아군 전체 방어막 {amount} 부여!");
         yield return new WaitForSeconds(1f);
 
-        foreach (Monster monster in SpawnManager.Instance.GetAliveMonsters())
+        foreach (Monster monster in allies)
         {
-            if (monster.gameObject == gameObject) continue;
             monster.AddDefense((int)amount);
             Debug.Log($"{monster.Data.monsterName}에게 방어막 {amount} 부여!");
         }
@@ -267,23 +281,23 @@ public class EnemyController : MonoBehaviour
     public IEnumerator DoAttackAndEffect(float damage, AttackEffectType effectType, int duration)
     {
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damage = damage * scale;
+        damage *= scale;
 
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
             damage *= 0.8f;
 
         Debug.Log($"[{gameObject.name}] 공격 + {effectType}! {damage} 데미지");
         yield return new WaitForSeconds(1f);
-        new DamageEffect(damage).Apply(player);
+        new DamageEffect(damage).Apply(Player); // ← Player.Instance
 
         switch (effectType)
         {
             case AttackEffectType.Poison:
-                player.ApplyEffect(new PoisonEffect(duration));
+                Player.ApplyEffect(new PoisonEffect(duration)); // ← Player.Instance
                 Debug.Log($"독 {duration}턴 부여!");
                 break;
             case AttackEffectType.Shock:
-                player.ApplyEffect(new ShockEffect(duration));
+                Player.ApplyEffect(new ShockEffect(duration)); // ← Player.Instance
                 Debug.Log($"감전 {duration}턴 부여!");
                 break;
         }
@@ -298,11 +312,12 @@ public class EnemyController : MonoBehaviour
 
         Debug.Log($"[{gameObject.name}] 반사 방어! 반사 {reflectDamage} / 방어막 {reflectDefense}");
         yield return new WaitForSeconds(1f);
-        monster.ApplyEffect(new ReflectEffect(reflectDamage)); // duration 제거
+        monster.ApplyEffect(new ReflectEffect(reflectDamage));
         if (reflectDefense > 0)
             monster.AddDefense(reflectDefense);
         yield return new WaitForSeconds(0.5f);
     }
+
     IEnumerator DoStackUp(int amount)
     {
         actionStack += amount;
@@ -313,34 +328,47 @@ public class EnemyController : MonoBehaviour
     IEnumerator DoStackAttack(float damagePerStack)
     {
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damagePerStack = damagePerStack * scale;
+        damagePerStack *= scale;
+
+        if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
+        {
+            damagePerStack *= 0.8f;
+            Debug.Log($"약화! 공격력 -20% → {damagePerStack}");
+        }
 
         int totalDamage = (int)damagePerStack * actionStack;
         Debug.Log($"[{gameObject.name}] 스택 공격! {damagePerStack} × {actionStack} = {totalDamage} 데미지");
         yield return new WaitForSeconds(1f);
-        new DamageEffect(totalDamage).Apply(player);
+        new DamageEffect(totalDamage).Apply(Player);
         actionStack = 0;
         yield return new WaitForSeconds(0.5f);
     }
+
     IEnumerator DoSelfDestruct(float damage)
     {
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damage = damage * scale;
+        damage *= scale;
+
+        if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
+        {
+            damage *= 0.8f;
+            Debug.Log($"약화! 공격력 -20% → {damage}");
+        }
 
         Debug.Log($"[{gameObject.name}] 자폭! {damage} 데미지");
         yield return new WaitForSeconds(1f);
-        new DamageEffect(damage).Apply(player);
+        new DamageEffect(damage).Apply(Player);
         yield return new WaitForSeconds(0.5f);
 
         Monster monster = GetComponent<Monster>();
         if (monster != null)
             monster.SelfDestruct();
     }
+
     public MonsterAction GetNextAction()
     {
         if (data == null || data.actionPattern.Count == 0) return null;
 
-        // HP 트리거 확인
         if (data.hpTriggers != null)
         {
             Monster monster = GetComponent<Monster>();

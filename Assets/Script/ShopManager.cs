@@ -16,11 +16,14 @@ public class ShopManager : MonoBehaviour
 
     [Header("UI")]
     public Button continueButton;
-
+    [Header("카드 삭제 슬롯")]
+    public CardDeleteShopItem cardDeleteSlot;
+    public int cardDeletePrice = 80;
     void Start()
     {
         GenerateShop();
         continueButton.onClick.AddListener(OnClickContinue);
+        cardDeleteSlot.Setup(cardDeletePrice);
     }
 
     void GenerateShop()

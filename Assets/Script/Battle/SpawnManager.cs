@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance { get; private set; }
-    public List<Monster> GetAliveMonsters() => aliveMonsters;
+    public List<Monster> GetAliveMonsters() => aliveMonsters.FindAll(m => m != null && m.gameObject != null);
     [Header("컴포넌트 연결")]
     public MonsterSpawner spawner;
 

@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bfa11abe6b946941857808fae9f505f, type: 3}
-  m_Name: numberRemoveRelicTest
+  m_Script: {fileID: 11500000, guid: d53936f168881be49b810322d653d5c0, type: 3}
+  m_Name: SpadeRemove
   m_EditorClassIdentifier: 
-  relicName: NumberRemove
+  relicName: 
   description: 
-  numbersToRemove: 0e00000002000000030000000400000005000000060000000700000008000000
+  icon: {fileID: 0}
+  suitToRemove: 0
