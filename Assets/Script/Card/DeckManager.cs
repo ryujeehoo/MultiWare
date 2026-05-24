@@ -10,6 +10,9 @@ public class DeckManager : MonoBehaviour
 
     private List<CardData> deck = new List<CardData>();    // 현재 덱
 
+    // 사용된 카드 목록 추가
+    private List<CardData> usedCards = new List<CardData>();
+
     private void Awake()
     {
         Instance = this;
@@ -46,6 +49,7 @@ public class DeckManager : MonoBehaviour
     }
 
     // 카드 한 장 뽑기
+    // DrawCard() 수정 - 사용된 카드 추적
     public CardData DrawCard()
     {
         if (deck.Count == 0)
@@ -53,10 +57,11 @@ public class DeckManager : MonoBehaviour
             Debug.Log("덱이 비었습니다! 다시 셔플합니다.");
             InitializeDeck();
             ShuffleDeck();
+            usedCards.Clear(); // 리셔플 시 사용된 카드 초기화
         }
-
         CardData drawnCard = deck[0];
         deck.RemoveAt(0);
+        usedCards.Add(drawnCard); // 사용된 카드에 추가
         Debug.Log($"카드 드로우: {drawnCard.cardName} (남은 덱: {deck.Count}장)");
         return drawnCard;
     }
@@ -94,5 +99,16 @@ public class DeckManager : MonoBehaviour
         int removed = allCards.RemoveAll(card => card.suit == suit && card.cardNumber == number);
         deck.RemoveAll(card => card.suit == suit && card.cardNumber == number);
         Debug.Log($"{suit} {number} 카드 {removed}장 제거됨");
+    }
+    // 카드가 사용됐는지 확인
+    public bool IsCardUsed(CardData card)
+    {
+        return usedCards.Contains(card);
+    }
+
+    // 사용된 카드 목록 반환
+    public List<CardData> GetUsedCards()
+    {
+        return usedCards;
     }
 }
