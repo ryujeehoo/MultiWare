@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class EnemyController : MonoBehaviour
 {
-    // player ÇÊµå Á¦°Å ¡æ Player.Instance ÇÁ·ÎÆÛÆ¼·Î ÅëÀÏ
+    // player ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Player.Instance ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private Player Player => Player.Instance;
 
     private MonsterData data;
@@ -26,14 +26,14 @@ public class EnemyController : MonoBehaviour
             RefreshIntentUI();
         }
         else
-            Debug.LogError($"[{gameObject.name}] MonsterData°¡ ¾ø½À´Ï´Ù!");
+            Debug.LogError($"[{gameObject.name}] MonsterDataï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
     }
 
     public IEnumerator EnemyAction()
     {
         if (data == null || data.actionPattern.Count == 0)
         {
-            Debug.LogError($"[{gameObject.name}] ÆÐÅÏÀÌ ¾ø½À´Ï´Ù!");
+            Debug.LogError($"[{gameObject.name}] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
             yield break;
         }
 
@@ -42,13 +42,13 @@ public class EnemyController : MonoBehaviour
             int random = Random.Range(0, 2);
             if (random == 0)
             {
-                Debug.Log("°øÈ²! ÀûÀÌ È¥¶õ½º·¯¿ö °ø°ÝÇÏÁö ¸øÇß´Ù!");
+                Debug.Log("ï¿½ï¿½È²! ï¿½ï¿½ï¿½ï¿½ È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß´ï¿½!");
                 yield return new WaitForSeconds(1f);
                 yield break;
             }
             else
             {
-                Debug.Log("°øÈ²! ÀûÀÌ È¥¶õ½º·´Áö¸¸ °ø°ÝÇß´Ù!");
+                Debug.Log("ï¿½ï¿½È²! ï¿½ï¿½ï¿½ï¿½ È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½!");
             }
         }
 
@@ -80,7 +80,7 @@ public class EnemyController : MonoBehaviour
             if (hpRatio <= data.hpTriggers[i].hpThreshold)
             {
                 triggeredHPActions.Add(i);
-                Debug.Log($"{data.monsterName} HP Æ®¸®°Å ¹ßµ¿! ¿ø·¡ ÆÐÅÏÀº ´ÙÀ½ ÅÏÀ¸·Î");
+                Debug.Log($"{data.monsterName} HP Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ßµï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
                 yield return StartCoroutine(ExecuteAction(data.hpTriggers[i].action));
                 result(true);
                 yield break;
@@ -145,6 +145,14 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void TriggerAttackAnim()
+    {
+        if (anim == null) return;
+        anim.SetTrigger("Attack");
+        if (CombatAnimator.Instance != null)
+            StartCoroutine(CombatAnimator.Instance.MonsterAttackPunch(anim.transform));
+    }
+
     public IEnumerator DoAttack(float damage)
     {
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
@@ -153,19 +161,19 @@ public class EnemyController : MonoBehaviour
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
         {
             damage *= 0.8f;
-            Debug.Log($"¾àÈ­! °ø°Ý·Â -20% ¡æ {damage}");
+            Debug.Log($"ï¿½ï¿½È­! ï¿½ï¿½ï¿½Ý·ï¿½ -20% ï¿½ï¿½ {damage}");
         }
 
-        Debug.Log($"[{gameObject.name}] °ø°Ý! {damage} µ¥¹ÌÁö");
-        if (anim != null) anim.SetTrigger("Attack");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½ï¿½ï¿½! {damage} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        TriggerAttackAnim();
         yield return new WaitForSeconds(1f);
-        new DamageEffect(damage).Apply(Player); // ¡ç Player.Instance
+        new DamageEffect(damage).Apply(Player); // ï¿½ï¿½ Player.Instance
         yield return new WaitForSeconds(0.5f);
     }
 
     public IEnumerator DoDefend(float amount)
     {
-        Debug.Log($"[{gameObject.name}] ¹æ¾î! {amount} ¹æ¾î·Â");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½ï¿½! {amount} ï¿½ï¿½ï¿½ï¿½");
         yield return new WaitForSeconds(1f);
         GetComponent<Monster>().AddDefense((int)amount);
         yield return new WaitForSeconds(0.5f);
@@ -173,9 +181,9 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator DoPoison(int duration)
     {
-        Debug.Log($"[{gameObject.name}] µ¶ °ø°Ý! {duration}ÅÏ");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½! {duration}ï¿½ï¿½");
         yield return new WaitForSeconds(1f);
-        Player.ApplyEffect(new PoisonEffect(duration)); // ¡ç Player.Instance
+        Player.ApplyEffect(new PoisonEffect(duration)); // ï¿½ï¿½ Player.Instance
         yield return new WaitForSeconds(0.5f);
     }
 
@@ -187,16 +195,16 @@ public class EnemyController : MonoBehaviour
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
         {
             damage *= 0.8f;
-            Debug.Log($"¾àÈ­! °ø°Ý·Â -20% ¡æ {damage}");
+            Debug.Log($"ï¿½ï¿½È­! ï¿½ï¿½ï¿½Ý·ï¿½ -20% ï¿½ï¿½ {damage}");
         }
 
-        Debug.Log($"[{gameObject.name}] ¸ÖÆ¼ ¾îÅÃ! {damage} µ¥¹ÌÁö x {count}È¸");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½Æ¼ ï¿½ï¿½ï¿½ï¿½! {damage} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ x {count}È¸");
         for (int i = 0; i < count; i++)
         {
-            if (anim != null) anim.SetTrigger("Attack");
+            TriggerAttackAnim();
             yield return new WaitForSeconds(0.5f);
             new DamageEffect(damage).Apply(Player);
-            Debug.Log($"[{gameObject.name}] {i + 1}¹øÂ° °ø°Ý! {damage} µ¥¹ÌÁö");
+            Debug.Log($"[{gameObject.name}] {i + 1}ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½! {damage} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             yield return new WaitForSeconds(0.3f);
         }
     }
@@ -205,11 +213,11 @@ public class EnemyController : MonoBehaviour
     {
         if (prefab == null || count <= 0)
         {
-            Debug.LogWarning($"[{gameObject.name}] ¼ÒÈ¯ Á¶°Ç ¹ÌÃæÁ·");
+            Debug.LogWarning($"[{gameObject.name}] ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
             yield break;
         }
 
-        Debug.Log($"[{gameObject.name}] {prefab.name} {count}¸¶¸® ¼ÒÈ¯!");
+        Debug.Log($"[{gameObject.name}] {prefab.name} {count}ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯!");
         yield return new WaitForSeconds(1f);
 
         for (int i = 0; i < count; i++)
@@ -222,7 +230,7 @@ public class EnemyController : MonoBehaviour
     public IEnumerator DoBuffAttack(float amount)
     {
         attackBonus += amount;
-        Debug.Log($"[{gameObject.name}] °ø°Ý·Â +{amount} Áõ°¡! ÇöÀç º¸³Ê½º: {attackBonus}");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½ï¿½Ý·ï¿½ +{amount} ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ê½ï¿½: {attackBonus}");
         yield return new WaitForSeconds(1f);
     }
 
@@ -231,7 +239,7 @@ public class EnemyController : MonoBehaviour
         Monster monster = GetComponent<Monster>();
         if (monster == null) yield break;
 
-        Debug.Log($"[{gameObject.name}] HP {amount} È¸º¹!");
+        Debug.Log($"[{gameObject.name}] HP {amount} È¸ï¿½ï¿½!");
         yield return new WaitForSeconds(1f);
         monster.Heal((int)amount);
         yield return new WaitForSeconds(0.5f);
@@ -239,40 +247,40 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator DoBind(int duration)
     {
-        Debug.Log($"[{gameObject.name}] ¼Ó¹Ú! µå·Î¿ì -1 ({duration}ÅÏ)");
+        Debug.Log($"[{gameObject.name}] ï¿½Ó¹ï¿½! ï¿½ï¿½Î¿ï¿½ -1 ({duration}ï¿½ï¿½)");
         yield return new WaitForSeconds(1f);
-        Player.ApplyEffect(new BindEffect(duration)); // ¡ç Player.Instance
+        Player.ApplyEffect(new BindEffect(duration)); // ï¿½ï¿½ Player.Instance
         yield return new WaitForSeconds(0.5f);
     }
 
     public IEnumerator DoShock(int duration)
     {
-        Debug.Log($"[{gameObject.name}] °¨Àü! {duration}ÅÏ");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½ï¿½ï¿½! {duration}ï¿½ï¿½");
         yield return new WaitForSeconds(1f);
-        Player.ApplyEffect(new ShockEffect(duration)); // ¡ç Player.Instance
+        Player.ApplyEffect(new ShockEffect(duration)); // ï¿½ï¿½ Player.Instance
         yield return new WaitForSeconds(0.5f);
     }
 
     public IEnumerator DoAllyDefend(float amount)
     {
-        // ÀÚ½Å Á¦¿Ü »ì¾ÆÀÖ´Â ¾Æ±º È®ÀÎ
+        // ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ ï¿½Æ±ï¿½ È®ï¿½ï¿½
         List<Monster> allies = SpawnManager.Instance.GetAliveMonsters()
             .FindAll(m => m != null && m.gameObject != null && m.gameObject != gameObject);
 
-        // ¾Æ±ºÀÌ ¾øÀ¸¸é ±×³É ½ºÅµ
+        // ï¿½Æ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×³ï¿½ ï¿½ï¿½Åµ
         if (allies.Count == 0)
         {
-            Debug.Log($"[{gameObject.name}] ¾Æ±ºÀÌ ¾ø¾î ¹æ¾î¸· ºÎ¿© ½ºÅµ!");
+            Debug.Log($"[{gameObject.name}] ï¿½Æ±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î¸· ï¿½Î¿ï¿½ ï¿½ï¿½Åµ!");
             yield break;
         }
 
-        Debug.Log($"[{gameObject.name}] ¾Æ±º ÀüÃ¼ ¹æ¾î¸· {amount} ºÎ¿©!");
+        Debug.Log($"[{gameObject.name}] ï¿½Æ±ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½î¸· {amount} ï¿½Î¿ï¿½!");
         yield return new WaitForSeconds(1f);
 
         foreach (Monster monster in allies)
         {
             monster.AddDefense((int)amount);
-            Debug.Log($"{monster.Data.monsterName}¿¡°Ô ¹æ¾î¸· {amount} ºÎ¿©!");
+            Debug.Log($"{monster.Data.monsterName}ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î¸· {amount} ï¿½Î¿ï¿½!");
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -286,19 +294,20 @@ public class EnemyController : MonoBehaviour
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
             damage *= 0.8f;
 
-        Debug.Log($"[{gameObject.name}] °ø°Ý + {effectType}! {damage} µ¥¹ÌÁö");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½ï¿½ï¿½ + {effectType}! {damage} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        TriggerAttackAnim();
         yield return new WaitForSeconds(1f);
-        new DamageEffect(damage).Apply(Player); // ¡ç Player.Instance
+        new DamageEffect(damage).Apply(Player); // ï¿½ï¿½ Player.Instance
 
         switch (effectType)
         {
             case AttackEffectType.Poison:
-                Player.ApplyEffect(new PoisonEffect(duration)); // ¡ç Player.Instance
-                Debug.Log($"µ¶ {duration}ÅÏ ºÎ¿©!");
+                Player.ApplyEffect(new PoisonEffect(duration)); // ï¿½ï¿½ Player.Instance
+                Debug.Log($"ï¿½ï¿½ {duration}ï¿½ï¿½ ï¿½Î¿ï¿½!");
                 break;
             case AttackEffectType.Shock:
-                Player.ApplyEffect(new ShockEffect(duration)); // ¡ç Player.Instance
-                Debug.Log($"°¨Àü {duration}ÅÏ ºÎ¿©!");
+                Player.ApplyEffect(new ShockEffect(duration)); // ï¿½ï¿½ Player.Instance
+                Debug.Log($"ï¿½ï¿½ï¿½ï¿½ {duration}ï¿½ï¿½ ï¿½Î¿ï¿½!");
                 break;
         }
 
@@ -310,7 +319,7 @@ public class EnemyController : MonoBehaviour
         Monster monster = GetComponent<Monster>();
         if (monster == null) yield break;
 
-        Debug.Log($"[{gameObject.name}] ¹Ý»ç ¹æ¾î! ¹Ý»ç {reflectDamage} / ¹æ¾î¸· {reflectDefense}");
+        Debug.Log($"[{gameObject.name}] ï¿½Ý»ï¿½ ï¿½ï¿½ï¿½! ï¿½Ý»ï¿½ {reflectDamage} / ï¿½ï¿½î¸· {reflectDefense}");
         yield return new WaitForSeconds(1f);
         monster.ApplyEffect(new ReflectEffect(reflectDamage));
         if (reflectDefense > 0)
@@ -321,7 +330,7 @@ public class EnemyController : MonoBehaviour
     IEnumerator DoStackUp(int amount)
     {
         actionStack += amount;
-        Debug.Log($"[{gameObject.name}] ½ºÅÃ +{amount}! ÇöÀç ½ºÅÃ: {actionStack}");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½ï¿½ï¿½ +{amount}! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {actionStack}");
         yield return new WaitForSeconds(1f);
     }
 
@@ -333,11 +342,12 @@ public class EnemyController : MonoBehaviour
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
         {
             damagePerStack *= 0.8f;
-            Debug.Log($"¾àÈ­! °ø°Ý·Â -20% ¡æ {damagePerStack}");
+            Debug.Log($"ï¿½ï¿½È­! ï¿½ï¿½ï¿½Ý·ï¿½ -20% ï¿½ï¿½ {damagePerStack}");
         }
 
         int totalDamage = (int)damagePerStack * actionStack;
-        Debug.Log($"[{gameObject.name}] ½ºÅÃ °ø°Ý! {damagePerStack} ¡¿ {actionStack} = {totalDamage} µ¥¹ÌÁö");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½! {damagePerStack} ï¿½ï¿½ {actionStack} = {totalDamage} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        TriggerAttackAnim();
         yield return new WaitForSeconds(1f);
         new DamageEffect(totalDamage).Apply(Player);
         actionStack = 0;
@@ -352,10 +362,11 @@ public class EnemyController : MonoBehaviour
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
         {
             damage *= 0.8f;
-            Debug.Log($"¾àÈ­! °ø°Ý·Â -20% ¡æ {damage}");
+            Debug.Log($"ï¿½ï¿½È­! ï¿½ï¿½ï¿½Ý·ï¿½ -20% ï¿½ï¿½ {damage}");
         }
 
-        Debug.Log($"[{gameObject.name}] ÀÚÆø! {damage} µ¥¹ÌÁö");
+        Debug.Log($"[{gameObject.name}] ï¿½ï¿½ï¿½ï¿½! {damage} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        TriggerAttackAnim();
         yield return new WaitForSeconds(1f);
         new DamageEffect(damage).Apply(Player);
         yield return new WaitForSeconds(0.5f);

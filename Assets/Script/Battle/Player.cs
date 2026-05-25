@@ -12,7 +12,7 @@ public class Player : MonoBehaviour, IEffectTarget
     public float healMultiplier = 1.0f;
     public float heartHealMultiplier = 1.0f;
     public float spadeBonus = 1.0f;
-    public bool hasAttackedWhileShocked = false; // °¨Àü Áß Ã¹ °ø°Ý ¿©ºÎ
+    public bool hasAttackedWhileShocked = false; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Ã¹ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public System.Action<float, float> OnHealthChanged;
     public System.Action<int> OnGoldChanged;
     public List<Relic> relics = new List<Relic>();
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour, IEffectTarget
             Instance = this;
             DontDestroyOnLoad(gameObject);
             currentHealth = maxHealth;
-            SceneManager.sceneLoaded += OnSceneLoaded; // ¡ç Ãß°¡
+            SceneManager.sceneLoaded += OnSceneLoaded; // ï¿½ï¿½ ï¿½ß°ï¿½
         }
         else
         {
@@ -34,7 +34,7 @@ public class Player : MonoBehaviour, IEffectTarget
     }
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded; // ¡ç Ãß°¡
+        SceneManager.sceneLoaded -= OnSceneLoaded; // ï¿½ï¿½ ï¿½ß°ï¿½
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -53,13 +53,20 @@ public class Player : MonoBehaviour, IEffectTarget
     {
         if (BattleManager.Instance != null && BattleManager.Instance.IsInvincible())
         {
-            Debug.Log("¹«Àû! ÇÇÇØ 0");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ 0");
             return;
         }
 
         int finalDamage = Mathf.Max(0, Mathf.RoundToInt(damage) - ConsumeDefense());
         currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+
+        if (finalDamage > 0)
+        {
+            CombatAnimator.Instance?.ShakeScreen();
+            CombatAnimator.Instance?.PlayerDamageFlash();
+            DamageNumber.Spawn(transform.position, finalDamage);
+        }
 
         foreach (var relic in relics)
             relic.OnTakeDamage(this, finalDamage);
@@ -79,23 +86,23 @@ public class Player : MonoBehaviour, IEffectTarget
 
         if (existing != null && existing is PoisonEffect existingPoison && effect is PoisonEffect newPoison)
         {
-            existingPoison.stack += newPoison.stack; // Áö¼Ó ÅÏ ÇÕ»ê
-            Debug.Log($"µ¶ ÁßÃ¸! ³²Àº ÅÏ: {existingPoison.stack}");
+            existingPoison.stack += newPoison.stack; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Õ»ï¿½
+            Debug.Log($"ï¿½ï¿½ ï¿½ï¿½Ã¸! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: {existingPoison.stack}");
         }
         else if (existing != null && existing is ShockEffect existingShock && effect is ShockEffect newShock)
         {
             existingShock.stack += newShock.stack;
-            Debug.Log($"°¨Àü ÁßÃ¸! ÇöÀç ÁßÃ¸: {existingShock.stack}");
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¸! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¸: {existingShock.stack}");
         }
         else if (existing != null && existing is BindEffect existingBind && effect is BindEffect newBind)
         {
             existingBind.stack += newBind.stack;
-            Debug.Log($"¼Ó¹Ú ÁßÃ¸! ÇöÀç ÁßÃ¸: {existingBind.stack}");
+            Debug.Log($"ï¿½Ó¹ï¿½ ï¿½ï¿½Ã¸! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¸: {existingBind.stack}");
         }
         else
         {
             activeEffects.Add(effect);
-            Debug.Log($"ÇÃ·¹ÀÌ¾î¿¡°Ô {effect.effectName} Àû¿ë!");
+            Debug.Log($"ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ {effect.effectName} ï¿½ï¿½ï¿½ï¿½!");
         }
     }
 
@@ -118,7 +125,7 @@ public class Player : MonoBehaviour, IEffectTarget
             activeEffects[i].OnTurnEnd(this);
             if (activeEffects[i].IsExpired())
             {
-                Debug.Log($"{activeEffects[i].effectName} È¿°ú Á¾·á!");
+                Debug.Log($"{activeEffects[i].effectName} È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½!");
                 activeEffects.RemoveAt(i);
             }
         }
@@ -135,7 +142,7 @@ public class Player : MonoBehaviour, IEffectTarget
     public void AddHealMultiplier(float amount)
     {
         healMultiplier += amount;
-        Debug.Log($"È¸º¹ ¹èÀ² Ãß°¡! ÇöÀç ¹èÀ²: {healMultiplier}");
+        Debug.Log($"È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {healMultiplier}");
     }
 
     public void Heal(float amount)
@@ -144,13 +151,13 @@ public class Player : MonoBehaviour, IEffectTarget
         currentHealth += Mathf.RoundToInt(finalHeal);
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        Debug.Log($"ÇÃ·¹ÀÌ¾î HP È¸º¹! +{Mathf.RoundToInt(finalHeal)} ÇöÀç HP: {currentHealth}");
+        Debug.Log($"ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ HP È¸ï¿½ï¿½! +{Mathf.RoundToInt(finalHeal)} ï¿½ï¿½ï¿½ï¿½ HP: {currentHealth}");
     }
 
     public void AddDefense(int amount)
     {
         defense += amount;
-        Debug.Log($"¹æ¾î¸· +{amount} (ÇöÀç: {defense})");
+        Debug.Log($"ï¿½ï¿½î¸· +{amount} (ï¿½ï¿½ï¿½ï¿½: {defense})");
     }
 
     public int ConsumeDefense()
@@ -174,7 +181,7 @@ public class Player : MonoBehaviour, IEffectTarget
 
         if (hasAttackedWhileShocked)
         {
-            Debug.Log("[°¨Àü] µÎ ¹øÂ° °ø°Ý! ÇÏÀÌÄ«µå·Î °­Á¦ °è»ê");
+            Debug.Log("[ï¿½ï¿½ï¿½ï¿½] ï¿½ï¿½ ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½Ä«ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
             return true;
         }
 
@@ -189,18 +196,18 @@ public class Player : MonoBehaviour, IEffectTarget
     {
         if (activeEffects.Count == 0)
         {
-            Debug.Log("[»óÅÂÀÌ»ó] ¾øÀ½");
+            Debug.Log("[ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½] ï¿½ï¿½ï¿½ï¿½");
             return;
         }
 
         foreach (var effect in activeEffects)
         {
             if (effect is PoisonEffect poison)
-                Debug.Log($"[»óÅÂÀÌ»ó] µ¶ - ³²Àº ÅÏ: {poison.stack}");
+                Debug.Log($"[ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½] ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: {poison.stack}");
             else if (effect is ShockEffect shock)
-                Debug.Log($"[»óÅÂÀÌ»ó] °¨Àü - ³²Àº ÅÏ: {shock.stack}");
+                Debug.Log($"[ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½] ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: {shock.stack}");
             else if (effect is BindEffect bind)
-                Debug.Log($"[»óÅÂÀÌ»ó] ¼Ó¹Ú - ³²Àº ÅÏ: {bind.stack}");
+                Debug.Log($"[ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½] ï¿½Ó¹ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½: {bind.stack}");
         }
     }
 }

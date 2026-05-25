@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -73,11 +74,29 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         currentHP -= finalDamage;
         currentHP = Mathf.Max(0, currentHP);
         if (anim != null) anim.SetTrigger("Damage");
+        if (finalDamage > 0)
+        {
+            StartCoroutine(HitFlashCoroutine());
+            DamageNumber.Spawn(transform.position + Vector3.up * 0.5f, finalDamage);
+        }
         Debug.Log($"몬스터 HP: {currentHP} (데미지: {finalDamage}, 남은 방어막: {defense})");
         UpdateUI();
         CheckReflect();
         EnemyController ec = GetComponent<EnemyController>();
         if (ec != null) ec.RefreshIntentUI();
+    }
+
+    IEnumerator HitFlashCoroutine()
+    {
+        SpriteRenderer[] srs = GetComponentsInChildren<SpriteRenderer>();
+        Color[] origColors = new Color[srs.Length];
+        for (int i = 0; i < srs.Length; i++) origColors[i] = srs[i].color;
+
+        Color flash = new Color(1f, 0.3f, 0.3f);
+        foreach (var sr in srs) sr.color = flash;
+        yield return new WaitForSeconds(0.15f);
+        for (int i = 0; i < srs.Length; i++)
+            if (srs[i] != null) srs[i].color = origColors[i];
     }
 
     public void ResetDefense()
