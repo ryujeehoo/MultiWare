@@ -14,6 +14,10 @@ public class CombatAnimator : MonoBehaviour
     public float punchDuration = 0.08f;
     public float punchScale = 1.2f;
 
+    [Header("Monster Hit Shake")]
+    public float hitShakeMagnitude = 0.12f;
+    public float hitShakeDuration = 0.35f;
+
     private Canvas _canvas;
     private bool _shaking;
 
@@ -52,6 +56,22 @@ public class CombatAnimator : MonoBehaviour
         }
         cam.transform.localPosition = origin;
         _shaking = false;
+    }
+
+    // 몬스터 피격 시 Y축 흔들림
+    public IEnumerator MonsterHitShake(Transform visual)
+    {
+        if (visual == null) yield break;
+
+        Vector3 origin = visual.localPosition;
+        for (float t = 0f; t < hitShakeDuration; t += Time.deltaTime)
+        {
+            float decay = 1f - (t / hitShakeDuration);
+            float y = Mathf.Sin(t * Mathf.PI * 20f) * hitShakeMagnitude * decay;
+            visual.localPosition = origin + new Vector3(0f, y, 0f);
+            yield return null;
+        }
+        visual.localPosition = origin;
     }
 
     // 몬스터 공격 시 시각적 펀치 효과 (찌그러짐 → 원복)

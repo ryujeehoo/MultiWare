@@ -73,7 +73,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         defense = Mathf.Max(0, defense - dmg); // defense = 0 → 남은 방어막 유지
         currentHP -= finalDamage;
         currentHP = Mathf.Max(0, currentHP);
-        if (anim != null) anim.SetTrigger("Damage");
         if (finalDamage > 0)
         {
             StartCoroutine(HitFlashCoroutine());
@@ -84,6 +83,23 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         CheckReflect();
         EnemyController ec = GetComponent<EnemyController>();
         if (ec != null) ec.RefreshIntentUI();
+    }
+
+    IEnumerator HitShakeCoroutine()
+    {
+        // anim.transform은 Animator가 매 프레임 덮어쓰므로 루트 transform을 사용
+        Vector3 origin = transform.localPosition;
+        float duration = 0.35f;
+        float magnitude = 0.18f;
+
+        for (float t = 0f; t < duration; t += Time.deltaTime)
+        {
+            float decay = 1f - (t / duration);
+            float y = Mathf.Sin(t * Mathf.PI * 20f) * magnitude * decay;
+            transform.localPosition = origin + new Vector3(0f, y, 0f);
+            yield return null;
+        }
+        transform.localPosition = origin;
     }
 
     IEnumerator HitFlashCoroutine()
@@ -413,6 +429,9 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     }
     public void ReceiveCardBundle(HandResult result, List<CardData> cards)
     {
+        // 플레이어 공격 시 Damage 애니메이션 트리거 (흔들림은 Animation Clip이 처리)
+        if (anim != null) anim.SetTrigger("Damage");
+
         foreach (var relic in Player.Instance.relics)
             relic.OnAttack(Player.Instance, cards, this, result);
 
