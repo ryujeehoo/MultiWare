@@ -111,7 +111,6 @@
     <Compile Include="Assets\Script\TitleScreen.cs" />
     <Compile Include="Assets\Script\Battle\Relic\RelicTestHelper.cs" />
     <Compile Include="Assets\Script\Card\CardRerollManager.cs" />
-    <Compile Include="Assets\Script\Battle\DamageNumber.cs" />
     <Compile Include="Assets\Script\Battle\Effect\BindEffect.cs" />
     <Compile Include="Assets\Script\Battle\GameManager.cs" />
     <Compile Include="Assets\Script\Battle\StatusEffectDisplay.cs" />
@@ -125,7 +124,6 @@
     <Compile Include="Assets\Script\Card\SuitType.cs" />
     <Compile Include="Assets\Script\Card\CardData_csj.cs" />
     <Compile Include="Assets\Script\Card\CardView.cs" />
-    <Compile Include="Assets\Script\Battle\CombatAnimator.cs" />
     <Compile Include="Assets\Script\Card\HandEvaluator.cs" />
     <Compile Include="Assets\Script\Battle\PlayerEffectDisplay.cs" />
     <Compile Include="Assets\Script\ShopManager.cs" />

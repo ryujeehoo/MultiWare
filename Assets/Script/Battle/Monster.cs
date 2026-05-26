@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -73,46 +72,12 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         defense = Mathf.Max(0, defense - dmg); // defense = 0 → 남은 방어막 유지
         currentHP -= finalDamage;
         currentHP = Mathf.Max(0, currentHP);
-        if (finalDamage > 0)
-        {
-            StartCoroutine(HitFlashCoroutine());
-            DamageNumber.Spawn(transform.position + Vector3.up * 0.5f, finalDamage);
-        }
+        if (anim != null) anim.SetTrigger("Damage");
         Debug.Log($"몬스터 HP: {currentHP} (데미지: {finalDamage}, 남은 방어막: {defense})");
         UpdateUI();
         CheckReflect();
         EnemyController ec = GetComponent<EnemyController>();
         if (ec != null) ec.RefreshIntentUI();
-    }
-
-    IEnumerator HitShakeCoroutine()
-    {
-        // anim.transform은 Animator가 매 프레임 덮어쓰므로 루트 transform을 사용
-        Vector3 origin = transform.localPosition;
-        float duration = 0.35f;
-        float magnitude = 0.18f;
-
-        for (float t = 0f; t < duration; t += Time.deltaTime)
-        {
-            float decay = 1f - (t / duration);
-            float y = Mathf.Sin(t * Mathf.PI * 20f) * magnitude * decay;
-            transform.localPosition = origin + new Vector3(0f, y, 0f);
-            yield return null;
-        }
-        transform.localPosition = origin;
-    }
-
-    IEnumerator HitFlashCoroutine()
-    {
-        SpriteRenderer[] srs = GetComponentsInChildren<SpriteRenderer>();
-        Color[] origColors = new Color[srs.Length];
-        for (int i = 0; i < srs.Length; i++) origColors[i] = srs[i].color;
-
-        Color flash = new Color(1f, 0.3f, 0.3f);
-        foreach (var sr in srs) sr.color = flash;
-        yield return new WaitForSeconds(0.15f);
-        for (int i = 0; i < srs.Length; i++)
-            if (srs[i] != null) srs[i].color = origColors[i];
     }
 
     public void ResetDefense()
@@ -429,9 +394,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     }
     public void ReceiveCardBundle(HandResult result, List<CardData> cards)
     {
-        // 플레이어 공격 시 Damage 애니메이션 트리거 (흔들림은 Animation Clip이 처리)
-        if (anim != null) anim.SetTrigger("Damage");
-
         foreach (var relic in Player.Instance.relics)
             relic.OnAttack(Player.Instance, cards, this, result);
 

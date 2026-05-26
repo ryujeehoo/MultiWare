@@ -61,13 +61,6 @@ public class Player : MonoBehaviour, IEffectTarget
         currentHealth -= finalDamage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        if (finalDamage > 0)
-        {
-            CombatAnimator.Instance?.ShakeScreen();
-            CombatAnimator.Instance?.PlayerDamageFlash();
-            DamageNumber.Spawn(transform.position, finalDamage);
-        }
-
         foreach (var relic in relics)
             relic.OnTakeDamage(this, finalDamage);
 

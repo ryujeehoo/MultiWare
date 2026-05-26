@@ -145,14 +145,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    void TriggerAttackAnim()
-    {
-        if (anim == null) return;
-        anim.SetTrigger("Attack");
-        if (CombatAnimator.Instance != null)
-            StartCoroutine(CombatAnimator.Instance.MonsterAttackPunch(anim.transform));
-    }
-
     public IEnumerator DoAttack(float damage)
     {
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
@@ -165,7 +157,7 @@ public class EnemyController : MonoBehaviour
         }
 
         Debug.Log($"[{gameObject.name}] ����! {damage} ������");
-        TriggerAttackAnim();
+        if (anim != null) anim.SetTrigger("Attack");
         yield return new WaitForSeconds(1f);
         new DamageEffect(damage).Apply(Player); // �� Player.Instance
         yield return new WaitForSeconds(0.5f);
@@ -201,7 +193,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log($"[{gameObject.name}] ��Ƽ ����! {damage} ������ x {count}ȸ");
         for (int i = 0; i < count; i++)
         {
-            TriggerAttackAnim();
+            if (anim != null) anim.SetTrigger("Attack");
             yield return new WaitForSeconds(0.5f);
             new DamageEffect(damage).Apply(Player);
             Debug.Log($"[{gameObject.name}] {i + 1}��° ����! {damage} ������");
@@ -295,7 +287,6 @@ public class EnemyController : MonoBehaviour
             damage *= 0.8f;
 
         Debug.Log($"[{gameObject.name}] ���� + {effectType}! {damage} ������");
-        TriggerAttackAnim();
         yield return new WaitForSeconds(1f);
         new DamageEffect(damage).Apply(Player); // �� Player.Instance
 
@@ -347,7 +338,6 @@ public class EnemyController : MonoBehaviour
 
         int totalDamage = (int)damagePerStack * actionStack;
         Debug.Log($"[{gameObject.name}] ���� ����! {damagePerStack} �� {actionStack} = {totalDamage} ������");
-        TriggerAttackAnim();
         yield return new WaitForSeconds(1f);
         new DamageEffect(totalDamage).Apply(Player);
         actionStack = 0;
@@ -366,7 +356,6 @@ public class EnemyController : MonoBehaviour
         }
 
         Debug.Log($"[{gameObject.name}] ����! {damage} ������");
-        TriggerAttackAnim();
         yield return new WaitForSeconds(1f);
         new DamageEffect(damage).Apply(Player);
         yield return new WaitForSeconds(0.5f);
