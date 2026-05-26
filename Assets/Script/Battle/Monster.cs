@@ -18,7 +18,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     public Image hpBar;
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI defenseText;
-
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();

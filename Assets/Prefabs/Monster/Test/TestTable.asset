@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TestTable
   m_EditorClassIdentifier: 
   encounters:
-  - {fileID: 11400000, guid: 26653c5c34c92cf40997f68b76003e7d, type: 2}
+  - {fileID: 11400000, guid: c673dfb238db0f84a87bdab3dbd8cccc, type: 2}
