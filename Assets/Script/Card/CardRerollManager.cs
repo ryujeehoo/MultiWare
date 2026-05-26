@@ -37,12 +37,25 @@ public class CardRerollManager : MonoBehaviour
         {
             // 리롤 모드 ON
             isRerollMode = true;
+
+            // 기존 전투 선택 카드 초기화!
+            if (CardSelectManager.Instance != null)
+                CardSelectManager.Instance.ClearSelected();
+
+            // 기존에 선택된 카드들 위치 초기화
+            CardView[] allCards = FindObjectsByType<CardView>(FindObjectsSortMode.None);
+            foreach (CardView cv in allCards)
+            {
+                if (cv.isSelected)
+                    cv.ToggleSelect(); // 선택 해제
+            }
+
             Debug.Log("리롤 모드 ON! 리롤할 카드를 선택하세요.");
             UpdateButtonText();
         }
         else
         {
-            // 리롤 모드 OFF + 리롤 실행
+            // 나머지 기존 코드 유지
             if (selectedForReroll.Count == 0)
             {
                 Debug.Log("리롤할 카드를 선택하세요!");
@@ -53,18 +66,15 @@ public class CardRerollManager : MonoBehaviour
 
             int totalCost = rerollCost * selectedForReroll.Count;
 
-            // 골드 확인
             if (GoldManager.Instance.currentGold < totalCost)
             {
                 Debug.Log($"골드 부족! 필요: {totalCost}G");
                 return;
             }
 
-            // 골드 소모
             GoldManager.Instance.SpendGold(totalCost);
             Debug.Log($"리롤! -{totalCost}G / {selectedForReroll.Count}장 교체");
 
-            // 카드 제거
             int rerollCount = selectedForReroll.Count;
             List<CardView> cardsToRemove = new List<CardView>(selectedForReroll);
             selectedForReroll.Clear();
@@ -80,7 +90,6 @@ public class CardRerollManager : MonoBehaviour
                 }
             }
 
-            // 새 카드 드로우
             if (CardDealAnimator.Instance != null && TurnManager.Instance != null)
                 TurnManager.Instance.StartCoroutine(
                     CardDealAnimator.Instance.DealCardsAnimation(rerollCount));
