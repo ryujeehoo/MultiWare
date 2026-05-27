@@ -19,6 +19,7 @@ public class MonsterIntentUI : MonoBehaviour
     public Sprite iconBuff;
     public Sprite iconSelfDestruct;
     public Sprite iconStack;
+    public Sprite iconLurk;
     public Sprite iconUnknown;
 
     // UpdateIntent 시그니처에 actionStack 추가
@@ -116,6 +117,10 @@ public class MonsterIntentUI : MonoBehaviour
             case ActionType.StackUp:
                 intentIcon.sprite = iconStack;
                 intentText.text = $"Stack +{(int)action.GetValue(turnCount)}";
+                break;
+            case ActionType.Lurk:
+                intentIcon.sprite = iconLurk;
+                intentText.text = "Lurk";
                 break;
             default:
                 intentIcon.sprite = iconUnknown;

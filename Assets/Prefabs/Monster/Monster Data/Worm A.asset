@@ -16,17 +16,14 @@ MonoBehaviour:
   maxHP: 70
   gold: 15
   actionPattern:
-  - actionType: 1
-    value: 999
+  - actionType: 15
+    value: 0
     scaleWithTurn: 0
     scaleAmount: 0
     attackCount: 0
     summonPrefab: {fileID: 0}
-    poisonStack: 0
-    shockDamagePerActivation: 0
-    shockDuration: 0
+    effectDuration: 2
     attackEffectType: 0
-    attackPoisonStack: 0
     reflectDamage: 0
     reflectDefense: 0
   - actionType: 0
@@ -35,11 +32,8 @@ MonoBehaviour:
     scaleAmount: 0
     attackCount: 0
     summonPrefab: {fileID: 0}
-    poisonStack: 0
-    shockDamagePerActivation: 0
-    shockDuration: 0
+    effectDuration: 2
     attackEffectType: 0
-    attackPoisonStack: 0
     reflectDamage: 0
     reflectDefense: 0
   hpTriggers:
@@ -51,11 +45,7 @@ MonoBehaviour:
       scaleAmount: 0
       attackCount: 2
       summonPrefab: {fileID: 0}
-      poisonStack: 0
-      shockDamagePerActivation: 0
-      shockDuration: 0
+      effectDuration: 2
       attackEffectType: 0
-      attackPoisonStack: 0
       reflectDamage: 0
       reflectDefense: 0
-  allyDeathTriggers: []

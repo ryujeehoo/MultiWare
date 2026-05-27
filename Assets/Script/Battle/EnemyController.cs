@@ -141,6 +141,9 @@ public class EnemyController : MonoBehaviour
             case ActionType.SelfDestruct:
                 yield return StartCoroutine(DoSelfDestruct(action.GetValue(turnCount)));
                 break;
+            case ActionType.Lurk:
+                yield return StartCoroutine(DoLurk());
+                break;
         }
     }
 
@@ -362,7 +365,16 @@ public class EnemyController : MonoBehaviour
         if (monster != null)
             monster.SelfDestruct();
     }
+    IEnumerator DoLurk()
+    {
+        Monster monster = GetComponent<Monster>();
+        if (monster == null) yield break;
 
+        Debug.Log($"[{gameObject.name}] 땅속 잠복! 이번 턴 모든 데미지 무효");
+        monster.isLurking = true;
+        monster.effectDisplay?.SetLurk(true); // ← 추가
+        yield return new WaitForSeconds(1f);
+    }
     public MonsterAction GetNextAction()
     {
         if (data == null || data.actionPattern.Count == 0) return null;

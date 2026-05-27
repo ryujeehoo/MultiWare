@@ -386,7 +386,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -23.1, y: 102.7}
-  m_SizeDelta: {x: 29.9892, y: 23.6247}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2959487141815673555
 CanvasRenderer:
@@ -632,6 +632,7 @@ MonoBehaviour:
   iconBuff: {fileID: 0}
   iconSelfDestruct: {fileID: 0}
   iconStack: {fileID: 0}
+  iconLurk: {fileID: 21300000, guid: 58d2a9a818c273142a2c7f55c6b6781e, type: 3}
   iconUnknown: {fileID: 0}
 --- !u!114 &5110425526005678259
 MonoBehaviour:
@@ -647,12 +648,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotPrefab: {fileID: 2487289457357313855, guid: 218d485ede928754da3cd448ba1d27a0, type: 3}
   slotParent: {fileID: 8959627518695698090}
-  iconPoison: {fileID: 0}
-  iconReflect: {fileID: 0}
-  iconWeaken: {fileID: 0}
-  iconExpose: {fileID: 0}
-  iconPanic: {fileID: 0}
-  iconSlow: {fileID: 0}
+  iconPoison: {fileID: 3657713767976644297, guid: 993173607fc76474b8374e9b1faa179c, type: 3}
+  iconReflect: {fileID: 21300000, guid: a36d29c6f7e4efa44afe54bdc42a4452, type: 3}
+  iconLurk: {fileID: 21300000, guid: 58d2a9a818c273142a2c7f55c6b6781e, type: 3}
+  iconWeaken: {fileID: 21300000, guid: c3efccf41fe59e74396dede312f42541, type: 3}
+  iconExpose: {fileID: 21300000, guid: 67e7e19e9f3e9734ca4054cb160ff03a, type: 3}
+  iconPanic: {fileID: 21300000, guid: 379027a4ccdabc24187e648914a3fc74, type: 3}
+  iconSlow: {fileID: 21300000, guid: 44fc211b6a6473946bb2a8c34ac37b29, type: 3}
+  iconStack: {fileID: 0}
 --- !u!1001 &6576336512903269512
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,7 +1,11 @@
 using UnityEngine;
 
-public enum ActionType { Attack, Defend, Poison, MultiAttack, Summon, AttackBuff, Heal, Bind, Shock, AllyDefend, AttackAndEffect, Reflect, StackUp, StackAttack, SelfDestruct }
-
+public enum ActionType
+{
+    Attack, Defend, Poison, MultiAttack, Summon, AttackBuff,
+    Heal, Bind, Shock, AllyDefend, AttackAndEffect, Reflect,
+    StackUp, StackAttack, SelfDestruct, Lurk // ¡ç Ãß°¡
+}
 public enum AttackEffectType { None, Poison, Shock }
 
 [System.Serializable]

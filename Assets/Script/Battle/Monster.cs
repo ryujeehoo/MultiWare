@@ -18,6 +18,8 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     public Image hpBar;
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI defenseText;
+
+    [HideInInspector] public bool isLurking = false;
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
@@ -67,6 +69,11 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
     public void TakeDamage(float damage)
     {
+        if (isLurking)
+        {
+            Debug.Log($"[{gameObject.name}] 잠복 중 - 데미지 무효!");
+            return;
+        }
         int dmg = Mathf.RoundToInt(damage);
         int finalDamage = Mathf.Max(0, dmg - defense);
         defense = Mathf.Max(0, defense - dmg); // defense = 0 → 남은 방어막 유지
@@ -96,6 +103,11 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
     public void ApplyEffect(StatusEffect effect)
     {
+        if (isLurking)
+        {
+            Debug.Log($"[{gameObject.name}] 잠복 중 - 상태이상 무효!");
+            return;
+        }
         StatusEffect existing = activeEffects.Find(e => e.effectName == effect.effectName);
         if (existing != null && existing is PoisonEffect existingPoison && effect is PoisonEffect newPoison)
         {
@@ -238,7 +250,12 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
         // 클로버: 버프/디버프
         if (cloverCount > 0)
-            ApplyCloverEffect(cloverRatio);
+        {
+            if (isLurking)
+                Debug.Log($"[{gameObject.name}] 잠복 중 - 클로버 효과 무효!");
+            else
+                ApplyCloverEffect(cloverRatio);
+        }
     }
     void ApplyCloverEffect(float ratio)
     {

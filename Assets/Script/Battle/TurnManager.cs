@@ -81,14 +81,16 @@ public class TurnManager : MonoBehaviour
         SetInputBlock(true);
         endTurnButton.interactable = false;
         Debug.Log("적 턴 시작");
-
         Player.LogActiveEffects();
-        // ↑ Player.Instance로 올바른 플레이어 참조
         Player.TickEffects();
 
         Monster[] monsters = FindObjectsByType<Monster>(FindObjectsSortMode.None);
         foreach (Monster monster in monsters)
+        {
             monster.ResetDefense();
+            monster.isLurking = false;
+            monster.effectDisplay?.SetLurk(false); // ← 추가
+        }
 
         if (BattleManager.Instance != null && BattleManager.Instance.isSlowed)
         {

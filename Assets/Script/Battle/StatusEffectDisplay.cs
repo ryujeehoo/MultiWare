@@ -12,6 +12,7 @@ public class StatusEffectDisplay : MonoBehaviour
     [Header("개별 상태이상 아이콘")]
     public Sprite iconPoison;
     public Sprite iconReflect;
+    public Sprite iconLurk;
 
     [Header("전체 디버프 아이콘")]
     public Sprite iconWeaken;
@@ -25,6 +26,7 @@ public class StatusEffectDisplay : MonoBehaviour
     private List<StatusEffectSlot> slots = new List<StatusEffectSlot>();
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
     private int currentStack = 0; // ← 추가
+    private bool isLurking = false;
 
     void Awake()
     {
@@ -42,7 +44,11 @@ public class StatusEffectDisplay : MonoBehaviour
         currentStack = stack;
         Refresh();
     }
-
+    public void SetLurk(bool lurking) // ← 추가
+    {
+        isLurking = lurking;
+        Refresh();
+    }
     public void Refresh(List<StatusEffect> effects = null)
     {
         if (effects != null)
@@ -73,7 +79,8 @@ public class StatusEffectDisplay : MonoBehaviour
             if (bm.isPanicked) ShowSlot(ref index, iconPanic, 1);
             if (bm.isSlowed) ShowSlot(ref index, iconSlow, 1);
         }
-
+        if (isLurking)
+            ShowSlot(ref index, iconLurk, 0);
         // ← 스택 슬롯 추가
         if (currentStack > 0)
             ShowSlot(ref index, iconStack, currentStack);
