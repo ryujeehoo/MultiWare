@@ -12,7 +12,7 @@ public class Player : MonoBehaviour, IEffectTarget
     public float healMultiplier = 1.0f;
     public float heartHealMultiplier = 1.0f;
     public float spadeBonus = 1.0f;
-    public bool hasAttackedWhileShocked = false; // ���� �� ù ���� ����
+    public bool hasAttackedWhileShocked = false; // 감전 중 첫 공격 여부
     public System.Action<float, float> OnHealthChanged;
     public System.Action<int> OnGoldChanged;
     public List<Relic> relics = new List<Relic>();
@@ -26,22 +26,25 @@ public class Player : MonoBehaviour, IEffectTarget
             Instance = this;
             DontDestroyOnLoad(gameObject);
             currentHealth = maxHealth;
-            SceneManager.sceneLoaded += OnSceneLoaded; // �� �߰�
+            SceneManager.sceneLoaded += OnSceneLoaded;
         }
         else
         {
             Destroy(gameObject);
         }
     }
+
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded; // �� �߰�
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         OnGoldChanged?.Invoke(gold);
     }
+
     void Start()
     {
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
@@ -61,7 +64,6 @@ public class Player : MonoBehaviour, IEffectTarget
 
         int dmg = Mathf.RoundToInt(damage);
 
-        // 방어막 먼저 적용
         if (defense > 0)
         {
             int absorbed = Mathf.Min(defense, dmg);
@@ -71,7 +73,6 @@ public class Player : MonoBehaviour, IEffectTarget
             Debug.Log($"방어막 흡수! 남은 방어막: {defense} / 남은 데미지: {dmg}");
         }
 
-        // 남은 데미지 HP에 적용
         if (dmg > 0)
         {
             currentHealth -= dmg;
@@ -96,26 +97,25 @@ public class Player : MonoBehaviour, IEffectTarget
 
         if (existing != null && existing is PoisonEffect existingPoison && effect is PoisonEffect newPoison)
         {
-            existingPoison.stack += newPoison.stack; // ���� �� �ջ�
-            Debug.Log($"�� ��ø! ���� ��: {existingPoison.stack}");
+            existingPoison.stack += newPoison.stack; // 독 중첩 합산
+            Debug.Log($"독 중첩! 현재 스택: {existingPoison.stack}");
         }
         else if (existing != null && existing is ShockEffect existingShock && effect is ShockEffect newShock)
         {
             existingShock.stack += newShock.stack;
-            Debug.Log($"���� ��ø! ���� ��ø: {existingShock.stack}");
+            Debug.Log($"감전 중첩! 현재 중첩: {existingShock.stack}");
         }
         else if (existing != null && existing is BindEffect existingBind && effect is BindEffect newBind)
         {
             existingBind.stack += newBind.stack;
-            Debug.Log($"�ӹ� ��ø! ���� ��ø: {existingBind.stack}");
+            Debug.Log($"속박 중첩! 현재 중첩: {existingBind.stack}");
         }
         else
         {
             activeEffects.Add(effect);
-            Debug.Log($"�÷��̾�� {effect.effectName} ����!");
+            Debug.Log($"플레이어에게 {effect.effectName} 부여!");
         }
     }
-
 
     public int GetBindReduction()
     {
@@ -135,7 +135,7 @@ public class Player : MonoBehaviour, IEffectTarget
             activeEffects[i].OnTurnEnd(this);
             if (activeEffects[i].IsExpired())
             {
-                Debug.Log($"{activeEffects[i].effectName} ȿ�� ����!");
+                Debug.Log($"{activeEffects[i].effectName} 효과 종료!");
                 activeEffects.RemoveAt(i);
             }
         }
@@ -152,7 +152,7 @@ public class Player : MonoBehaviour, IEffectTarget
     public void AddHealMultiplier(float amount)
     {
         healMultiplier += amount;
-        Debug.Log($"ȸ�� ���� �߰�! ���� ����: {healMultiplier}");
+        Debug.Log($"회복 배율 추가! 현재 배율: {healMultiplier}");
     }
 
     public void Heal(float amount)
@@ -161,7 +161,7 @@ public class Player : MonoBehaviour, IEffectTarget
         currentHealth += Mathf.RoundToInt(finalHeal);
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
-        Debug.Log($"�÷��̾� HP ȸ��! +{Mathf.RoundToInt(finalHeal)} ���� HP: {currentHealth}");
+        Debug.Log($"플레이어 HP 회복! +{Mathf.RoundToInt(finalHeal)} 현재 HP: {currentHealth}");
     }
 
     public void AddDefense(int amount)
@@ -177,6 +177,7 @@ public class Player : MonoBehaviour, IEffectTarget
         defense = 0;
         return current;
     }
+
     public bool IsShocked()
     {
         foreach (var effect in activeEffects)
@@ -186,41 +187,42 @@ public class Player : MonoBehaviour, IEffectTarget
         }
         return false;
     }
+
     public bool ShouldForceHighCard()
     {
         if (!IsShocked()) return false;
 
         if (hasAttackedWhileShocked)
         {
-            Debug.Log("[����] �� ��° ����! ����ī��� ���� ���");
+            Debug.Log("[감전] 두 번째 공격! 높은카드로 강제 변환");
             return true;
         }
 
         hasAttackedWhileShocked = true;
         return false;
     }
+
     public bool WillForceHighCard()
     {
         return IsShocked() && hasAttackedWhileShocked;
     }
+
     public void LogActiveEffects()
     {
         if (activeEffects.Count == 0)
         {
-            Debug.Log("[�����̻�] ����");
+            Debug.Log("[상태이상] 없음");
             return;
         }
 
         foreach (var effect in activeEffects)
         {
             if (effect is PoisonEffect poison)
-                Debug.Log($"[�����̻�] �� - ���� ��: {poison.stack}");
+                Debug.Log($"[상태이상] 독 - 현재 스택: {poison.stack}");
             else if (effect is ShockEffect shock)
-                Debug.Log($"[�����̻�] ���� - ���� ��: {shock.stack}");
+                Debug.Log($"[상태이상] 감전 - 현재 스택: {shock.stack}");
             else if (effect is BindEffect bind)
-                Debug.Log($"[�����̻�] �ӹ� - ���� ��: {bind.stack}");
+                Debug.Log($"[상태이상] 속박 - 현재 스택: {bind.stack}");
         }
     }
-
-   
 }

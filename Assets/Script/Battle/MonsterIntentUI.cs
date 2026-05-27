@@ -21,7 +21,8 @@ public class MonsterIntentUI : MonoBehaviour
     public Sprite iconStack;
     public Sprite iconUnknown;
 
-    public void UpdateIntent(MonsterAction action, int turnCount, float attackBonus)
+    // UpdateIntent 시그니처에 actionStack 추가
+    public void UpdateIntent(MonsterAction action, int turnCount, float attackBonus, int actionStack = 0)
     {
         if (action == null)
         {
@@ -56,9 +57,10 @@ public class MonsterIntentUI : MonoBehaviour
 
             case ActionType.StackAttack:
                 intentIcon.sprite = iconAttack;
-                intentText.text = "Stack Attack";
+                int dmgPerStack = Mathf.RoundToInt(action.GetValue(turnCount) * scale * weakenMultiplier);
+                int stackDmg = dmgPerStack * actionStack;
+                intentText.text = $"{dmgPerStack}×{actionStack} = {stackDmg}";
                 break;
-
             case ActionType.SelfDestruct:
                 intentIcon.sprite = iconSelfDestruct;
                 int sdDmg = Mathf.RoundToInt(action.GetValue(turnCount) * scale * weakenMultiplier);
@@ -115,7 +117,6 @@ public class MonsterIntentUI : MonoBehaviour
                 intentIcon.sprite = iconStack;
                 intentText.text = $"Stack +{(int)action.GetValue(turnCount)}";
                 break;
-
             default:
                 intentIcon.sprite = iconUnknown;
                 intentText.text = "?";

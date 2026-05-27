@@ -15,6 +15,7 @@ MonoBehaviour:
   relicName: "\uB3C4\uBC15\uC0AC\uC758 \uC2DC\uACC4"
   description: "\uB9E4 \uC790\uC2E0 \uD134 \uC2DC\uC791 \uC2DC \uC871\uBCF4 \uBC30\uC728
     +0.2 (\uCD5C\uB300 3\uD68C \uC911\uCCA9)"
+  icon: {fileID: -7549077266280165721, guid: 6418aa3c6aa4a2e44a094075d303c40a, type: 3}
   triggers:
   - triggerType: 2
     conditionType: 0

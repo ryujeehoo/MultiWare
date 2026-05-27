@@ -6686,7 +6686,7 @@ MonoBehaviour:
   - {fileID: 1173321317}
   - {fileID: 272103097}
   - {fileID: 1141904225}
-  encounterTable: {fileID: 11400000, guid: b9cb782eae83ce94e9ecebf4eeed28d1, type: 2}
+  encounterTable: {fileID: 11400000, guid: 4c16719f0cc1e2541a7e45b6600fe305, type: 2}
 --- !u!4 &2025519044
 Transform:
   m_ObjectHideFlags: 0

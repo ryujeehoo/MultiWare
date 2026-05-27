@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   relicName: 
   description: 
+  icon: {fileID: 9096825790442072588, guid: ccd14ab62e998a54286a1173dcce2e72, type: 3}
   triggers:
   - triggerType: 3
     conditionType: 1

@@ -19,8 +19,12 @@ public class StatusEffectDisplay : MonoBehaviour
     public Sprite iconPanic;
     public Sprite iconSlow;
 
+    [Header("스택 아이콘")]
+    public Sprite iconStack; // ← 추가
+
     private List<StatusEffectSlot> slots = new List<StatusEffectSlot>();
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
+    private int currentStack = 0; // ← 추가
 
     void Awake()
     {
@@ -30,6 +34,12 @@ public class StatusEffectDisplay : MonoBehaviour
     void OnEnable()
     {
         Debug.Log($"[StatusEffectDisplay] OnEnable 호출됨 - {gameObject.name}");
+        Refresh();
+    }
+
+    public void SetStack(int stack) // ← 추가
+    {
+        currentStack = stack;
         Refresh();
     }
 
@@ -46,19 +56,14 @@ public class StatusEffectDisplay : MonoBehaviour
         foreach (var effect in activeEffects)
         {
             if (effect.IsExpired()) continue;
-
             Sprite icon = null;
             int stack = 0;
-
             if (effect is PoisonEffect p) { icon = iconPoison; stack = p.stack; }
             if (effect is ReflectEffect) { icon = iconReflect; stack = 0; }
-            else continue; // PoisonEffect도 ReflectEffect도 아니면 스킵
-
-            // icon null이어도 일단 슬롯 표시
+            else continue;
             ShowSlot(ref index, icon, stack);
         }
 
-        // BattleManager 디버프
         var bm = BattleManager.Instance;
         if (bm != null)
         {
@@ -68,6 +73,10 @@ public class StatusEffectDisplay : MonoBehaviour
             if (bm.isPanicked) ShowSlot(ref index, iconPanic, 1);
             if (bm.isSlowed) ShowSlot(ref index, iconSlow, 1);
         }
+
+        // ← 스택 슬롯 추가
+        if (currentStack > 0)
+            ShowSlot(ref index, iconStack, currentStack);
     }
 
     void ShowSlot(ref int index, Sprite icon, int stack)
