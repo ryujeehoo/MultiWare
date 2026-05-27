@@ -197,25 +197,27 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         float diamondRatio = (float)diamondCount / 5f;
         float cloverRatio = (float)cloverCount / 5f;
 
+        // 하트: 방어막 부여 (HP 회복 → 방어막으로 변경)
         if (heartCount > 0)
         {
-            float healAmount = 0f;
+            int shieldAmount = 0;
 
-            if (heartRatio >= 1.0f) healAmount = 45f;
-            else if (heartRatio >= 0.8f) healAmount = 30f;
-            else if (heartRatio >= 0.6f) healAmount = 20f;
-            else if (heartRatio >= 0.4f) healAmount = 12f;
-            else if (heartRatio >= 0.2f) healAmount = 5f;
+            if (heartRatio >= 1.0f) shieldAmount = 45;
+            else if (heartRatio >= 0.8f) shieldAmount = 30;
+            else if (heartRatio >= 0.6f) shieldAmount = 20;
+            else if (heartRatio >= 0.4f) shieldAmount = 12;
+            else if (heartRatio >= 0.2f) shieldAmount = 5;
 
-            if (healAmount > 0)
+            if (shieldAmount > 0)
             {
                 Player player = FindFirstObjectByType<Player>();
                 if (player != null)
-                    player.Heal(healAmount * player.heartHealMultiplier);
-                Debug.Log($"하트 회복 +{healAmount * player.heartHealMultiplier} HP");
+                    player.AddDefense(shieldAmount);
+                Debug.Log($"하트 방어막 +{shieldAmount}");
             }
         }
 
+        // 다이아: 골드 획득
         if (diamondCount > 0)
         {
             int goldAmount = 0;
@@ -234,10 +236,10 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             }
         }
 
+        // 클로버: 버프/디버프
         if (cloverCount > 0)
             ApplyCloverEffect(cloverRatio);
     }
-
     void ApplyCloverEffect(float ratio)
     {
         if (ratio <= 0) return;

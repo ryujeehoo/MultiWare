@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IEffectTarget
     public System.Action<int> OnGoldChanged;
     public List<Relic> relics = new List<Relic>();
     public List<StatusEffect> activeEffects = new List<StatusEffect>();
+    public System.Action<int> OnDefenseChanged;
 
     private void Awake()
     {
@@ -51,18 +52,34 @@ public class Player : MonoBehaviour, IEffectTarget
 
     public void TakeDamage(float damage)
     {
-        if (BattleManager.Instance != null && BattleManager.Instance.IsInvincible())
+        if (BattleManager.Instance != null &&
+            BattleManager.Instance.IsInvincible())
         {
-            Debug.Log("����! ���� 0");
+            Debug.Log("무적! 피해 0");
             return;
         }
 
-        int finalDamage = Mathf.Max(0, Mathf.RoundToInt(damage) - ConsumeDefense());
-        currentHealth -= finalDamage;
-        currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        int dmg = Mathf.RoundToInt(damage);
+
+        // 방어막 먼저 적용
+        if (defense > 0)
+        {
+            int absorbed = Mathf.Min(defense, dmg);
+            defense -= absorbed;
+            dmg -= absorbed;
+            OnDefenseChanged?.Invoke(defense);
+            Debug.Log($"방어막 흡수! 남은 방어막: {defense} / 남은 데미지: {dmg}");
+        }
+
+        // 남은 데미지 HP에 적용
+        if (dmg > 0)
+        {
+            currentHealth -= dmg;
+            currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+        }
 
         foreach (var relic in relics)
-            relic.OnTakeDamage(this, finalDamage);
+            relic.OnTakeDamage(this, dmg);
 
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
     }
@@ -150,7 +167,8 @@ public class Player : MonoBehaviour, IEffectTarget
     public void AddDefense(int amount)
     {
         defense += amount;
-        Debug.Log($"�� +{amount} (����: {defense})");
+        OnDefenseChanged?.Invoke(defense);
+        Debug.Log($"방어막 +{amount} (현재: {defense})");
     }
 
     public int ConsumeDefense()
@@ -203,4 +221,6 @@ public class Player : MonoBehaviour, IEffectTarget
                 Debug.Log($"[�����̻�] �ӹ� - ���� ��: {bind.stack}");
         }
     }
+
+   
 }

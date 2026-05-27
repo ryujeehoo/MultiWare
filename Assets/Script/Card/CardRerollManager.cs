@@ -35,7 +35,6 @@ public class CardRerollManager : MonoBehaviour
     {
         if (!isRerollMode)
         {
-            // 리롤 모드 ON
             isRerollMode = true;
 
             // 기존 전투 선택 카드 초기화!
@@ -47,7 +46,7 @@ public class CardRerollManager : MonoBehaviour
             foreach (CardView cv in allCards)
             {
                 if (cv.isSelected)
-                    cv.ToggleSelect(); // 선택 해제
+                    cv.ToggleSelect();
             }
 
             Debug.Log("리롤 모드 ON! 리롤할 카드를 선택하세요.");
@@ -55,7 +54,6 @@ public class CardRerollManager : MonoBehaviour
         }
         else
         {
-            // 나머지 기존 코드 유지
             if (selectedForReroll.Count == 0)
             {
                 Debug.Log("리롤할 카드를 선택하세요!");
@@ -78,6 +76,10 @@ public class CardRerollManager : MonoBehaviour
             int rerollCount = selectedForReroll.Count;
             List<CardView> cardsToRemove = new List<CardView>(selectedForReroll);
             selectedForReroll.Clear();
+
+            // CardSelectManager도 초기화! ← 추가
+            if (CardSelectManager.Instance != null)
+                CardSelectManager.Instance.ClearSelected();
 
             foreach (CardView cv in cardsToRemove)
             {

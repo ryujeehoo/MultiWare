@@ -256,14 +256,15 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
                 containerOriginalPos.y + 30);
             if (CardSelectManager.Instance != null)
                 CardSelectManager.Instance.SelectCard(this);
-            Debug.Log($"{cardData.cardName} 선택됨");
+
+            // 디버그 추가!
+            Debug.Log($"선택된 카드: {cardData.cardName} / cardNumber: {cardData.cardNumber} / suit: {cardData.suit}");
         }
         else
         {
             cardContainer.anchoredPosition = containerOriginalPos;
             if (CardSelectManager.Instance != null)
                 CardSelectManager.Instance.DeselectCard(this);
-            Debug.Log($"{cardData.cardName} 선택 해제");
         }
     }
 

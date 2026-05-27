@@ -6,6 +6,8 @@ public class HandEvaluator
 {
     public static HandResult Evaluate(List<CardData> selectedCards)
     {
+        Debug.Log($"Evaluate 받은 카드들: {string.Join(", ", selectedCards.Select(c => $"{c.cardName}({c.cardNumber})"))}");
+
         if (selectedCards == null || selectedCards.Count == 0)
             return new HandResult(HandRankType.HighCard,
                 HandResult.CalculateDamage(HandRankType.HighCard, selectedCards),
@@ -107,10 +109,17 @@ public class HandEvaluator
         if (cards.Count != 5) return false;
         var numbers = cards.Select(c => c.cardNumber)
                           .OrderBy(n => n).ToList();
+
+        // 디버그 추가
+        Debug.Log($"스트레이트 체크 숫자들: {string.Join(", ", numbers)}");
+
         for (int i = 1; i < numbers.Count; i++)
         {
             if (numbers[i] != numbers[i - 1] + 1)
+            {
+                Debug.Log($"연속 아님: {numbers[i - 1]} → {numbers[i]}");
                 return false;
+            }
         }
         return true;
     }
