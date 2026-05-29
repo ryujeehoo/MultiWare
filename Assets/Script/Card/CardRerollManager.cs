@@ -73,6 +73,10 @@ public class CardRerollManager : MonoBehaviour
             GoldManager.Instance.SpendGold(totalCost);
             Debug.Log($"리롤! -{totalCost}G / {selectedForReroll.Count}장 교체");
 
+            // 리롤 소리 재생! ← 여기 추가
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.PlayCardDraw();
+
             int rerollCount = selectedForReroll.Count;
             List<CardView> cardsToRemove = new List<CardView>(selectedForReroll);
             selectedForReroll.Clear();

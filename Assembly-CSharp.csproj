@@ -72,6 +72,7 @@
     <Compile Include="Assets\Script\Card\RerollZone.cs" />
     <Compile Include="Assets\Script\Card\HandManager.cs" />
     <Compile Include="Assets\Script\Card\CardData.cs" />
+    <Compile Include="Assets\Script\AudioManager.cs" />
     <Compile Include="Assets\Script\Battle\Effect\StatusEffect.cs" />
     <Compile Include="Assets\Script\Card\CardDealAnimator.cs" />
     <Compile Include="Assets\Script\Battle\Relic\BonusRelic.cs" />

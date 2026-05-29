@@ -32,13 +32,16 @@ public class CardDealAnimator : MonoBehaviour
 
     private IEnumerator DealOneCard()
     {
+        // 카드 뽑는 소리 재생!
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.PlayCardDraw();
+
         GameObject cardBack = Instantiate(cardBackPrefab, deckPosition);
         RectTransform cardRect = cardBack.GetComponent<RectTransform>();
         cardRect.anchoredPosition = Vector2.zero;
 
         Vector2 startPos = deckPosition.position;
         Vector2 endPos = handArea.position;
-
         float elapsed = 0f;
 
         while (elapsed < dealSpeed)
@@ -52,18 +55,15 @@ public class CardDealAnimator : MonoBehaviour
 
         Destroy(cardBack);
 
-        // DeckManager에서 카드 드로우
         if (DeckManager.Instance != null)
         {
             CardData card = DeckManager.Instance.DrawCard();
-
             if (HandManager.Instance != null)
             {
                 HandManager.Instance.AddCardToHand(card);
             }
             else if (cardFan != null)
             {
-                // CardFan에 카드 추가
                 cardFan.AddCard(card);
             }
         }
