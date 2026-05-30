@@ -21,6 +21,7 @@ public class ShopManager : MonoBehaviour
     public int cardDeletePrice = 80;
     void Start()
     {
+        AudioManager.Instance.PlayShopEnter();
         GenerateShop();
         continueButton.onClick.AddListener(OnClickContinue);
         cardDeleteSlot.Setup(cardDeletePrice);

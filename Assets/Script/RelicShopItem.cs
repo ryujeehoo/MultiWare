@@ -34,7 +34,7 @@ public class RelicShopItem : MonoBehaviour
             Player.Instance.relics.Add(relic);
             relic.OnRelicAcquired(Player.Instance, FindAnyObjectByType<DeckManager>());
             purchased = true;
-
+            AudioManager.Instance.PlayGoldSpend();
             buyButton.interactable = false;
             priceText.text = "Sold out";
         }

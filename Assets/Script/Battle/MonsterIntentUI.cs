@@ -21,8 +21,8 @@ public class MonsterIntentUI : MonoBehaviour
     public Sprite iconStack;
     public Sprite iconLurk;
     public Sprite iconUnknown;
+    public Sprite iconAllyDefend;
 
-    // UpdateIntent 시그니처에 actionStack 추가
     public void UpdateIntent(MonsterAction action, int turnCount, float attackBonus, int actionStack = 0)
     {
         if (action == null)
@@ -50,25 +50,32 @@ public class MonsterIntentUI : MonoBehaviour
                 break;
 
             case ActionType.AttackAndEffect:
-                intentIcon.sprite = iconAttack;
+                // 효과 종류에 따라 아이콘 분기
+                if (action.attackEffectType == AttackEffectType.Poison)
+                    intentIcon.sprite = iconPoison;
+                else if (action.attackEffectType == AttackEffectType.Shock)
+                    intentIcon.sprite = iconShock;
+                else
+                    intentIcon.sprite = iconAttack;
+
                 int aeDmg = Mathf.RoundToInt(action.GetValue(turnCount) * scale * weakenMultiplier);
                 string effectName = action.attackEffectType == AttackEffectType.Poison ? "Poison" : "Shock";
-                intentText.text = $"Attack {aeDmg} + {effectName}";
+                intentText.text = $"Atk {aeDmg}+{effectName}";
                 break;
 
             case ActionType.StackAttack:
                 intentIcon.sprite = iconAttack;
                 int dmgPerStack = Mathf.RoundToInt(action.GetValue(turnCount) * scale * weakenMultiplier);
                 int stackDmg = dmgPerStack * actionStack;
-                intentText.text = $"{dmgPerStack}×{actionStack} = {stackDmg}";
+                intentText.text = $"{dmgPerStack}×{actionStack}={stackDmg}";
                 break;
+
             case ActionType.SelfDestruct:
                 intentIcon.sprite = iconSelfDestruct;
                 int sdDmg = Mathf.RoundToInt(action.GetValue(turnCount) * scale * weakenMultiplier);
                 intentText.text = $"Explode {sdDmg}";
                 break;
 
-            // 나머지는 그대로
             case ActionType.Defend:
                 intentIcon.sprite = iconDefend;
                 intentText.text = $"Block {(int)action.GetValue(turnCount)}";
@@ -80,8 +87,9 @@ public class MonsterIntentUI : MonoBehaviour
                 break;
 
             case ActionType.AllyDefend:
-                intentIcon.sprite = iconDefend;
-                intentText.text = $"Ally Block {(int)action.GetValue(turnCount)}";
+                // iconAllyDefend가 없으면 iconDefend로 폴백
+                intentIcon.sprite = iconAllyDefend != null ? iconAllyDefend : iconDefend;
+                intentText.text = $"AllyBlk {(int)action.GetValue(turnCount)}";
                 break;
 
             case ActionType.Poison:
@@ -118,10 +126,12 @@ public class MonsterIntentUI : MonoBehaviour
                 intentIcon.sprite = iconStack;
                 intentText.text = $"Stack +{(int)action.GetValue(turnCount)}";
                 break;
+
             case ActionType.Lurk:
                 intentIcon.sprite = iconLurk;
                 intentText.text = "Lurk";
                 break;
+
             default:
                 intentIcon.sprite = iconUnknown;
                 intentText.text = "?";

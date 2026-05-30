@@ -3,15 +3,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 {
     public MonsterData Data;
     public StatusEffectDisplay effectDisplay;
     private int currentHP;
-    private int maxHP; // 스케일링된 최대 HP 저장
+    private int maxHP;
     private int defense = 0;
     private Animator anim;
+    private AudioSource audioSource;
     private List<StatusEffect> activeEffects = new List<StatusEffect>();
 
     [Header("UI")]
@@ -19,10 +21,18 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     public TextMeshProUGUI hpText;
     public TextMeshProUGUI defenseText;
 
+    [Header("Sound")]
+    public AudioClip hitSound;
+    public AudioClip attackSound;
+    public AudioClip dieSound;
+
     [HideInInspector] public bool isLurking = false;
+
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>(); // AddComponent → GetComponent로 변경
+
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
         maxHP = Mathf.RoundToInt(Data.maxHP * scale);
         currentHP = maxHP;
@@ -36,14 +46,12 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         float ratio = (float)currentHP / Data.maxHP;
 
         if (hpBar != null)
-        {
             hpBar.fillAmount = ratio;
-        }
 
         if (hpText != null)
         {
             hpText.fontSize = 15;
-            hpText.text = $"{currentHP}/{maxHP}"; // Data.maxHP → maxHP로 변경
+            hpText.text = $"{currentHP}/{maxHP}";
 
             if ((float)currentHP / maxHP <= 0.3f)
                 hpText.color = new Color(1f, 0.5f, 0f);
@@ -67,6 +75,12 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         }
     }
 
+    public void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+            audioSource.PlayOneShot(clip);
+    }
+
     public void TakeDamage(float damage)
     {
         if (isLurking)
@@ -76,10 +90,18 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         }
         int dmg = Mathf.RoundToInt(damage);
         int finalDamage = Mathf.Max(0, dmg - defense);
-        defense = Mathf.Max(0, defense - dmg); // defense = 0 → 남은 방어막 유지
+        defense = Mathf.Max(0, defense - dmg);
         currentHP -= finalDamage;
         currentHP = Mathf.Max(0, currentHP);
-        if (anim != null) anim.SetTrigger("Damage");
+
+        if (currentHP > 0)
+        {
+            if (anim != null)           // 애니메이션 있을 때만
+                anim.SetTrigger("Damage");
+
+            PlaySound(hitSound);        // 애니메이션 없어도 항상 재생
+        }
+
         Debug.Log($"몬스터 HP: {currentHP} (데미지: {finalDamage}, 남은 방어막: {defense})");
         UpdateUI();
         CheckReflect();
@@ -133,6 +155,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             }
         }
     }
+
     public void TickEffects()
     {
         for (int i = activeEffects.Count - 1; i >= 0; i--)
@@ -209,7 +232,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         float diamondRatio = (float)diamondCount / 5f;
         float cloverRatio = (float)cloverCount / 5f;
 
-        // 하트: 방어막 부여 (HP 회복 → 방어막으로 변경)
         if (heartCount > 0)
         {
             int shieldAmount = 0;
@@ -229,7 +251,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             }
         }
 
-        // 다이아: 골드 획득
         if (diamondCount > 0)
         {
             int goldAmount = 0;
@@ -248,7 +269,6 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             }
         }
 
-        // 클로버: 버프/디버프
         if (cloverCount > 0)
         {
             if (isLurking)
@@ -257,6 +277,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
                 ApplyCloverEffect(cloverRatio);
         }
     }
+
     void ApplyCloverEffect(float ratio)
     {
         if (ratio <= 0) return;
@@ -391,32 +412,32 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
                 BattleManager.Instance.ApplyInvincible();
         }
     }
+
     public float GetHPRatio()
     {
-        return (float)currentHP / maxHP; // Data.maxHP → maxHP로 변경
+        return (float)currentHP / maxHP;
     }
 
     public void Heal(int amount)
     {
         currentHP += amount;
-        currentHP = Mathf.Min(currentHP, maxHP); // Data.maxHP → maxHP로 변경
+        currentHP = Mathf.Min(currentHP, maxHP);
         Debug.Log($"[{gameObject.name}] HP {amount} 회복! 현재 HP: {currentHP}");
         UpdateUI();
     }
+
     public void SelfDestruct()
     {
         Debug.Log($"[{gameObject.name}] 자폭으로 사망!");
         GoldManager.Instance.AddGold(Data.gold);
-        gameObject.SetActive(false);
-        TurnManager.Instance.OnMonsterDied();
-        Destroy(gameObject);
+        StartCoroutine(DieRoutine());
     }
+
     public void ReceiveCardBundle(HandResult result, List<CardData> cards)
     {
         foreach (var relic in Player.Instance.relics)
             relic.OnAttack(Player.Instance, cards, this, result);
 
-        // 감전 체크 - 두 번째 공격부터 하이카드 강제
         if (Player.Instance.ShouldForceHighCard())
         {
             result = new HandResult(HandRankType.HighCard, HandResult.CalculateDamage(HandRankType.HighCard, cards), cards);
@@ -433,12 +454,24 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             Die();
         PlayerEffectDisplay.Instance?.Refresh();
     }
-    // 몬스터 사망 시 남은 몬스터를 계산할 때 사망 전에 검사하는 것을 수정함
+
     void Die()
     {
-        //if (anim != null) anim.SetTrigger("Die");
         Debug.Log("Die() 호출됨!");
         GoldManager.Instance.AddGold(Data.gold);
+        StartCoroutine(DieRoutine());
+    }
+
+    IEnumerator DieRoutine()
+    {
+        if (anim != null)
+            anim.SetTrigger("Die");
+
+        PlaySound(dieSound);
+
+        float waitTime = dieSound != null ? dieSound.length : 1f;
+        yield return new WaitForSeconds(waitTime);
+
         gameObject.SetActive(false);
         TurnManager.Instance.OnMonsterDied();
         Destroy(gameObject);

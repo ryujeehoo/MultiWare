@@ -3196,6 +3196,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDrawSound: {fileID: 8300000, guid: f42551d9875249145a1903a25680139f, type: 3}
+  shopEnterSound: {fileID: 0}
+  goldSpendSound: {fileID: 0}
 --- !u!4 &1028662395
 Transform:
   m_ObjectHideFlags: 0

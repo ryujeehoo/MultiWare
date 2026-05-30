@@ -12,6 +12,9 @@ public class AudioManager : MonoBehaviour
     //  ex) [Header("전투 효과음 - 이호세")]
     //      public AudioClip attackSound;
 
+    [Header("상점 효과음 - 이호세")]
+    public AudioClip shopEnterSound;    // 상점 입장 소리
+    public AudioClip goldSpendSound;    // 골드 소비 소리
 
 
 
@@ -27,5 +30,16 @@ public class AudioManager : MonoBehaviour
     {
         if (cardDrawSound != null)
             audioSource.PlayOneShot(cardDrawSound);
+    }
+    public void PlayShopEnter()
+    {
+        if (shopEnterSound != null)
+            audioSource.PlayOneShot(shopEnterSound);
+    }
+
+    public void PlayGoldSpend()
+    {
+        if (goldSpendSound != null)
+            audioSource.PlayOneShot(goldSpendSound);
     }
 }

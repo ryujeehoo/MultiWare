@@ -91,6 +91,8 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator ExecuteAction(MonsterAction action)
     {
+        GetComponent<Monster>()?.PlaySound(GetComponent<Monster>()?.attackSound); // 추가
+
         switch (action.actionType)
         {
             case ActionType.Attack:

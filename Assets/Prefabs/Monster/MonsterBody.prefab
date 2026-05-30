@@ -622,13 +622,13 @@ MonoBehaviour:
   intentText: {fileID: 4267822648743622967}
   iconAttack: {fileID: 0}
   iconDefend: {fileID: 0}
-  iconPoison: {fileID: 0}
+  iconPoison: {fileID: 21300000, guid: 07c106bed21217f46bacd155da9b7702, type: 3}
   iconMultiAttack: {fileID: 0}
   iconSummon: {fileID: 0}
   iconHeal: {fileID: 0}
-  iconBind: {fileID: 0}
-  iconShock: {fileID: 0}
-  iconReflect: {fileID: 0}
+  iconBind: {fileID: 21300000, guid: d3150333be928094eb41a01c871bf089, type: 3}
+  iconShock: {fileID: 21300000, guid: 7d1b61271414d3f4d984fea8c3e8fc41, type: 3}
+  iconReflect: {fileID: 21300000, guid: a36d29c6f7e4efa44afe54bdc42a4452, type: 3}
   iconBuff: {fileID: 0}
   iconSelfDestruct: {fileID: 0}
   iconStack: {fileID: 0}
