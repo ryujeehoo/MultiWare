@@ -69,7 +69,13 @@ public class HandEvaluator
         if (cards.Count != 5) return false;
         if (!IsFlush(cards)) return false;
         var numbers = cards.Select(c => c.cardNumber).OrderBy(n => n).ToList();
-        return numbers.SequenceEqual(new List<int> { 1, 10, 11, 12, 13 });
+
+        // A가 1로 저장된 경우
+        bool royalWithAce1 = numbers.SequenceEqual(new List<int> { 1, 10, 11, 12, 13 });
+        // A가 14로 저장된 경우
+        bool royalWithAce14 = numbers.SequenceEqual(new List<int> { 10, 11, 12, 13, 14 });
+
+        return royalWithAce1 || royalWithAce14;
     }
 
     // 스트레이트 플러시: 같은 문양 + 연속 숫자 (정확히 5장)
@@ -107,19 +113,35 @@ public class HandEvaluator
     private static bool IsStraight(List<CardData> cards)
     {
         if (cards.Count != 5) return false;
+
         var numbers = cards.Select(c => c.cardNumber)
                           .OrderBy(n => n).ToList();
 
-        // 디버그 추가
         Debug.Log($"스트레이트 체크 숫자들: {string.Join(", ", numbers)}");
 
+        // 일반 스트레이트 체크
+        bool normalStraight = true;
         for (int i = 1; i < numbers.Count; i++)
         {
             if (numbers[i] != numbers[i - 1] + 1)
             {
-                Debug.Log($"연속 아님: {numbers[i - 1]} → {numbers[i]}");
-                return false;
+                normalStraight = false;
+                break;
             }
+        }
+        if (normalStraight) return true;
+
+        // A(14)를 1로 처리해서 A,2,3,4,5 스트레이트 체크
+        var numbersWithAceLow = numbers
+            .Select(n => n == 14 ? 1 : n)
+            .OrderBy(n => n).ToList();
+
+        Debug.Log($"A 낮은 스트레이트 체크: {string.Join(", ", numbersWithAceLow)}");
+
+        for (int i = 1; i < numbersWithAceLow.Count; i++)
+        {
+            if (numbersWithAceLow[i] != numbersWithAceLow[i - 1] + 1)
+                return false;
         }
         return true;
     }
