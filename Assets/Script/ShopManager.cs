@@ -19,10 +19,15 @@ public class ShopManager : MonoBehaviour
     [Header("카드 삭제 슬롯")]
     public CardDeleteShopItem cardDeleteSlot;
     public int cardDeletePrice = 80;
+    [Header("체력 회복 슬롯")]
+    public HealShopItem healSlot;
+    public int healAmount = 30;
+    public int healPrice = 50;
     void Start()
     {
         AudioManager.Instance.PlayShopEnter();
         GenerateShop();
+        SetupHealSlot();
         continueButton.onClick.AddListener(OnClickContinue);
         cardDeleteSlot.Setup(cardDeletePrice);
     }
@@ -52,7 +57,11 @@ public class ShopManager : MonoBehaviour
             }
         }
     }
-
+    void SetupHealSlot()
+    {
+        if (healSlot != null)
+            healSlot.Setup(healAmount, healPrice);
+    }
     void OnClickContinue()
     {
         GameManager.Instance.OnShopDone();

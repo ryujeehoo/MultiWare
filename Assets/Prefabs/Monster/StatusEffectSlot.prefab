@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1278604771892780003}
   - component: {fileID: 9050084995553518617}
   - component: {fileID: 1240507567637056483}
+  - component: {fileID: -665546712783884155}
   m_Layer: 5
   m_Name: StatusEffectSlot
   m_TagString: Untagged
@@ -91,6 +92,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 9050084995553518617}
   stackText: {fileID: 1130785215845393069}
+--- !u!114 &-665546712783884155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2487289457357313855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700c40d73af816948a47cf8f5caa4d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: 
+  description: 
 --- !u!1 &5113354246957991270
 GameObject:
   m_ObjectHideFlags: 0

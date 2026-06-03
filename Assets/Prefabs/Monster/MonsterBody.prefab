@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 5216752746428226291}
   - component: {fileID: 2959487141815673555}
   - component: {fileID: 8666469367017505857}
+  - component: {fileID: 2954028251971607574}
   m_Layer: 5
   m_Name: PatternImage
   m_TagString: Untagged
@@ -426,6 +427,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2954028251971607574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4758631291922222631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700c40d73af816948a47cf8f5caa4d84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: 
+  description: 
 --- !u!1 &6031031698339745492
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,6 +635,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   intentIcon: {fileID: 8666469367017505857}
   intentText: {fileID: 4267822648743622967}
+  intentTooltip: {fileID: 2954028251971607574}
   iconAttack: {fileID: 0}
   iconDefend: {fileID: 0}
   iconPoison: {fileID: 21300000, guid: 07c106bed21217f46bacd155da9b7702, type: 3}
@@ -634,6 +650,7 @@ MonoBehaviour:
   iconStack: {fileID: 0}
   iconLurk: {fileID: 21300000, guid: 58d2a9a818c273142a2c7f55c6b6781e, type: 3}
   iconUnknown: {fileID: 0}
+  iconAllyDefend: {fileID: 0}
 --- !u!114 &5110425526005678259
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -43,7 +43,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     {
         if (Data == null) return;
 
-        float ratio = (float)currentHP / Data.maxHP;
+        float ratio = (float)currentHP / maxHP;  
 
         if (hpBar != null)
             hpBar.fillAmount = ratio;
@@ -246,8 +246,11 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             {
                 Player player = FindFirstObjectByType<Player>();
                 if (player != null)
-                    player.AddDefense(shieldAmount);
-                Debug.Log($"하트 방어막 +{shieldAmount}");
+                {
+                    int finalShield = Mathf.RoundToInt(shieldAmount * player.heartDefenseMultiplier); // ← 추가
+                    player.AddDefense(finalShield);
+                    Debug.Log($"하트 방어막 +{finalShield}");
+                }
             }
         }
 

@@ -28,6 +28,7 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
+        SetInputBlock(true); // ← 추가
         RefreshEnemies();
         StartPlayerTurn();
     }
@@ -123,16 +124,14 @@ public class TurnManager : MonoBehaviour
         turnCount++;
         currentState = GameState.PlayerTurn;
         Player.OnTurnStart();
-        // ↑ Player.Instance로 올바른 플레이어 참조
         SetInputBlock(false);
-        endTurnButton.interactable = true;
+        endTurnButton.interactable = false; // ← 카드 배분 전 비활성화
 
         int currentCount = cardFan.GetCurrentCardCount();
         int drawCount = 8 - currentCount + bonusDrawCount;
         bonusDrawCount = 0;
 
         drawCount -= Player.GetBindReduction();
-        // ↑ Player.Instance로 올바른 플레이어 참조 → 속박 정상 작동!
         drawCount = Mathf.Max(0, drawCount);
 
         Debug.Log($"현재 카드: {currentCount}장 / 드로우할 카드: {drawCount}장");
@@ -140,9 +139,16 @@ public class TurnManager : MonoBehaviour
         if (drawCount > 0)
         {
             if (CardDealAnimator.Instance != null)
-                StartCoroutine(CardDealAnimator.Instance.DealCardsAnimation(drawCount));
+                StartCoroutine(DealAndEnableButton(drawCount)); // ← 변경
             else
+            {
                 cardFan.DrawStartingHand();
+                endTurnButton.interactable = true; // ← DrawStartingHand는 즉시 완료
+            }
+        }
+        else
+        {
+            endTurnButton.interactable = true; // ← 드로우 없으면 바로 활성화
         }
 
         foreach (var relic in Player.relics)
@@ -150,7 +156,11 @@ public class TurnManager : MonoBehaviour
         RefreshAllMonsterIntents();
         Debug.Log("플레이어 턴 시작");
     }
-
+    IEnumerator DealAndEnableButton(int drawCount)
+    {
+        yield return StartCoroutine(CardDealAnimator.Instance.DealCardsAnimation(drawCount));
+        endTurnButton.interactable = true; // ← 배분 완료 후 활성화
+    }
     void SetInputBlock(bool block)
     {
         inputBlocker.blocksRaycasts = block;

@@ -79,6 +79,7 @@
     <Compile Include="Assets\Script\Card\CardDrawer.cs" />
     <Compile Include="Assets\Script\CardClick.cs" />
     <Compile Include="Assets\Script\Battle\Relic\BonusByCardNumberRelic.cs" />
+    <Compile Include="Assets\Script\Battle\Relic\RelicUI.cs" />
     <Compile Include="Assets\Script\Battle\Effect\Effect.cs" />
     <Compile Include="Assets\Script\Battle\Effect\PoisonEffect.cs" />
     <Compile Include="Assets\Script\Battle\BattleManager.cs" />
@@ -108,12 +109,15 @@
     <Compile Include="Assets\Script\CardDeleteUI.cs" />
     <Compile Include="Assets\Script\Battle\EnemyController.cs" />
     <Compile Include="Assets\Script\GameState.cs" />
+    <Compile Include="Assets\Script\TooltipUI.cs" />
+    <Compile Include="Assets\Script\TooltipTrigger.cs" />
     <Compile Include="Assets\Script\Card\CardSelectManager.cs" />
     <Compile Include="Assets\Script\Battle\Relic\RemoveSuitRelic.cs" />
     <Compile Include="Assets\Script\TitleScreen.cs" />
     <Compile Include="Assets\Script\Battle\Relic\RelicTestHelper.cs" />
     <Compile Include="Assets\Script\Card\CardRerollManager.cs" />
     <Compile Include="Assets\Script\Battle\Effect\BindEffect.cs" />
+    <Compile Include="Assets\Script\Battle\Relic\RelicPanelUI.cs" />
     <Compile Include="Assets\Script\Battle\GameManager.cs" />
     <Compile Include="Assets\Script\Battle\StatusEffectDisplay.cs" />
     <Compile Include="Assets\Script\Card\Deckmanager_csj.cs" />
@@ -130,6 +134,7 @@
     <Compile Include="Assets\Script\Battle\PlayerEffectDisplay.cs" />
     <Compile Include="Assets\Script\ShopManager.cs" />
     <Compile Include="Assets\Script\Battle\Relic\GamblerDiceRelic.cs" />
+    <Compile Include="Assets\Script\HealShopItem.cs" />
     <Compile Include="Assets\Script\Battle\Effect\ShockEffect.cs" />
     <Compile Include="Assets\Script\Battle\HealthBar.cs" />
     <Compile Include="Assets\Script\CardHover.cs" />

@@ -21,6 +21,8 @@ public class RelicShopItem : MonoBehaviour
         relicIcon.sprite = relicData.icon;
         priceText.text = $"{cost} G";
 
+        GetComponent<TooltipTrigger>().SetTooltip(relicData.relicName, relicData.description);
+
         buyButton.onClick.RemoveAllListeners();
         buyButton.onClick.AddListener(OnClickBuy);
     }
@@ -28,15 +30,18 @@ public class RelicShopItem : MonoBehaviour
     void OnClickBuy()
     {
         if (purchased) return;
-
         if (GoldManager.Instance.SpendGold(price))
         {
+            purchased = true; // 맨 먼저 true로 설정
             Player.Instance.relics.Add(relic);
             relic.OnRelicAcquired(Player.Instance, FindAnyObjectByType<DeckManager>());
-            purchased = true;
             AudioManager.Instance.PlayGoldSpend();
             buyButton.interactable = false;
             priceText.text = "Sold out";
+
+            // 패널이 열려있을 때만 갱신
+            if (RelicPanelUI.Instance != null && RelicPanelUI.Instance.isOpen)
+                RelicPanelUI.Instance.Refresh();
         }
         else
         {

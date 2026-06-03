@@ -21,7 +21,8 @@ public class MonsterSpawner : MonoBehaviour
             return;
         }
 
-        MonsterEncounter encounter = encounterTable.encounters[Random.Range(0, encounterTable.encounters.Length)];
+        int index = GameManager.Instance.GetRandomEncounterIndex(encounterTable.encounters.Length);
+        MonsterEncounter encounter = encounterTable.encounters[index];
         Debug.Log($"선택된 편성: {encounter.encounterName}");
 
         ClearSpawnedMonsters();

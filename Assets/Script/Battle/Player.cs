@@ -11,6 +11,7 @@ public class Player : MonoBehaviour, IEffectTarget
     private int defense = 0;
     public float healMultiplier = 1.0f;
     public float heartHealMultiplier = 1.0f;
+    public float heartDefenseMultiplier = 1.0f;
     public float spadeBonus = 1.0f;
     public bool hasAttackedWhileShocked = false; // 감전 중 첫 공격 여부
     public System.Action<float, float> OnHealthChanged;
@@ -18,7 +19,6 @@ public class Player : MonoBehaviour, IEffectTarget
     public List<Relic> relics = new List<Relic>();
     public List<StatusEffect> activeEffects = new List<StatusEffect>();
     public System.Action<int> OnDefenseChanged;
-
     private void Awake()
     {
         if (Instance == null)
@@ -70,7 +70,6 @@ public class Player : MonoBehaviour, IEffectTarget
             defense -= absorbed;
             dmg -= absorbed;
             OnDefenseChanged?.Invoke(defense);
-            Debug.Log($"방어막 흡수! 남은 방어막: {defense} / 남은 데미지: {dmg}");
         }
 
         if (dmg > 0)
@@ -83,6 +82,9 @@ public class Player : MonoBehaviour, IEffectTarget
             relic.OnTakeDamage(this, dmg);
 
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
+
+        if (currentHealth <= 0)
+            Die();
     }
 
     public void ApplyEffect(Effect effect)
@@ -224,5 +226,42 @@ public class Player : MonoBehaviour, IEffectTarget
             else if (effect is BindEffect bind)
                 Debug.Log($"[상태이상] 속박 - 현재 스택: {bind.stack}");
         }
+    }
+    void Die()
+    {
+        Debug.Log("플레이어 사망!");
+        // GameManager는 씬 이동을 담당하니 먼저 호출
+        if (GameManager.Instance != null)
+            GameManager.Instance.OnDefeat();
+        ResetAll();
+    }
+    void ResetAll()
+    {
+        relics.Clear();
+        activeEffects.Clear();
+        currentHealth = maxHealth;
+        gold = 0;
+        defense = 0;
+        healMultiplier = 1.0f;
+        heartHealMultiplier = 1.0f;
+        heartDefenseMultiplier = 1.0f;
+        hasAttackedWhileShocked = false;
+
+        if (GoldManager.Instance != null)
+        {
+            Destroy(GoldManager.Instance.gameObject);
+            GoldManager.Instance = null;
+        }
+
+        if (DeckManager.Instance != null)
+        {
+            Destroy(DeckManager.Instance.gameObject);
+            DeckManager.Instance = null;
+        }
+
+        GameManager.DestroyInstance();
+
+        Instance = null;
+        Destroy(gameObject);
     }
 }
