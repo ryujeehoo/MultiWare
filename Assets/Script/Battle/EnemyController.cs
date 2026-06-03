@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour
 
     private MonsterData data;
     private Animator anim;
+    private MonsterAttackVFX attackVFX;
+    private MonsterAction currentAction;
     private int patternIndex = 0;
     private int turnCount = 0;
     private float attackBonus = 0f;
@@ -17,6 +19,9 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
+        attackVFX = GetComponent<MonsterAttackVFX>();
+        if (attackVFX == null)
+            attackVFX = gameObject.AddComponent<MonsterAttackVFX>();
 
         Monster monster = GetComponent<Monster>();
         if (monster != null && monster.Data != null)
@@ -25,14 +30,16 @@ public class EnemyController : MonoBehaviour
             RefreshIntentUI();
         }
         else
-            Debug.LogError($"[{gameObject.name}] MonsterData가 없습니다!");
+        {
+            Debug.LogError($"[{gameObject.name}] MonsterData is missing.");
+        }
     }
 
     public IEnumerator EnemyAction()
     {
         if (data == null || data.actionPattern.Count == 0)
         {
-            Debug.LogError($"[{gameObject.name}] 패턴이 없습니다!");
+            Debug.LogError($"[{gameObject.name}] Action pattern is missing.");
             yield break;
         }
 
@@ -41,14 +48,12 @@ public class EnemyController : MonoBehaviour
             int random = Random.Range(0, 2);
             if (random == 0)
             {
-                Debug.Log("공황! 적이 혼란스러워 공격하지 못했다!");
+                Debug.Log("Panic: enemy skipped its action.");
                 yield return new WaitForSeconds(1f);
                 yield break;
             }
-            else
-            {
-                Debug.Log("공황! 적이 혼란스럽지만 공격했다!");
-            }
+
+            Debug.Log("Panic: enemy still acted.");
         }
 
         bool triggered = false;
@@ -66,10 +71,18 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator CheckAndExecuteHPTriggers(System.Action<bool> result)
     {
-        if (data.hpTriggers == null) { result(false); yield break; }
+        if (data.hpTriggers == null)
+        {
+            result(false);
+            yield break;
+        }
 
         Monster monster = GetComponent<Monster>();
-        if (monster == null) { result(false); yield break; }
+        if (monster == null)
+        {
+            result(false);
+            yield break;
+        }
 
         for (int i = 0; i < data.hpTriggers.Count; i++)
         {
@@ -79,7 +92,7 @@ public class EnemyController : MonoBehaviour
             if (hpRatio <= data.hpTriggers[i].hpThreshold)
             {
                 triggeredHPActions.Add(i);
-                Debug.Log($"{data.monsterName} HP 트리거 발동! 원래 패턴은 다음 턴으로");
+                Debug.Log($"{data.monsterName} HP trigger activated.");
                 yield return StartCoroutine(ExecuteAction(data.hpTriggers[i].action));
                 result(true);
                 yield break;
@@ -91,7 +104,8 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator ExecuteAction(MonsterAction action)
     {
-        GetComponent<Monster>()?.PlaySound(GetComponent<Monster>()?.attackSound); // 추가
+        GetComponent<Monster>()?.PlaySound(GetComponent<Monster>()?.attackSound);
+        currentAction = action;
 
         switch (action.actionType)
         {
@@ -126,10 +140,7 @@ public class EnemyController : MonoBehaviour
                 yield return StartCoroutine(DoAllyDefend(action.GetValue(turnCount)));
                 break;
             case ActionType.AttackAndEffect:
-                yield return StartCoroutine(DoAttackAndEffect(
-                    action.GetValue(turnCount),
-                    action.attackEffectType,
-                    action.effectDuration));
+                yield return StartCoroutine(DoAttackAndEffect(action.GetValue(turnCount), action.attackEffectType, action.effectDuration));
                 break;
             case ActionType.Reflect:
                 yield return StartCoroutine(DoReflect(action.reflectDamage, action.reflectDefense));
@@ -147,29 +158,136 @@ public class EnemyController : MonoBehaviour
                 yield return StartCoroutine(DoLurk());
                 break;
         }
+
+        currentAction = null;
+    }
+
+    MonsterAttackVFXType ResolveMotionType()
+    {
+        if (currentAction == null || currentAction.attackVFXType == MonsterAttackVFXType.Auto)
+            return MonsterAttackVFXType.BiteStrike;
+
+        switch (currentAction.attackVFXType)
+        {
+            case MonsterAttackVFXType.Dash:
+                return MonsterAttackVFXType.Charge;
+            case MonsterAttackVFXType.StoneCrush:
+            case MonsterAttackVFXType.RootSlam:
+                return MonsterAttackVFXType.HeavyAttack;
+            default:
+                return currentAction.attackVFXType;
+        }
+    }
+
+    float GetChargeDuration(MonsterAttackVFXType motionType)
+    {
+        switch (motionType)
+        {
+            case MonsterAttackVFXType.Charge:
+                return Mathf.Max(data.chargeDuration * 0.45f, 0.05f);
+            case MonsterAttackVFXType.HeavyAttack:
+                return Mathf.Max(data.chargeDuration * 1.35f, 0.16f);
+            default:
+                return Mathf.Max(data.chargeDuration, 0.01f);
+        }
+    }
+
+    IEnumerator ChargeAndReturn()
+    {
+        if (data == null || Player == null) yield break;
+
+        Vector3 origin = transform.position;
+        Vector3 rawDir = Player.transform.position - transform.position;
+        Vector3 dir = new Vector3(rawDir.x, rawDir.y * 0.25f, 0f).normalized;
+        if (dir.sqrMagnitude <= 0.0001f)
+            dir = Vector3.left;
+
+        Vector3 target = origin + dir * data.chargeDistance;
+        target.y = Mathf.Clamp(target.y, origin.y - 0.25f, origin.y + 0.25f);
+
+        MonsterAttackVFXType motionType = ResolveMotionType();
+        float t = 0f;
+
+        if (motionType == MonsterAttackVFXType.BiteStrike)
+        {
+            Vector3 pullTarget = origin - dir * 0.28f;
+            while (t < 1f)
+            {
+                t += Time.deltaTime / 0.12f;
+                transform.position = Vector3.Lerp(origin, pullTarget, t);
+                yield return null;
+            }
+
+            origin = pullTarget;
+            t = 0f;
+        }
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime / GetChargeDuration(motionType);
+            transform.position = Vector3.Lerp(origin, target, t);
+            yield return null;
+        }
+
+        HitEffectUI.Instance?.Show(data.hitImage);
+        if (attackVFX != null && Player != null)
+        {
+            Vector3 effectTarget = Player.transform.position;
+            effectTarget.y = Mathf.Clamp(effectTarget.y, transform.position.y - 0.35f, transform.position.y + 0.35f);
+            yield return StartCoroutine(attackVFX.PlayAttack(currentAction, origin, effectTarget));
+        }
+
+        if (data.shakeStrength > 0f)
+            CameraShake.Instance?.Shake(0.3f, data.shakeStrength);
+
+        t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime / 0.25f;
+            transform.position = Vector3.Lerp(target, origin, t);
+            yield return null;
+        }
+
+        transform.position = origin;
+    }
+
+    IEnumerator PlayCurrentAnticipationVFX()
+    {
+        if (attackVFX != null)
+            yield return StartCoroutine(attackVFX.PlayAnticipation(currentAction));
+    }
+
+    IEnumerator PlayCurrentSupportVFX()
+    {
+        if (attackVFX != null)
+            yield return StartCoroutine(attackVFX.PlaySupport(currentAction));
+    }
+
+    IEnumerator PlayCurrentTargetVFX()
+    {
+        if (attackVFX != null && Player != null)
+            yield return StartCoroutine(attackVFX.PlayAttack(currentAction, transform.position, Player.transform.position));
     }
 
     public IEnumerator DoAttack(float damage)
     {
-        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damage *= scale;
-
+        damage *= GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
-        {
             damage *= 0.8f;
-            Debug.Log($"약화! 공격력 -20% → {damage}");
-        }
 
-        Debug.Log($"[{gameObject.name}] 공격! {damage} 데미지");
+        Debug.Log($"[{gameObject.name}] Attack {damage}");
         if (anim != null) anim.SetTrigger("Attack");
-        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(PlayCurrentAnticipationVFX());
+        yield return new WaitForSeconds(0.35f);
+        yield return StartCoroutine(ChargeAndReturn());
         new DamageEffect(damage).Apply(Player);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
     }
 
     public IEnumerator DoDefend(float amount)
     {
-        Debug.Log($"[{gameObject.name}] 방어! {amount} 방어력");
+        yield return StartCoroutine(PlayCurrentSupportVFX());
+        Debug.Log($"[{gameObject.name}] Defend {amount}");
         yield return new WaitForSeconds(1f);
         GetComponent<Monster>().AddDefense((int)amount);
         yield return new WaitForSeconds(0.5f);
@@ -177,7 +295,8 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator DoPoison(int duration)
     {
-        Debug.Log($"[{gameObject.name}] 독 공격! {duration}턴");
+        yield return StartCoroutine(PlayCurrentTargetVFX());
+        Debug.Log($"[{gameObject.name}] Poison {duration}");
         yield return new WaitForSeconds(1f);
         Player.ApplyEffect(new PoisonEffect(duration));
         yield return new WaitForSeconds(0.5f);
@@ -185,23 +304,20 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator DoMultiAttack(float damage, int count)
     {
-        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damage *= scale;
-
+        damage *= GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
-        {
             damage *= 0.8f;
-            Debug.Log($"약화! 공격력 -20% → {damage}");
-        }
 
-        Debug.Log($"[{gameObject.name}] 멀티 어택! {damage} 데미지 x {count}회");
+        Debug.Log($"[{gameObject.name}] MultiAttack {damage} x {count}");
         for (int i = 0; i < count; i++)
         {
             if (anim != null) anim.SetTrigger("Attack");
-            yield return new WaitForSeconds(0.5f);
+            yield return StartCoroutine(PlayCurrentAnticipationVFX());
+            yield return new WaitForSeconds(0.15f);
+            yield return StartCoroutine(ChargeAndReturn());
             new DamageEffect(damage).Apply(Player);
-            Debug.Log($"[{gameObject.name}] {i + 1}번째 공격! {damage} 데미지");
-            yield return new WaitForSeconds(0.3f);
+            Debug.Log($"[{gameObject.name}] Multi hit {i + 1}: {damage}");
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -209,12 +325,13 @@ public class EnemyController : MonoBehaviour
     {
         if (prefab == null || count <= 0)
         {
-            Debug.LogWarning($"[{gameObject.name}] 소환 조건 미충족");
+            Debug.LogWarning($"[{gameObject.name}] Summon skipped.");
             yield break;
         }
 
-        Debug.Log($"[{gameObject.name}] {prefab.name} {count}마리 소환!");
-        yield return new WaitForSeconds(1f);
+        yield return StartCoroutine(PlayCurrentSupportVFX());
+        Debug.Log($"[{gameObject.name}] Summon {prefab.name} x {count}");
+        yield return new WaitForSeconds(0.4f);
 
         for (int i = 0; i < count; i++)
         {
@@ -225,17 +342,19 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator DoBuffAttack(float amount)
     {
+        yield return StartCoroutine(PlayCurrentSupportVFX());
         attackBonus += amount;
-        Debug.Log($"[{gameObject.name}] 공격력 +{amount} 증가! 현재 보너스: {attackBonus}");
+        Debug.Log($"[{gameObject.name}] AttackBuff +{amount}. Bonus: {attackBonus}");
         yield return new WaitForSeconds(1f);
     }
 
     public IEnumerator DoHeal(float amount)
     {
+        yield return StartCoroutine(PlayCurrentSupportVFX());
         Monster monster = GetComponent<Monster>();
         if (monster == null) yield break;
 
-        Debug.Log($"[{gameObject.name}] HP {amount} 회복!");
+        Debug.Log($"[{gameObject.name}] Heal {amount}");
         yield return new WaitForSeconds(1f);
         monster.Heal((int)amount);
         yield return new WaitForSeconds(0.5f);
@@ -243,7 +362,8 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator DoBind(int duration)
     {
-        Debug.Log($"[{gameObject.name}] 속박! 드로우 -1 ({duration}턴)");
+        yield return StartCoroutine(PlayCurrentTargetVFX());
+        Debug.Log($"[{gameObject.name}] Bind {duration}");
         yield return new WaitForSeconds(1f);
         Player.ApplyEffect(new BindEffect(duration));
         yield return new WaitForSeconds(0.5f);
@@ -251,7 +371,8 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator DoShock(int duration)
     {
-        Debug.Log($"[{gameObject.name}] 감전! {duration}턴");
+        yield return StartCoroutine(PlayCurrentTargetVFX());
+        Debug.Log($"[{gameObject.name}] Shock {duration}");
         yield return new WaitForSeconds(1f);
         Player.ApplyEffect(new ShockEffect(duration));
         yield return new WaitForSeconds(0.5f);
@@ -264,17 +385,18 @@ public class EnemyController : MonoBehaviour
 
         if (allies.Count == 0)
         {
-            Debug.Log($"[{gameObject.name}] 아군이 없어 방어막 부여 스킵!");
+            Debug.Log($"[{gameObject.name}] AllyDefend skipped.");
             yield break;
         }
 
-        Debug.Log($"[{gameObject.name}] 아군 전체 방어막 {amount} 부여!");
+        yield return StartCoroutine(PlayCurrentSupportVFX());
+        Debug.Log($"[{gameObject.name}] AllyDefend {amount}");
         yield return new WaitForSeconds(1f);
 
         foreach (Monster monster in allies)
         {
             monster.AddDefense((int)amount);
-            Debug.Log($"{monster.Data.monsterName}에게 방어막 {amount} 부여!");
+            Debug.Log($"{monster.Data.monsterName} gains defense {amount}");
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -282,25 +404,24 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator DoAttackAndEffect(float damage, AttackEffectType effectType, int duration)
     {
-        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damage *= scale;
-
+        damage *= GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
             damage *= 0.8f;
 
-        Debug.Log($"[{gameObject.name}] 공격 + {effectType}! {damage} 데미지");
-        yield return new WaitForSeconds(1f);
+        Debug.Log($"[{gameObject.name}] AttackAndEffect {effectType} {damage}");
+        if (anim != null) anim.SetTrigger("Attack");
+        yield return StartCoroutine(PlayCurrentAnticipationVFX());
+        yield return new WaitForSeconds(0.35f);
+        yield return StartCoroutine(ChargeAndReturn());
         new DamageEffect(damage).Apply(Player);
 
         switch (effectType)
         {
             case AttackEffectType.Poison:
                 Player.ApplyEffect(new PoisonEffect(duration));
-                Debug.Log($"독 {duration}턴 부여!");
                 break;
             case AttackEffectType.Shock:
                 Player.ApplyEffect(new ShockEffect(duration));
-                Debug.Log($"감전 {duration}턴 부여!");
                 break;
         }
 
@@ -309,10 +430,11 @@ public class EnemyController : MonoBehaviour
 
     public IEnumerator DoReflect(int reflectDamage, int reflectDefense)
     {
+        yield return StartCoroutine(PlayCurrentSupportVFX());
         Monster monster = GetComponent<Monster>();
         if (monster == null) yield break;
 
-        Debug.Log($"[{gameObject.name}] 반사 방어! 반사 {reflectDamage} / 방어막 {reflectDefense}");
+        Debug.Log($"[{gameObject.name}] Reflect {reflectDamage}, defense {reflectDefense}");
         yield return new WaitForSeconds(1f);
         monster.ApplyEffect(new ReflectEffect(reflectDamage));
         if (reflectDefense > 0)
@@ -322,61 +444,60 @@ public class EnemyController : MonoBehaviour
 
     IEnumerator DoStackUp(int amount)
     {
+        yield return StartCoroutine(PlayCurrentSupportVFX());
         actionStack += amount;
-        GetComponent<Monster>()?.effectDisplay?.SetStack(actionStack); // ← 추가
-        Debug.Log($"[{gameObject.name}] 스택 +{amount}! 현재 스택: {actionStack}");
+        GetComponent<Monster>()?.effectDisplay?.SetStack(actionStack);
+        Debug.Log($"[{gameObject.name}] Stack +{amount}. Current: {actionStack}");
         yield return new WaitForSeconds(1f);
     }
 
     IEnumerator DoStackAttack(float damagePerStack)
     {
-        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damagePerStack *= scale;
-
+        damagePerStack *= GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
-        {
             damagePerStack *= 0.8f;
-            Debug.Log($"약화! 공격력 -20% → {damagePerStack}");
-        }
 
         int totalDamage = (int)damagePerStack * actionStack;
-        Debug.Log($"[{gameObject.name}] 스택 공격! {damagePerStack} × {actionStack} = {totalDamage} 데미지");
-        yield return new WaitForSeconds(1f);
+        Debug.Log($"[{gameObject.name}] StackAttack {damagePerStack} x {actionStack} = {totalDamage}");
+        if (anim != null) anim.SetTrigger("Attack");
+        yield return StartCoroutine(PlayCurrentAnticipationVFX());
+        yield return new WaitForSeconds(0.35f);
+        yield return StartCoroutine(ChargeAndReturn());
         new DamageEffect(totalDamage).Apply(Player);
-        GetComponent<Monster>()?.effectDisplay?.SetStack(actionStack); // ← 추가
+        GetComponent<Monster>()?.effectDisplay?.SetStack(actionStack);
         yield return new WaitForSeconds(0.5f);
     }
 
     IEnumerator DoSelfDestruct(float damage)
     {
-        float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
-        damage *= scale;
-
+        damage *= GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
         if (BattleManager.Instance != null && BattleManager.Instance.isWeakened)
-        {
             damage *= 0.8f;
-            Debug.Log($"약화! 공격력 -20% → {damage}");
-        }
 
-        Debug.Log($"[{gameObject.name}] 자폭! {damage} 데미지");
-        yield return new WaitForSeconds(1f);
+        Debug.Log($"[{gameObject.name}] SelfDestruct {damage}");
+        if (anim != null) anim.SetTrigger("Attack");
+        yield return StartCoroutine(PlayCurrentAnticipationVFX());
+        yield return new WaitForSeconds(0.35f);
+        yield return StartCoroutine(ChargeAndReturn());
         new DamageEffect(damage).Apply(Player);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.3f);
 
         Monster monster = GetComponent<Monster>();
         if (monster != null)
             monster.SelfDestruct();
     }
+
     IEnumerator DoLurk()
     {
         Monster monster = GetComponent<Monster>();
         if (monster == null) yield break;
 
-        Debug.Log($"[{gameObject.name}] 땅속 잠복! 이번 턴 모든 데미지 무효");
+        Debug.Log($"[{gameObject.name}] Lurk.");
         monster.isLurking = true;
-        monster.effectDisplay?.SetLurk(true); // ← 추가
+        monster.effectDisplay?.SetLurk(true);
         yield return new WaitForSeconds(1f);
     }
+
     public MonsterAction GetNextAction()
     {
         if (data == null || data.actionPattern.Count == 0) return null;

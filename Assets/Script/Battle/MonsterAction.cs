@@ -8,6 +8,35 @@ public enum ActionType
 }
 public enum AttackEffectType { None, Poison, Shock }
 
+public enum MonsterAttackVFXType
+{
+    Auto = 0,
+
+    BiteStrike = 12,
+    HeavyAttack = 13,
+    Charge = 14,
+    Poison = 15,
+    RootBind = 16,
+    Shield = 17,
+    Summon = 18,
+    Heal = 19,
+    CrystalAttack = 20,
+    Burrow = 21,
+
+    // Legacy values kept stable for existing serialized assets.
+    SlimeSplash = 1,
+    RootSlam = 2,
+    ElectricBolt = 3,
+    PoisonSting = 4,
+    Dash = 5,
+    StoneCrush = 6,
+    BurrowStrike = 7,
+    ShieldPulse = 8,
+    SummonPulse = 9,
+    HealPulse = 10,
+    SelfDestruct = 11
+}
+
 [System.Serializable]
 public class MonsterAction
 {
@@ -29,6 +58,10 @@ public class MonsterAction
 
     [Header("AttackAndEffect 설정")]
     public AttackEffectType attackEffectType = AttackEffectType.None;
+
+    [Header("공격 연출")]
+    public MonsterAttackVFXType attackVFXType = MonsterAttackVFXType.Auto;
+    public Color attackVFXColor = Color.white;
 
     [Header("반사 설정 (Reflect일 때만 사용)")]
     public int reflectDamage = 3;

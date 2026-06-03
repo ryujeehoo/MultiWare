@@ -1,4 +1,5 @@
-ï»¿using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -31,7 +32,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     void Awake()
     {
         anim = GetComponentInChildren<Animator>();
-        audioSource = GetComponent<AudioSource>(); // AddComponent â†’ GetComponentë¡œ ë³€ê²½
+        audioSource = GetComponent<AudioSource>(); // AddComponent ¡æ GetComponent·Î º¯°æ
 
         float scale = GameManager.Instance != null ? GameManager.Instance.GetStageScaling() : 1f;
         maxHP = Mathf.RoundToInt(Data.maxHP * scale);
@@ -85,7 +86,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     {
         if (isLurking)
         {
-            Debug.Log($"[{gameObject.name}] ì ë³µ ì¤‘ - ë°ë¯¸ì§€ ë¬´íš¨!");
+            Debug.Log($"[{gameObject.name}] Àáº¹ Áß - µ¥¹ÌÁö ¹«È¿!");
             return;
         }
         int dmg = Mathf.RoundToInt(damage);
@@ -93,33 +94,51 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         defense = Mathf.Max(0, defense - dmg);
         currentHP -= finalDamage;
         currentHP = Mathf.Max(0, currentHP);
-
         if (currentHP > 0)
         {
-            if (anim != null)           // ì• ë‹ˆë©”ì´ì…˜ ìˆì„ ë•Œë§Œ
+            if (anim != null)
                 anim.SetTrigger("Damage");
 
-            PlaySound(hitSound);        // ì• ë‹ˆë©”ì´ì…˜ ì—†ì–´ë„ í•­ìƒ ì¬ìƒ
+            PlaySound(hitSound);
         }
 
-        Debug.Log($"ëª¬ìŠ¤í„° HP: {currentHP} (ë°ë¯¸ì§€: {finalDamage}, ë‚¨ì€ ë°©ì–´ë§‰: {defense})");
+        if (finalDamage > 0)
+            StartCoroutine(HitFlashCoroutine());
+        Debug.Log($"¸ó½ºÅÍ HP: {currentHP} (µ¥¹ÌÁö: {finalDamage}, ³²Àº ¹æ¾î¸·: {defense})");
         UpdateUI();
         CheckReflect();
         EnemyController ec = GetComponent<EnemyController>();
         if (ec != null) ec.RefreshIntentUI();
     }
 
+    IEnumerator HitFlashCoroutine()
+    {
+        SpriteRenderer[] srs = GetComponentsInChildren<SpriteRenderer>();
+        Color[] origColors = new Color[srs.Length];
+        for (int i = 0; i < srs.Length; i++)
+            origColors[i] = srs[i].color;
+
+        Color flashColor = new Color(1f, 0.2f, 0.2f);
+        foreach (var sr in srs)
+            sr.color = flashColor;
+
+        yield return new WaitForSeconds(0.15f);
+
+        for (int i = 0; i < srs.Length; i++)
+            if (srs[i] != null) srs[i].color = origColors[i];
+    }
+
     public void ResetDefense()
     {
         defense = 0;
-        Debug.Log($"[{gameObject.name}] ë°©ì–´ë ¥ ì´ˆê¸°í™”!");
+        Debug.Log($"[{gameObject.name}] ¹æ¾î·Â ÃÊ±âÈ­!");
         UpdateUI();
     }
 
     public void AddDefense(int amount)
     {
         defense += amount;
-        Debug.Log($"[{gameObject.name}] ë°©ì–´ë ¥ {defense} íšë“!");
+        Debug.Log($"[{gameObject.name}] ¹æ¾î·Â {defense} È¹µæ!");
         UpdateUI();
     }
 
@@ -127,19 +146,19 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     {
         if (isLurking)
         {
-            Debug.Log($"[{gameObject.name}] ì ë³µ ì¤‘ - ìƒíƒœì´ìƒ ë¬´íš¨!");
+            Debug.Log($"[{gameObject.name}] Àáº¹ Áß - »óÅÂÀÌ»ó ¹«È¿!");
             return;
         }
         StatusEffect existing = activeEffects.Find(e => e.effectName == effect.effectName);
         if (existing != null && existing is PoisonEffect existingPoison && effect is PoisonEffect newPoison)
         {
             existingPoison.stack += newPoison.stack;
-            Debug.Log($"{Data.monsterName} ë… ì¤‘ì²©! í˜„ì¬ ì¤‘ì²©: {existingPoison.stack}");
+            Debug.Log($"{Data.monsterName} µ¶ ÁßÃ¸! ÇöÀç ÁßÃ¸: {existingPoison.stack}");
         }
         else
         {
             activeEffects.Add(effect);
-            Debug.Log($"{Data.monsterName}ì—ê²Œ {effect.effectName} ì ìš©!");
+            Debug.Log($"{Data.monsterName}¿¡°Ô {effect.effectName} Àû¿ë!");
         }
         effectDisplay?.Refresh(activeEffects);
     }
@@ -151,7 +170,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             if (effect is ReflectEffect reflect)
             {
                 Player.Instance.TakeDamage(reflect.reflectDamage);
-                Debug.Log($"[ë°˜ì‚¬] í”Œë ˆì´ì–´ì—ê²Œ {reflect.reflectDamage} ë°˜ì‚¬ ë°ë¯¸ì§€!");
+                Debug.Log($"[¹İ»ç] ÇÃ·¹ÀÌ¾î¿¡°Ô {reflect.reflectDamage} ¹İ»ç µ¥¹ÌÁö!");
             }
         }
     }
@@ -163,7 +182,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             activeEffects[i].OnTurnEnd(this);
             if (activeEffects[i].IsExpired())
             {
-                Debug.Log($"{activeEffects[i].effectName} íš¨ê³¼ ì¢…ë£Œ!");
+                Debug.Log($"{activeEffects[i].effectName} È¿°ú Á¾·á!");
                 activeEffects.RemoveAt(i);
             }
         }
@@ -172,7 +191,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
     public void OnDrop(PointerEventData eventData)
     {
-        // CardBundle ë°©ì‹ ì œê±° - CardView ë“œë˜ê·¸ ë°©ì‹ìœ¼ë¡œ ë³€ê²½ë¨
+        // CardBundle ¹æ½Ä Á¦°Å - CardView µå·¡±× ¹æ½ÄÀ¸·Î º¯°æµÊ
     }
 
     int CalculateFinalDamage(List<CardData> cards, HandResult result)
@@ -188,7 +207,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         if (BattleManager.Instance != null && BattleManager.Instance.isExposed)
         {
             baseDamage = Mathf.RoundToInt(baseDamage * 1.2f);
-            Debug.Log($"ë…¸ì¶œ íš¨ê³¼! ë°ë¯¸ì§€ +20% â†’ {baseDamage}");
+            Debug.Log($"³ëÃâ È¿°ú! µ¥¹ÌÁö +20% ¡æ {baseDamage}");
         }
 
         int spadeCount = 0;
@@ -207,7 +226,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         int finalDamage = Mathf.RoundToInt(baseDamage * (1f + bonusPercent));
 
         if (bonusPercent > 0)
-            Debug.Log($"ìŠ¤í˜ì´ë“œ ë³´ë„ˆìŠ¤ +{bonusPercent * 100}% / ìµœì¢… ë°ë¯¸ì§€: {finalDamage}");
+            Debug.Log($"½ºÆäÀÌµå º¸³Ê½º +{bonusPercent * 100}% / ÃÖÁ¾ µ¥¹ÌÁö: {finalDamage}");
 
         return finalDamage;
     }
@@ -247,9 +266,9 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
                 Player player = FindFirstObjectByType<Player>();
                 if (player != null)
                 {
-                    int finalShield = Mathf.RoundToInt(shieldAmount * player.heartDefenseMultiplier); // â† ì¶”ê°€
+                    int finalShield = Mathf.RoundToInt(shieldAmount * player.heartDefenseMultiplier); // ¡ç Ãß°¡
                     player.AddDefense(finalShield);
-                    Debug.Log($"í•˜íŠ¸ ë°©ì–´ë§‰ +{finalShield}");
+                    Debug.Log($"ÇÏÆ® ¹æ¾î¸· +{finalShield}");
                 }
             }
         }
@@ -268,14 +287,14 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
             {
                 int finalGold = Mathf.RoundToInt(goldAmount * GoldManager.Instance.diamondGoldMultiplier);
                 GoldManager.Instance.AddGold(finalGold);
-                Debug.Log($"ë‹¤ì´ì•„ ê³¨ë“œ +{finalGold}G");
+                Debug.Log($"´ÙÀÌ¾Æ °ñµå +{finalGold}G");
             }
         }
 
         if (cloverCount > 0)
         {
             if (isLurking)
-                Debug.Log($"[{gameObject.name}] ì ë³µ ì¤‘ - í´ë¡œë²„ íš¨ê³¼ ë¬´íš¨!");
+                Debug.Log($"[{gameObject.name}] Àáº¹ Áß - Å¬·Î¹ö È¿°ú ¹«È¿!");
             else
                 ApplyCloverEffect(cloverRatio);
         }
@@ -287,7 +306,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
         if (ratio < 0.4f)
         {
-            Debug.Log("í´ë¡œë²„ ì•½í™”: ì  ê³µê²©ë ¥ -20% (2í„´) ìë™ ë°œë™!");
+            Debug.Log("Å¬·Î¹ö ¾àÈ­: Àû °ø°İ·Â -20% (2ÅÏ) ÀÚµ¿ ¹ßµ¿!");
             ApplyDebuff(ratio);
             return;
         }
@@ -342,22 +361,22 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         if (ratio < 0.4f)
         {
             BattleManager.Instance.ApplyWeaken(2);
-            Debug.Log("ì•½í™”: ì  ê³µê²©ë ¥ -20% (2í„´)");
+            Debug.Log("¾àÈ­: Àû °ø°İ·Â -20% (2ÅÏ)");
         }
         else if (ratio < 0.6f)
         {
             BattleManager.Instance.ApplyExpose(2);
-            Debug.Log("ë…¸ì¶œ: ì  ë°©ì–´ë ¥ -20% (2í„´)");
+            Debug.Log("³ëÃâ: Àû ¹æ¾î·Â -20% (2ÅÏ)");
         }
         else if (ratio < 0.8f)
         {
             BattleManager.Instance.ApplyPanic();
-            Debug.Log("ê³µí™©: ì ì´ ì´ë²ˆ í„´ ëœë¤ í–‰ë™ (1í„´)");
+            Debug.Log("°øÈ²: ÀûÀÌ ÀÌ¹ø ÅÏ ·£´ı Çàµ¿ (1ÅÏ)");
         }
         else if (ratio < 1.0f)
         {
             BattleManager.Instance.ApplySlow();
-            Debug.Log("ë‘”í™”: ì  í–‰ë™ 1í„´ ì§€ì—°");
+            Debug.Log("µĞÈ­: Àû Çàµ¿ 1ÅÏ Áö¿¬");
         }
         else
         {
@@ -370,7 +389,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
             ApplyRandomDebuff(first);
             ApplyRandomDebuff(second);
-            Debug.Log("ì €ì£¼: ëœë¤ ë””ë²„í”„ 2ì¢… ë™ì‹œ ë°œë™!");
+            Debug.Log("ÀúÁÖ: ·£´ı µğ¹öÇÁ 2Á¾ µ¿½Ã ¹ßµ¿!");
         }
     }
 
@@ -390,27 +409,27 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     {
         if (ratio < 0.6f)
         {
-            Debug.Log("ì˜ê°: ì¦‰ì‹œ ë“œë¡œìš° +1ì¥");
+            Debug.Log("¿µ°¨: Áï½Ã µå·Î¿ì +1Àå");
             if (TurnManager.Instance != null && CardDealAnimator.Instance != null)
                 TurnManager.Instance.StartCoroutine(
                     CardDealAnimator.Instance.DealCardsAnimation(1));
         }
         else if (ratio < 0.8f)
         {
-            Debug.Log("ì§‘ì¤‘: ë‹¤ìŒ ì¡±ë³´ ë°ë¯¸ì§€ +40%");
+            Debug.Log("ÁıÁß: ´ÙÀ½ Á·º¸ µ¥¹ÌÁö +40%");
             if (BattleManager.Instance != null)
                 BattleManager.Instance.ApplyFocus();
         }
         else if (ratio < 1.0f)
         {
-            Debug.Log("ì²œìš´: ì¦‰ì‹œ ë“œë¡œìš° +2ì¥");
+            Debug.Log("Ãµ¿î: Áï½Ã µå·Î¿ì +2Àå");
             if (TurnManager.Instance != null && CardDealAnimator.Instance != null)
                 TurnManager.Instance.StartCoroutine(
                     CardDealAnimator.Instance.DealCardsAnimation(2));
         }
         else
         {
-            Debug.Log("ë¬´ì : ì´ë²ˆ í„´ ë°›ëŠ” í”¼í•´ 0");
+            Debug.Log("¹«Àû: ÀÌ¹ø ÅÏ ¹Ş´Â ÇÇÇØ 0");
             if (BattleManager.Instance != null)
                 BattleManager.Instance.ApplyInvincible();
         }
@@ -425,13 +444,13 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
     {
         currentHP += amount;
         currentHP = Mathf.Min(currentHP, maxHP);
-        Debug.Log($"[{gameObject.name}] HP {amount} íšŒë³µ! í˜„ì¬ HP: {currentHP}");
+        Debug.Log($"[{gameObject.name}] HP {amount} È¸º¹! ÇöÀç HP: {currentHP}");
         UpdateUI();
     }
 
     public void SelfDestruct()
     {
-        Debug.Log($"[{gameObject.name}] ìí­ìœ¼ë¡œ ì‚¬ë§!");
+        Debug.Log($"[{gameObject.name}] ÀÚÆøÀ¸·Î »ç¸Á!");
         GoldManager.Instance.AddGold(Data.gold);
         StartCoroutine(DieRoutine());
     }
@@ -444,12 +463,12 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         if (Player.Instance.ShouldForceHighCard())
         {
             result = new HandResult(HandRankType.HighCard, HandResult.CalculateDamage(HandRankType.HighCard, cards), cards);
-            Debug.Log($"[ê°ì „] í•˜ì´ì¹´ë“œ ê°•ì œ! ë°ë¯¸ì§€: {result.baseDamage}");
+            Debug.Log($"[°¨Àü] ÇÏÀÌÄ«µå °­Á¦! µ¥¹ÌÁö: {result.baseDamage}");
         }
 
         int finalDamage = CalculateFinalDamage(cards, result);
         TakeDamage(finalDamage);
-        Debug.Log($"ëª¬ìŠ¤í„°ì—ê²Œ {finalDamage} ë°ë¯¸ì§€!");
+        Debug.Log($"¸ó½ºÅÍ¿¡°Ô {finalDamage} µ¥¹ÌÁö!");
 
         ApplySuitEffects(cards);
 
@@ -460,7 +479,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
     void Die()
     {
-        Debug.Log("Die() í˜¸ì¶œë¨!");
+        Debug.Log("Die() È£ÃâµÊ!");
         GoldManager.Instance.AddGold(Data.gold);
         StartCoroutine(DieRoutine());
     }
