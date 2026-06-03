@@ -15,6 +15,50 @@ public class HitEffectUI : MonoBehaviour
     private Coroutine vignetteRoutine;
     private Coroutine hitImageRoutine;
 
+    public static HitEffectUI GetOrCreate()
+    {
+        if (Instance != null)
+            return Instance;
+
+        GameObject canvasObject = new GameObject("HitEffectUI Canvas");
+        DontDestroyOnLoad(canvasObject);
+
+        Canvas canvas = canvasObject.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 1000;
+
+        CanvasScaler scaler = canvasObject.AddComponent<CanvasScaler>();
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920f, 1080f);
+
+        canvasObject.AddComponent<GraphicRaycaster>();
+
+        GameObject vignetteObject = new GameObject("Damage Vignette");
+        vignetteObject.transform.SetParent(canvasObject.transform, false);
+
+        Image vignette = vignetteObject.AddComponent<Image>();
+        vignette.sprite = Resources.Load<Sprite>("vignette");
+        vignette.color = Color.white;
+        vignette.raycastTarget = false;
+        vignette.preserveAspect = false;
+
+        RectTransform rect = vignette.rectTransform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+
+        HitEffectUI effectUI = canvasObject.AddComponent<HitEffectUI>();
+        effectUI.vignetteImage = vignette;
+
+        return effectUI;
+    }
+
+    public static void ShowDamageVignetteGlobal()
+    {
+        GetOrCreate().ShowDamageVignette();
+    }
+
     void Awake()
     {
         Instance = this;

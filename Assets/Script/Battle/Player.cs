@@ -79,7 +79,7 @@ public class Player : MonoBehaviour, IEffectTarget
         }
 
         if (finalDamage > 0)
-            HitEffectUI.Instance?.ShowDamageVignette();
+            HitEffectUI.ShowDamageVignetteGlobal();
 
         foreach (var relic in relics)
             relic.OnTakeDamage(this, dmg);
