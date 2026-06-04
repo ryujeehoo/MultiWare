@@ -38,7 +38,7 @@ public class HitEffectUI : MonoBehaviour
 
         Image vignette = vignetteObject.AddComponent<Image>();
         vignette.sprite = Resources.Load<Sprite>("vignette");
-        vignette.color = Color.white;
+        vignette.color = new Color(1f, 1f, 1f, 0f);
         vignette.raycastTarget = false;
         vignette.preserveAspect = false;
 
@@ -48,8 +48,24 @@ public class HitEffectUI : MonoBehaviour
         rect.offsetMin = Vector2.zero;
         rect.offsetMax = Vector2.zero;
 
+        GameObject hitImageObject = new GameObject("Player Attack Hit Image");
+        hitImageObject.transform.SetParent(canvasObject.transform, false);
+
+        Image hitImage = hitImageObject.AddComponent<Image>();
+        hitImage.color = new Color(1f, 1f, 1f, 0f);
+        hitImage.raycastTarget = false;
+        hitImage.preserveAspect = true;
+
+        RectTransform hitRect = hitImage.rectTransform;
+        hitRect.anchorMin = new Vector2(0.5f, 0.5f);
+        hitRect.anchorMax = new Vector2(0.5f, 0.5f);
+        hitRect.pivot = new Vector2(0.5f, 0.5f);
+        hitRect.anchoredPosition = Vector2.zero;
+        hitRect.sizeDelta = new Vector2(420f, 420f);
+
         HitEffectUI effectUI = canvasObject.AddComponent<HitEffectUI>();
         effectUI.vignetteImage = vignette;
+        effectUI.hitImage = hitImage;
 
         return effectUI;
     }

@@ -95,6 +95,7 @@
     <Compile Include="Assets\Script\Battle\Monster.cs" />
     <Compile Include="Assets\Script\CardDeleteShopItem.cs" />
     <Compile Include="Assets\Script\Battle\TurnManager.cs" />
+    <Compile Include="Assets\Script\Battle\PlayerAttackVFX.cs" />
     <Compile Include="Assets\Script\Card\CardSpriteAssigner.cs" />
     <Compile Include="Assets\Script\OutLine.cs" />
     <Compile Include="Assets\Script\CardFan.cs" />
@@ -662,14 +663,6 @@
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
       <HintPath>Library\PackageCache\com.unity.collections@aea9d3bd5e19\Unity.Collections.Tests\System.Runtime.CompilerServices.Unsafe\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.Types">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.0.69f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Types.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.Android.Gradle">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\6000.0.69f1\Editor\Data\PlaybackEngines\AndroidPlayer\Unity.Android.Gradle.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="netstandard">

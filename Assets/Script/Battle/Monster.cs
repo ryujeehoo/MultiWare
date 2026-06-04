@@ -467,6 +467,7 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
         }
 
         int finalDamage = CalculateFinalDamage(cards, result);
+        PlayerAttackVFX.Play(result.rank, transform.position);
         TakeDamage(finalDamage);
         Debug.Log($"몬스터에게 {finalDamage} 데미지!");
 
