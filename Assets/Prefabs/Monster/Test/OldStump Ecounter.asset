@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: OldStump Ecounter
   m_EditorClassIdentifier: 
   encounterName: 
+  backgroundSprite: {fileID: -62901870777909403, guid: 6e28a9ffd24e4f9408ba544e52e6d580, type: 3}
   monsterPrefabSlots:
   - {fileID: 0}
   - {fileID: 780495344109137746, guid: 178bf76db19fad14b94d8faf8157c871, type: 3}

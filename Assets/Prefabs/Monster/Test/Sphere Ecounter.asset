@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Sphere Ecounter
   m_EditorClassIdentifier: 
   encounterName: 
+  backgroundSprite: {fileID: 1461434735083694893, guid: e1f5cb0622d510446a666dce39090f2f, type: 3}
   monsterPrefabSlots:
   - {fileID: 0}
   - {fileID: 780495344109137746, guid: 31a789059c87903479553f215293e2c0, type: 3}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Slime Ecounter
   m_EditorClassIdentifier: 
   encounterName: 
+  backgroundSprite: {fileID: 1956073671050704310, guid: 621fc2ac8cbdcf64e8f8c5c623b1c31c, type: 3}
   monsterPrefabSlots:
   - {fileID: 0}
   - {fileID: 780495344109137746, guid: 3851f9dc86a810a4bb611f5b4df31f45, type: 3}

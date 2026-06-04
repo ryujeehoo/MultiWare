@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bug Ecounter
   m_EditorClassIdentifier: 
   encounterName: 
+  backgroundSprite: {fileID: -1118659400980521801, guid: aee7248364a9d644da899c93dc33a83a, type: 3}
   monsterPrefabSlots:
   - {fileID: 780495344109137746, guid: 3a1fa98a1d7035447bbf351775dcf2ee, type: 3}
   - {fileID: 780495344109137746, guid: 330550c116d3a0749a1f67bd2c784f88, type: 3}

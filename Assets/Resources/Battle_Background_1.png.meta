@@ -1,10 +1,10 @@
-fileFormatVersion: 2
-guid: 14c029cc726745f4db8d79ffef226329
+﻿fileFormatVersion: 2
+guid: 9c603d0fa6b7408c89eeb6827b133d8b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7638253051592359392
-    second: attack-arrow-transparent_0
+      213: 1422912935139933497
+    second: Battle_Background_1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attack-arrow-transparent_0
+      name: Battle_Background_1_0
       rect:
         serializedVersion: 2
-        x: 69
-        y: 294
-        width: 1556
-        height: 386
+        x: 0
+        y: 0
+        width: 1456
+        height: 816
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0edb4b46ea6800a60800000000000000
-      internalID: 7638253051592359392
+      spriteID: 93df25d86c33fb310800000000000000
+      internalID: 1422912935139933497
       vertices: []
       indices: 
       edges: []
@@ -135,9 +135,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      attack-arrow-transparent_0: 7638253051592359392
+      Battle_Background_1_0: 1422912935139933497
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+

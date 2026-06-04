@@ -184,11 +184,11 @@ public class EnemyController : MonoBehaviour
         switch (motionType)
         {
             case MonsterAttackVFXType.Charge:
-                return Mathf.Max(data.chargeDuration * 0.45f, 0.05f);
+                return Mathf.Max(data.chargeDuration * 0.3f, 0.05f);
             case MonsterAttackVFXType.HeavyAttack:
-                return Mathf.Max(data.chargeDuration * 1.35f, 0.16f);
+                return Mathf.Max(data.chargeDuration * 0.85f, 0.16f);
             default:
-                return Mathf.Max(data.chargeDuration, 0.01f);
+                return Mathf.Max(data.chargeDuration * 0.6f, 0.01f);
         }
     }
 
@@ -204,7 +204,6 @@ public class EnemyController : MonoBehaviour
 
         Vector3 target = origin + dir * data.chargeDistance;
         target.y = Mathf.Clamp(target.y, origin.y - 0.25f, origin.y + 0.25f);
-
         MonsterAttackVFXType motionType = ResolveMotionType();
         float t = 0f;
 
@@ -213,7 +212,7 @@ public class EnemyController : MonoBehaviour
             Vector3 pullTarget = origin - dir * 0.28f;
             while (t < 1f)
             {
-                t += Time.deltaTime / 0.12f;
+                t += Time.deltaTime / 0.07f;
                 transform.position = Vector3.Lerp(origin, pullTarget, t);
                 yield return null;
             }
@@ -236,14 +235,13 @@ public class EnemyController : MonoBehaviour
             effectTarget.y = Mathf.Clamp(effectTarget.y, transform.position.y - 0.35f, transform.position.y + 0.35f);
             yield return StartCoroutine(attackVFX.PlayAttack(currentAction, origin, effectTarget));
         }
-
         if (data.shakeStrength > 0f)
             CameraShake.Instance?.Shake(0.3f, data.shakeStrength);
 
         t = 0f;
         while (t < 1f)
         {
-            t += Time.deltaTime / 0.25f;
+            t += Time.deltaTime / 0.14f;
             transform.position = Vector3.Lerp(target, origin, t);
             yield return null;
         }
@@ -278,10 +276,10 @@ public class EnemyController : MonoBehaviour
         Debug.Log($"[{gameObject.name}] Attack {damage}");
         if (anim != null) anim.SetTrigger("Attack");
         yield return StartCoroutine(PlayCurrentAnticipationVFX());
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.12f);
         yield return StartCoroutine(ChargeAndReturn());
         new DamageEffect(damage).Apply(Player);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.12f);
     }
 
     public IEnumerator DoDefend(float amount)
@@ -290,7 +288,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log($"[{gameObject.name}] Defend {amount}");
         yield return new WaitForSeconds(1f);
         GetComponent<Monster>().AddDefense((int)amount);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     public IEnumerator DoPoison(int duration)
@@ -298,8 +296,8 @@ public class EnemyController : MonoBehaviour
         yield return StartCoroutine(PlayCurrentTargetVFX());
         Debug.Log($"[{gameObject.name}] Poison {duration}");
         yield return new WaitForSeconds(1f);
-        Player.ApplyEffect(new PoisonEffect(duration));
-        yield return new WaitForSeconds(0.5f);
+Player.ApplyEffect(new PoisonEffect(duration));
+        yield return new WaitForSeconds(0.2f);
     }
 
     public IEnumerator DoMultiAttack(float damage, int count)
@@ -313,11 +311,11 @@ public class EnemyController : MonoBehaviour
         {
             if (anim != null) anim.SetTrigger("Attack");
             yield return StartCoroutine(PlayCurrentAnticipationVFX());
-            yield return new WaitForSeconds(0.15f);
+            yield return new WaitForSeconds(0.06f);
             yield return StartCoroutine(ChargeAndReturn());
             new DamageEffect(damage).Apply(Player);
-            Debug.Log($"[{gameObject.name}] Multi hit {i + 1}: {damage}");
-            yield return new WaitForSeconds(0.2f);
+Debug.Log($"[{gameObject.name}] Multi hit {i + 1}: {damage}");
+            yield return new WaitForSeconds(0.08f);
         }
     }
 
@@ -336,7 +334,7 @@ public class EnemyController : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             SpawnManager.Instance.SummonMonster(prefab);
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.12f);
         }
     }
 
@@ -357,7 +355,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log($"[{gameObject.name}] Heal {amount}");
         yield return new WaitForSeconds(1f);
         monster.Heal((int)amount);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     public IEnumerator DoBind(int duration)
@@ -365,8 +363,8 @@ public class EnemyController : MonoBehaviour
         yield return StartCoroutine(PlayCurrentTargetVFX());
         Debug.Log($"[{gameObject.name}] Bind {duration}");
         yield return new WaitForSeconds(1f);
-        Player.ApplyEffect(new BindEffect(duration));
-        yield return new WaitForSeconds(0.5f);
+Player.ApplyEffect(new BindEffect(duration));
+        yield return new WaitForSeconds(0.2f);
     }
 
     public IEnumerator DoShock(int duration)
@@ -374,8 +372,8 @@ public class EnemyController : MonoBehaviour
         yield return StartCoroutine(PlayCurrentTargetVFX());
         Debug.Log($"[{gameObject.name}] Shock {duration}");
         yield return new WaitForSeconds(1f);
-        Player.ApplyEffect(new ShockEffect(duration));
-        yield return new WaitForSeconds(0.5f);
+Player.ApplyEffect(new ShockEffect(duration));
+        yield return new WaitForSeconds(0.2f);
     }
 
     public IEnumerator DoAllyDefend(float amount)
@@ -399,7 +397,7 @@ public class EnemyController : MonoBehaviour
             Debug.Log($"{monster.Data.monsterName} gains defense {amount}");
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     public IEnumerator DoAttackAndEffect(float damage, AttackEffectType effectType, int duration)
@@ -411,7 +409,7 @@ public class EnemyController : MonoBehaviour
         Debug.Log($"[{gameObject.name}] AttackAndEffect {effectType} {damage}");
         if (anim != null) anim.SetTrigger("Attack");
         yield return StartCoroutine(PlayCurrentAnticipationVFX());
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.12f);
         yield return StartCoroutine(ChargeAndReturn());
         new DamageEffect(damage).Apply(Player);
 
@@ -425,7 +423,7 @@ public class EnemyController : MonoBehaviour
                 break;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     public IEnumerator DoReflect(int reflectDamage, int reflectDefense)
@@ -439,7 +437,7 @@ public class EnemyController : MonoBehaviour
         monster.ApplyEffect(new ReflectEffect(reflectDamage));
         if (reflectDefense > 0)
             monster.AddDefense(reflectDefense);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     IEnumerator DoStackUp(int amount)
@@ -461,11 +459,12 @@ public class EnemyController : MonoBehaviour
         Debug.Log($"[{gameObject.name}] StackAttack {damagePerStack} x {actionStack} = {totalDamage}");
         if (anim != null) anim.SetTrigger("Attack");
         yield return StartCoroutine(PlayCurrentAnticipationVFX());
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.12f);
         yield return StartCoroutine(ChargeAndReturn());
         new DamageEffect(totalDamage).Apply(Player);
+actionStack = 0;
         GetComponent<Monster>()?.effectDisplay?.SetStack(actionStack);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
     }
 
     IEnumerator DoSelfDestruct(float damage)
@@ -477,10 +476,10 @@ public class EnemyController : MonoBehaviour
         Debug.Log($"[{gameObject.name}] SelfDestruct {damage}");
         if (anim != null) anim.SetTrigger("Attack");
         yield return StartCoroutine(PlayCurrentAnticipationVFX());
-        yield return new WaitForSeconds(0.35f);
+        yield return new WaitForSeconds(0.12f);
         yield return StartCoroutine(ChargeAndReturn());
         new DamageEffect(damage).Apply(Player);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.12f);
 
         Monster monster = GetComponent<Monster>();
         if (monster != null)

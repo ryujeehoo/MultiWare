@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Worm Ecounter
   m_EditorClassIdentifier: 
   encounterName: 
+  backgroundSprite: {fileID: 4257209068229754468, guid: cb4dd40771f510d4c8a4c126b2b2d6ea, type: 3}
   monsterPrefabSlots:
   - {fileID: 0}
   - {fileID: 424314500386850598, guid: 10ea6c1c4415865489546cb1c3c8c696, type: 3}

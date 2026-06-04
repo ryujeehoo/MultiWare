@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 7622daad47d82f24387bdb27cb10a87b
+guid: 31ab5ea2c4d88344f84ff1d2ee1ae1a9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5642266925738249831
-    second: attack-arrow-chromakey_0
+      213: 923648925742498607
+    second: "\uC18C\uD658_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attack-arrow-chromakey_0
+      name: "\uC18C\uD658_0"
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1672
-        height: 941
+        x: 71
+        y: 84
+        width: 358
+        height: 358
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 991bf630024a2b1b0800000000000000
-      internalID: -5642266925738249831
+      spriteID: f238d04edc571dc00800000000000000
+      internalID: 923648925742498607
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      attack-arrow-chromakey_0: -5642266925738249831
+      "\uC18C\uD658_0": 923648925742498607
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

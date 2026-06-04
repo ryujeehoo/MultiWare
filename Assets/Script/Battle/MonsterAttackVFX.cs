@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class MonsterAttackVFX : MonoBehaviour
@@ -16,13 +16,13 @@ public class MonsterAttackVFX : MonoBehaviour
         switch (type)
         {
             case MonsterAttackVFXType.HeavyAttack:
-                yield return StartCoroutine(ScalePulse(transform, 0.22f, 1.12f));
+                yield return StartCoroutine(ScalePulse(transform, 0.14f, 1.12f));
                 break;
             case MonsterAttackVFXType.Shield:
             case MonsterAttackVFXType.ShieldPulse:
             case MonsterAttackVFXType.Heal:
             case MonsterAttackVFXType.HealPulse:
-                yield return StartCoroutine(Ring(transform.position, color, 0.25f, 0.45f, 1.35f));
+                yield return StartCoroutine(Ring(transform.position, color, 0.16f, 0.45f, 1.35f));
                 break;
             case MonsterAttackVFXType.Summon:
             case MonsterAttackVFXType.SummonPulse:
@@ -30,10 +30,10 @@ public class MonsterAttackVFX : MonoBehaviour
                 break;
             case MonsterAttackVFXType.Burrow:
             case MonsterAttackVFXType.BurrowStrike:
-                yield return StartCoroutine(DustCloud(transform.position, color, 0.25f));
+                yield return StartCoroutine(DustCloud(transform.position, color, 0.14f));
                 break;
             default:
-                yield return StartCoroutine(Flash(transform.position, color, 0.18f, 0.55f));
+                yield return StartCoroutine(Flash(transform.position, color, 0.1f, 0.55f));
                 break;
         }
     }
@@ -52,19 +52,22 @@ public class MonsterAttackVFX : MonoBehaviour
             case MonsterAttackVFXType.HeavyAttack:
             case MonsterAttackVFXType.StoneCrush:
                 yield return StartCoroutine(Crush(target, color));
+                yield return StartCoroutine(BurstParticles(target, color, 12, 0.55f, 0.12f, 0.14f, 0.32f));
                 break;
             case MonsterAttackVFXType.Charge:
                 yield return StartCoroutine(TrailDash(source, target, color));
-                yield return StartCoroutine(Ring(target, color, 0.14f, 0.25f, 1.25f));
+                StartCoroutine(BurstParticles(target, color, 10, 0.48f, 0.1f, 0.08f, 0.24f));
+                yield return StartCoroutine(DoubleRing(target, color, 0.1f, 0.25f, 1.4f));
                 break;
             case MonsterAttackVFXType.Poison:
             case MonsterAttackVFXType.PoisonSting:
-                yield return StartCoroutine(Needle(source, target, color, 0.16f));
+                yield return StartCoroutine(Needle(source, target, color, 0.09f));
                 break;
             case MonsterAttackVFXType.RootBind:
             case MonsterAttackVFXType.RootSlam:
                 yield return StartCoroutine(GroundSpike(target, color));
                 yield return StartCoroutine(RootWrap(target, color));
+                yield return StartCoroutine(BurstParticles(target + Vector3.down * 0.2f, color, 8, 0.35f, 0.08f, 0.1f, 0.28f));
                 break;
             case MonsterAttackVFXType.CrystalAttack:
                 yield return StartCoroutine(CrystalBurst(source, target, color));
@@ -74,16 +77,18 @@ public class MonsterAttackVFX : MonoBehaviour
                 yield return StartCoroutine(Burrow(source, target, color));
                 break;
             case MonsterAttackVFXType.SlimeSplash:
-                yield return StartCoroutine(ArcProjectile(source, target, color, 0.24f, 0.35f));
+                yield return StartCoroutine(ArcProjectile(source, target, color, 0.14f, 0.35f));
                 yield return StartCoroutine(Splash(target, color));
                 break;
             case MonsterAttackVFXType.ElectricBolt:
-                yield return StartCoroutine(Bolt(source, target, color, 0.18f));
-                yield return StartCoroutine(Ring(target, color, 0.18f, 0.35f, 1.15f));
+                yield return StartCoroutine(Bolt(source, target, color, 0.1f));
+                StartCoroutine(BurstParticles(target, color, 12, 0.55f, 0.08f, 0.08f, 0.22f));
+                yield return StartCoroutine(DoubleRing(target, color, 0.1f, 0.35f, 1.35f));
                 break;
             case MonsterAttackVFXType.SelfDestruct:
-                yield return StartCoroutine(Ring(source, color, 0.34f, 0.8f, 2.4f));
-                yield return StartCoroutine(Ring(target, color, 0.22f, 0.5f, 1.6f));
+                StartCoroutine(BurstParticles(source, color, 18, 0.9f, 0.16f, 0.14f, 0.38f));
+                yield return StartCoroutine(DoubleRing(source, color, 0.2f, 0.8f, 2.4f));
+                yield return StartCoroutine(DoubleRing(target, color, 0.12f, 0.5f, 1.6f));
                 break;
             case MonsterAttackVFXType.Auto:
             default:
@@ -102,15 +107,17 @@ public class MonsterAttackVFX : MonoBehaviour
             case MonsterAttackVFXType.Summon:
             case MonsterAttackVFXType.SummonPulse:
                 yield return StartCoroutine(SplitPulse(transform.position, color));
+                yield return StartCoroutine(BurstParticles(transform.position, color, 8, 0.45f, 0.1f, 0.08f, 0.24f));
                 break;
             case MonsterAttackVFXType.Heal:
             case MonsterAttackVFXType.HealPulse:
+                StartCoroutine(DoubleRing(transform.position, color, 0.18f, 0.35f, 1.3f));
                 yield return StartCoroutine(Flash(transform.position, color, 0.35f, 0.7f));
                 yield return StartCoroutine(RisingParticles(transform.position, color));
                 break;
             case MonsterAttackVFXType.Shield:
             case MonsterAttackVFXType.ShieldPulse:
-                yield return StartCoroutine(Ring(transform.position, color, 0.3f, 0.6f, 1.55f));
+                yield return StartCoroutine(DoubleRing(transform.position, color, 0.22f, 0.6f, 1.65f));
                 yield return StartCoroutine(ShieldSparkle(transform.position, color));
                 break;
             default:
@@ -249,18 +256,18 @@ public class MonsterAttackVFX : MonoBehaviour
         GameObject slash = CreateQuad("Slash", target, color, 1f);
         slash.transform.rotation = Quaternion.Euler(0f, 0f, -28f);
         slash.transform.localScale = new Vector3(1.1f, 0.12f, 1f);
-        yield return StartCoroutine(FadeScale(slash, 0.16f, 0.8f, 1.35f));
+        yield return StartCoroutine(FadeScale(slash, 0.09f, 0.8f, 1.35f));
     }
 
     private IEnumerator TrailDash(Vector3 source, Vector3 target, Color color)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 8; i++)
         {
-            Vector3 pos = Vector3.Lerp(source, target, i / 5f);
-            GameObject trail = CreateQuad("DashTrail", pos, color, 0.42f);
-            SetAlpha(trail, 0.45f - i * 0.06f);
-            StartCoroutine(FadeScale(trail, 0.18f, 0.45f, 1.6f));
-            yield return new WaitForSeconds(0.025f);
+            Vector3 pos = Vector3.Lerp(source, target, i / 8f);
+            GameObject trail = CreateQuad("DashTrail", pos, color, Random.Range(0.25f, 0.48f));
+            SetAlpha(trail, 0.58f - i * 0.055f);
+            StartCoroutine(FadeScale(trail, 0.12f, 0.5f, 1.8f));
+            yield return new WaitForSeconds(0.01f);
         }
     }
 
@@ -270,34 +277,34 @@ public class MonsterAttackVFX : MonoBehaviour
         {
             Vector2 offset = Random.insideUnitCircle * 0.45f;
             GameObject drop = CreateQuad("Splash", target + (Vector3)offset, color, Random.Range(0.12f, 0.25f));
-            StartCoroutine(FadeScale(drop, 0.22f, 0.65f, 1.4f));
+            StartCoroutine(FadeScale(drop, 0.12f, 0.65f, 1.4f));
         }
-        yield return new WaitForSeconds(0.22f);
+        yield return new WaitForSeconds(0.12f);
     }
 
     private IEnumerator GroundSpike(Vector3 target, Color color)
     {
-        for (int i = -1; i <= 1; i++)
+        for (int i = -2; i <= 2; i++)
         {
-            GameObject spike = CreateQuad("RootSpike", target + new Vector3(i * 0.28f, -0.25f, 0f), color, 0.25f);
-            spike.transform.localScale = new Vector3(0.16f, 0.85f, 1f);
-            yield return StartCoroutine(FadeScale(spike, 0.1f, 0.55f, 1.1f));
+            GameObject spike = CreateQuad("RootSpike", target + new Vector3(i * 0.2f, -0.25f, 0f), color, 0.25f);
+            spike.transform.localScale = new Vector3(0.12f, Random.Range(0.65f, 1.05f), 1f);
+            yield return StartCoroutine(FadeScale(spike, 0.06f, 0.55f, 1.1f));
         }
-        yield return StartCoroutine(Ring(target, color, 0.16f, 0.25f, 1.2f));
+        yield return StartCoroutine(Ring(target, color, 0.09f, 0.25f, 1.2f));
     }
 
     private IEnumerator RootWrap(Vector3 target, Color color)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 7; i++)
         {
-            float angle = -45f + i * 30f;
-            GameObject vine = CreateQuad("RootBind", target + new Vector3((i - 1.5f) * 0.12f, -0.1f, 0f), color, 1f);
+            float angle = -65f + i * 22f;
+            GameObject vine = CreateQuad("RootBind", target + new Vector3((i - 3f) * 0.08f, -0.08f, 0f), color, 1f);
             vine.transform.rotation = Quaternion.Euler(0f, 0f, angle);
-            vine.transform.localScale = new Vector3(0.08f, 0.75f, 1f);
-            StartCoroutine(FadeScale(vine, 0.34f, 0.85f, 1.12f));
+            vine.transform.localScale = new Vector3(0.06f, Random.Range(0.55f, 0.9f), 1f);
+            StartCoroutine(FadeScale(vine, 0.18f, 0.85f, 1.12f));
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.16f);
     }
 
     private IEnumerator Crush(Vector3 target, Color color)
@@ -308,29 +315,30 @@ public class MonsterAttackVFX : MonoBehaviour
         Vector3 end = target + Vector3.up * 0.05f;
         while (t < 1f)
         {
-            t += Time.deltaTime / 0.16f;
+            t += Time.deltaTime / 0.09f;
             block.transform.position = Vector3.Lerp(start, end, t * t);
             yield return null;
         }
         Destroy(block);
-        yield return StartCoroutine(Ring(target, color, 0.18f, 0.35f, 1.4f));
+        StartCoroutine(BurstParticles(target, color, 10, 0.5f, 0.08f, 0.1f, 0.28f));
+        yield return StartCoroutine(DoubleRing(target, color, 0.1f, 0.35f, 1.55f));
     }
 
     private IEnumerator CrystalBurst(Vector3 source, Vector3 target, Color color)
     {
-        const int count = 5;
+        const int count = 9;
         GameObject[] shards = new GameObject[count];
 
         for (int i = 0; i < count; i++)
         {
             float angle = i * (360f / count);
-            Vector3 offset = Quaternion.Euler(0f, 0f, angle) * Vector3.right * 0.35f;
-            shards[i] = CreateQuad("CrystalShard", source + offset, color, 0.22f);
+            Vector3 offset = Quaternion.Euler(0f, 0f, angle) * Vector3.right * Random.Range(0.25f, 0.48f);
+            shards[i] = CreateQuad("CrystalShard", source + offset, color, Random.Range(0.16f, 0.26f));
             shards[i].transform.rotation = Quaternion.Euler(0f, 0f, angle);
-            shards[i].transform.localScale = new Vector3(0.12f, 0.42f, 1f);
+            shards[i].transform.localScale = new Vector3(0.08f, Random.Range(0.34f, 0.55f), 1f);
         }
 
-        float spinTime = 0.22f;
+        float spinTime = 0.12f;
         float elapsed = 0f;
         while (elapsed < spinTime)
         {
@@ -345,63 +353,67 @@ public class MonsterAttackVFX : MonoBehaviour
         }
 
         for (int i = 0; i < shards.Length; i++)
-            StartCoroutine(FlyShard(shards[i], target + (Vector3)Random.insideUnitCircle * 0.25f, 0.18f));
+            StartCoroutine(FlyShard(shards[i], target + (Vector3)Random.insideUnitCircle * 0.25f, 0.1f));
 
-        yield return new WaitForSeconds(0.2f);
-        yield return StartCoroutine(Ring(target, color, 0.18f, 0.35f, 1.45f));
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(BurstParticles(target, color, 14, 0.6f, 0.09f, 0.08f, 0.25f));
+        yield return StartCoroutine(DoubleRing(target, color, 0.16f, 0.35f, 1.55f));
     }
 
     private IEnumerator Burrow(Vector3 source, Vector3 target, Color color)
     {
-        yield return StartCoroutine(DustCloud(source, color, 0.12f));
-        yield return new WaitForSeconds(0.08f);
-        yield return StartCoroutine(DustCloud(target, color, 0.16f));
+        yield return StartCoroutine(DustCloud(source, color, 0.08f));
+        yield return new WaitForSeconds(0.04f);
+        yield return StartCoroutine(DustCloud(target, color, 0.09f));
         yield return StartCoroutine(GroundSpike(target, color));
     }
 
     private IEnumerator DustCloud(Vector3 center, Color color, float duration)
     {
-        for (int i = 0; i < 5; i++)
+        Color dustColor = Color.Lerp(color, new Color(0.55f, 0.35f, 0.18f, 1f), 0.55f);
+        for (int i = 0; i < 11; i++)
         {
-            GameObject dust = CreateQuad("Dust", center + (Vector3)Random.insideUnitCircle * 0.25f, color, Random.Range(0.16f, 0.35f));
-            StartCoroutine(FadeScale(dust, duration, 0.4f, 1.6f));
+            GameObject dust = CreateQuad("Dust", center + (Vector3)Random.insideUnitCircle * 0.35f, dustColor, Random.Range(0.14f, 0.42f));
+            StartCoroutine(FloatAndFade(dust, duration + Random.Range(0f, 0.08f), (Vector3)Random.insideUnitCircle * 0.35f));
         }
         yield return new WaitForSeconds(duration);
     }
 
     private IEnumerator SplitPulse(Vector3 center, Color color)
     {
+        StartCoroutine(Flash(center, color, 0.08f, 0.65f));
+
         for (int i = -1; i <= 1; i += 2)
         {
-            GameObject split = CreateQuad("SplitPulse", center + Vector3.right * i * 0.18f, color, 0.28f);
-            StartCoroutine(FloatAndFade(split, 0.3f, Vector3.right * i * 0.45f));
+            GameObject split = CreateQuad("SplitPulse", center + Vector3.right * i * 0.16f, color, 0.36f);
+            StartCoroutine(FloatAndFade(split, 0.18f, Vector3.right * i * 0.62f));
         }
 
-        yield return new WaitForSeconds(0.28f);
+        yield return StartCoroutine(BurstParticles(center, color, 6, 0.35f, 0.08f, 0.08f, 0.22f));
     }
 
     private IEnumerator RisingParticles(Vector3 center, Color color)
     {
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 14; i++)
         {
-            Vector3 start = center + new Vector3(Random.Range(-0.35f, 0.35f), Random.Range(-0.25f, 0.2f), 0f);
-            GameObject particle = CreateQuad("HealParticle", start, color, Random.Range(0.1f, 0.2f));
-            StartCoroutine(FloatAndFade(particle, 0.45f, Vector3.up * Random.Range(0.45f, 0.85f)));
-            yield return new WaitForSeconds(0.035f);
+            Vector3 start = center + new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.3f, 0.25f), 0f);
+            GameObject particle = CreateQuad("HealParticle", start, color, Random.Range(0.08f, 0.22f));
+            StartCoroutine(FloatAndFade(particle, Random.Range(0.35f, 0.6f), Vector3.up * Random.Range(0.45f, 1f)));
+            yield return new WaitForSeconds(0.018f);
         }
     }
 
     private IEnumerator ShieldSparkle(Vector3 center, Color color)
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 12; i++)
         {
-            float angle = i * 72f;
-            Vector3 offset = Quaternion.Euler(0f, 0f, angle) * Vector3.right * 0.65f;
-            GameObject sparkle = CreateQuad("ShieldSparkle", center + offset, color, 0.16f);
-            StartCoroutine(FadeScale(sparkle, 0.2f, 0.9f, 1.7f));
+            float angle = i * 30f;
+            Vector3 offset = Quaternion.Euler(0f, 0f, angle) * Vector3.right * Random.Range(0.45f, 0.85f);
+            GameObject sparkle = CreateQuad("ShieldSparkle", center + offset, color, Random.Range(0.1f, 0.22f));
+            StartCoroutine(FadeScale(sparkle, 0.18f, 0.95f, 1.9f));
         }
 
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.1f);
     }
 
     private IEnumerator ScalePulse(Transform target, float duration, float peakScale)
@@ -481,6 +493,29 @@ public class MonsterAttackVFX : MonoBehaviour
             yield return null;
         }
         Destroy(ring);
+    }
+
+    private IEnumerator DoubleRing(Vector3 center, Color color, float duration, float startScale, float endScale)
+    {
+        StartCoroutine(Ring(center, color, duration, startScale, endScale));
+        Color secondary = Color.Lerp(color, Color.white, 0.35f);
+        yield return StartCoroutine(Ring(center, secondary, duration * 0.85f, startScale * 0.65f, endScale * 0.82f));
+    }
+
+    private IEnumerator BurstParticles(Vector3 center, Color color, int count, float radius, float minSize, float maxSize, float duration)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            float angle = i * (360f / count) + Random.Range(-12f, 12f);
+            Vector3 direction = Quaternion.Euler(0f, 0f, angle) * Vector3.right;
+            Vector3 start = center + direction * Random.Range(0.03f, 0.14f);
+            Vector3 offset = direction * Random.Range(radius * 0.45f, radius);
+            Color particleColor = Color.Lerp(color, Color.white, Random.Range(0f, 0.3f));
+            GameObject particle = CreateQuad("BurstParticle", start, particleColor, Random.Range(minSize, maxSize));
+            StartCoroutine(FloatAndFade(particle, duration * Random.Range(0.75f, 1.15f), offset));
+        }
+
+        yield return new WaitForSeconds(duration * 0.65f);
     }
 
     private IEnumerator Flash(Vector3 center, Color color, float duration, float scale)

@@ -24,6 +24,9 @@ public class MonsterSpawner : MonoBehaviour
         int index = GameManager.Instance.GetRandomEncounterIndex(encounterTable.encounters.Length);
         MonsterEncounter encounter = encounterTable.encounters[index];
         Debug.Log($"선택된 편성: {encounter.encounterName}");
+        BattleBackgroundManager backgroundManager = BattleBackgroundManager.GetOrCreate();
+        if (backgroundManager != null)
+            backgroundManager.ApplyEncounter(encounter);
 
         ClearSpawnedMonsters();
 

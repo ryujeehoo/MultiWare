@@ -133,6 +133,7 @@
     <Compile Include="Assets\Script\Card\SuitType.cs" />
     <Compile Include="Assets\Script\Card\CardData_csj.cs" />
     <Compile Include="Assets\Script\Card\CardView.cs" />
+    <Compile Include="Assets\Script\Battle\BattleBackgroundManager.cs" />
     <Compile Include="Assets\Script\Card\HandEvaluator.cs" />
     <Compile Include="Assets\Script\Battle\PlayerEffectDisplay.cs" />
     <Compile Include="Assets\Script\ShopManager.cs" />

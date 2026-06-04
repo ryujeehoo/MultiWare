@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Monolith 2 Ecounter
   m_EditorClassIdentifier: 
   encounterName: 
+  backgroundSprite: {fileID: -2845640374581576333, guid: b118b052c45ef7b41bf974fddd0af09e, type: 3}
   monsterPrefabSlots:
   - {fileID: 0}
   - {fileID: 780495344109137746, guid: 430b7f6c362c95d49a29fb0566b334df, type: 3}
