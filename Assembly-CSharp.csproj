@@ -77,6 +77,7 @@
     <Compile Include="Assets\Script\Card\CardDealAnimator.cs" />
     <Compile Include="Assets\Script\Battle\Relic\BonusRelic.cs" />
     <Compile Include="Assets\Script\Card\CardDrawer.cs" />
+    <Compile Include="Assets\Script\Battle\ScreenSpaceCanvasShake.cs" />
     <Compile Include="Assets\Script\CardClick.cs" />
     <Compile Include="Assets\Script\Battle\Relic\BonusByCardNumberRelic.cs" />
     <Compile Include="Assets\Script\Battle\Relic\RelicUI.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\Script\Card\CardRerollManager.cs" />
     <Compile Include="Assets\Script\Battle\MonsterAttackVFX.cs" />
     <Compile Include="Assets\Script\Battle\Effect\BindEffect.cs" />
+    <Compile Include="Assets\Script\Battle\HandRankVFXSetting.cs" />
     <Compile Include="Assets\Script\Battle\Relic\RelicPanelUI.cs" />
     <Compile Include="Assets\Script\Battle\GameManager.cs" />
     <Compile Include="Assets\Script\Battle\StatusEffectDisplay.cs" />

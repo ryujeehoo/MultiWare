@@ -2,75 +2,59 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class HandRankVFXSetting
+public static class PlayerAttackVFX
 {
-    public HandRankType rank;
-    public string[] resourceSpriteNames;
-    public Vector2[] resourceOffsets;
-    public Sprite[] worldSprites;
-    public GameObject prefab;
-    public Color color = Color.white;
-    public Vector2 worldOffset;
-    public float scale = 1f;
-    public float duration = 0.42f;
-    public float prefabLifetime = 1.2f;
-}
+    private const int SortingOrder = 70;
+    private const float PixelsPerUnit = 256f;
 
-public class PlayerAttackVFX : MonoBehaviour
-{
-    [SerializeField] private int sortingOrder = 70;
-    [SerializeField] private float pixelsPerUnit = 256f;
-    [SerializeField] private HandRankVFXSetting[] rankSettings = CreateDefaultSettings();
-
-    private static PlayerAttackVFX instance;
+    private static PlayerAttackVFXRunner runner;
     private static readonly Dictionary<string, Sprite> resourceSpriteCache = new Dictionary<string, Sprite>();
-
-    void Awake()
-    {
-        instance = this;
-    }
+    private static readonly HandRankVFXSetting[] rankSettings = CreateDefaultSettings();
 
     public static void Play(HandRankType rank, Vector3 targetPosition)
     {
-        PlayerAttackVFX vfx = GetOrCreate();
-        vfx.StartCoroutine(vfx.PlayRoutine(rank, targetPosition));
+        PlayerAttackVFXRunner vfxRunner = GetRunner();
+        if (vfxRunner == null)
+            return;
+
+        vfxRunner.StartCoroutine(PlayRoutine(rank, targetPosition));
     }
 
-    private static PlayerAttackVFX GetOrCreate()
+    private static PlayerAttackVFXRunner GetRunner()
     {
-        if (instance != null)
-            return instance;
+        if (runner != null)
+            return runner;
 
         GameObject obj = new GameObject("PlayerAttackVFX");
-        instance = obj.AddComponent<PlayerAttackVFX>();
-        return instance;
+        Object.DontDestroyOnLoad(obj);
+        runner = obj.AddComponent<PlayerAttackVFXRunner>();
+        return runner;
     }
 
-    private IEnumerator PlayRoutine(HandRankType rank, Vector3 target)
+    private static IEnumerator PlayRoutine(HandRankType rank, Vector3 target)
     {
         HandRankVFXSetting setting = GetSetting(rank);
 
         PlayConfiguredPrefab(setting, target);
-        PlayCameraShake(setting, rank);
+        PlayCameraShake(rank);
 
         if (setting != null)
-            yield return StartCoroutine(PlayConfiguredSprites(setting, target));
+            yield return PlayConfiguredSprites(setting, target);
     }
 
-    private void PlayConfiguredPrefab(HandRankVFXSetting setting, Vector3 target)
+    private static void PlayConfiguredPrefab(HandRankVFXSetting setting, Vector3 target)
     {
         if (setting == null || setting.prefab == null)
             return;
 
-        GameObject spawned = Instantiate(setting.prefab, target, Quaternion.identity);
+        GameObject spawned = Object.Instantiate(setting.prefab, target, Quaternion.identity);
         spawned.transform.localScale *= Mathf.Max(0.1f, setting.scale);
 
         if (setting.prefabLifetime > 0f)
-            Destroy(spawned, setting.prefabLifetime);
+            Object.Destroy(spawned, setting.prefabLifetime);
     }
 
-    private IEnumerator PlayConfiguredSprites(HandRankVFXSetting setting, Vector3 target)
+    private static IEnumerator PlayConfiguredSprites(HandRankVFXSetting setting, Vector3 target)
     {
         if (setting.worldSprites != null)
         {
@@ -78,7 +62,7 @@ public class PlayerAttackVFX : MonoBehaviour
             {
                 if (sprite == null) continue;
 
-                yield return StartCoroutine(PlayWorldSprite(sprite, setting, target, setting.worldOffset));
+                yield return PlayWorldSprite(sprite, setting, target, setting.worldOffset);
             }
         }
 
@@ -91,12 +75,12 @@ public class PlayerAttackVFX : MonoBehaviour
                 if (sprite == null) continue;
 
                 Vector2 offset = GetResourceOffset(setting, i);
-                yield return StartCoroutine(PlayWorldSprite(sprite, setting, target, offset));
+                yield return PlayWorldSprite(sprite, setting, target, offset);
             }
         }
     }
 
-    private Vector2 GetResourceOffset(HandRankVFXSetting setting, int index)
+    private static Vector2 GetResourceOffset(HandRankVFXSetting setting, int index)
     {
         if (setting.resourceOffsets != null &&
             index >= 0 &&
@@ -106,7 +90,7 @@ public class PlayerAttackVFX : MonoBehaviour
         return setting.worldOffset;
     }
 
-    private IEnumerator PlayWorldSprite(Sprite sprite, HandRankVFXSetting setting, Vector3 target, Vector2 offset)
+    private static IEnumerator PlayWorldSprite(Sprite sprite, HandRankVFXSetting setting, Vector3 target, Vector2 offset)
     {
         GameObject obj = new GameObject($"Player Attack VFX - {setting.rank}");
         obj.transform.position = target + (Vector3)offset;
@@ -115,7 +99,7 @@ public class PlayerAttackVFX : MonoBehaviour
         SpriteRenderer sr = obj.AddComponent<SpriteRenderer>();
         sr.sprite = sprite;
         sr.color = new Color(1f, 1f, 1f, 0f);
-        sr.sortingOrder = sortingOrder;
+        sr.sortingOrder = SortingOrder;
 
         float duration = Mathf.Max(0.08f, setting.duration);
         float t = 0f;
@@ -136,10 +120,10 @@ public class PlayerAttackVFX : MonoBehaviour
             yield return null;
         }
 
-        Destroy(obj);
+        Object.Destroy(obj);
     }
 
-    private Sprite LoadAttackSprite(string resourceName)
+    private static Sprite LoadAttackSprite(string resourceName)
     {
         if (string.IsNullOrWhiteSpace(resourceName))
             return null;
@@ -162,13 +146,13 @@ public class PlayerAttackVFX : MonoBehaviour
             texture,
             new Rect(0f, 0f, texture.width, texture.height),
             Vector2.one * 0.5f,
-            pixelsPerUnit);
+            PixelsPerUnit);
 
         resourceSpriteCache[resourceName] = sprite;
         return sprite;
     }
 
-    private void PlayCameraShake(HandRankVFXSetting setting, HandRankType rank)
+    private static void PlayCameraShake(HandRankType rank)
     {
         float duration = GetShakeDuration(rank);
         float magnitude = GetShakeMagnitude(rank);
@@ -177,7 +161,7 @@ public class PlayerAttackVFX : MonoBehaviour
             CameraShake.ShakeAll(duration, magnitude);
     }
 
-    private float GetShakeDuration(HandRankType rank)
+    private static float GetShakeDuration(HandRankType rank)
     {
         switch (rank)
         {
@@ -195,29 +179,26 @@ public class PlayerAttackVFX : MonoBehaviour
         }
     }
 
-    private float GetShakeMagnitude(HandRankType rank)
+    private static float GetShakeMagnitude(HandRankType rank)
     {
         switch (rank)
         {
-            case HandRankType.OnePair: return 0.08f;
-            case HandRankType.TwoPair: return 0.11f;
-            case HandRankType.ThreeOfAKind: return 0.14f;
-            case HandRankType.Straight: return 0.17f;
-            case HandRankType.Flush: return 0.21f;
-            case HandRankType.FullHouse: return 0.26f;
-            case HandRankType.FourOfAKind: return 0.32f;
-            case HandRankType.StraightFlush: return 0.39f;
-            case HandRankType.RoyalFlush: return 0.48f;
+            case HandRankType.OnePair: return 0.09f;
+            case HandRankType.TwoPair: return 0.125f;
+            case HandRankType.ThreeOfAKind: return 0.16f;
+            case HandRankType.Straight: return 0.195f;
+            case HandRankType.Flush: return 0.24f;
+            case HandRankType.FullHouse: return 0.3f;
+            case HandRankType.FourOfAKind: return 0.37f;
+            case HandRankType.StraightFlush: return 0.45f;
+            case HandRankType.RoyalFlush: return 0.55f;
             case HandRankType.HighCard:
             default: return 0f;
         }
     }
 
-    private HandRankVFXSetting GetSetting(HandRankType rank)
+    private static HandRankVFXSetting GetSetting(HandRankType rank)
     {
-        if (rankSettings == null)
-            return null;
-
         foreach (HandRankVFXSetting setting in rankSettings)
             if (setting != null && setting.rank == rank)
                 return setting;
@@ -260,4 +241,8 @@ public class PlayerAttackVFX : MonoBehaviour
             worldOffset = offset
         };
     }
+}
+
+public class PlayerAttackVFXRunner : MonoBehaviour
+{
 }
