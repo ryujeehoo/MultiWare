@@ -64,6 +64,7 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
             Debug.Log($"cardSprite가 없습니다: {data.cardName}");
         }
     }
+
     // SuitType → Suit 변환
     private Suit ConvertSuit(SuitType suitType)
     {
@@ -139,11 +140,9 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
                 GoldManager.Instance.SpendGold(totalCost);
                 Debug.Log($"리롤! -{totalCost}G / {rerollCount}장 교체");
 
-                // 카드 제거 전에 rerollCount 저장
                 List<CardView> cardsToRemove = new List<CardView>(selected);
                 CardSelectManager.Instance.ClearSelected();
 
-                // 카드 먼저 제거
                 foreach (CardView cv in cardsToRemove)
                 {
                     if (cv != null && cv.gameObject != null)
@@ -155,7 +154,6 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
                     }
                 }
 
-                // TurnManager에서 코루틴 실행 (CardView가 Destroy되기 전에!)
                 if (CardDealAnimator.Instance != null && TurnManager.Instance != null)
                     TurnManager.Instance.StartCoroutine(
                         CardDealAnimator.Instance.DealCardsAnimation(rerollCount));
@@ -199,15 +197,30 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
         GameObject lineObj = new GameObject("ArrowLine");
         lineRenderer = lineObj.AddComponent<LineRenderer>();
 
-        lineRenderer.startWidth = 0.05f;
-        lineRenderer.endWidth = 0.05f;
+        lineRenderer.startWidth = 1.5f;
+        lineRenderer.endWidth = 1.5f;
         lineRenderer.positionCount = 2;
         lineRenderer.useWorldSpace = true;
         lineRenderer.sortingOrder = 999;
 
-        lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        lineRenderer.startColor = Color.red;
-        lineRenderer.endColor = Color.red;
+        // 화살표 이미지 텍스처 적용
+        Sprite arrowSprite = Resources.Load<Sprite>("화살표");
+        if (arrowSprite != null)
+        {
+            Material mat = new Material(Shader.Find("Sprites/Default"));
+            mat.mainTexture = arrowSprite.texture;
+            lineRenderer.material = mat;
+            lineRenderer.startColor = Color.white;
+            lineRenderer.endColor = Color.white;
+            Debug.Log("화살표 이미지 적용 성공!");
+        }
+        else
+        {
+            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
+            lineRenderer.startColor = Color.red;
+            lineRenderer.endColor = Color.red;
+            Debug.Log("화살표 이미지 없음! 빨간색으로 표시");
+        }
 
         Debug.Log("화살표 생성됨!");
     }
@@ -219,11 +232,12 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
 
         Camera cam = Camera.main;
 
+        // 카드의 스크린 좌표 → 월드 좌표 변환
+        Vector3 cardScreenPos = RectTransformUtility.WorldToScreenPoint(
+            cam, GetComponent<RectTransform>().position);
+
         Vector3 startWorld = cam.ScreenToWorldPoint(
-            new Vector3(
-                GetComponent<RectTransform>().position.x,
-                GetComponent<RectTransform>().position.y,
-                cam.nearClipPlane + 1f));
+            new Vector3(cardScreenPos.x, cardScreenPos.y, cam.nearClipPlane + 1f));
 
         Vector3 endWorld = cam.ScreenToWorldPoint(
             new Vector3(endPos.x, endPos.y, cam.nearClipPlane + 1f));
@@ -257,7 +271,6 @@ public class CardView : MonoBehaviour, IPointerClickHandler,
             if (CardSelectManager.Instance != null)
                 CardSelectManager.Instance.SelectCard(this);
 
-            // 디버그 추가!
             Debug.Log($"선택된 카드: {cardData.cardName} / cardNumber: {cardData.cardNumber} / suit: {cardData.suit}");
         }
         else
