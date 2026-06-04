@@ -52,7 +52,7 @@ public class CardSelectManager : MonoBehaviour
         if (selectedCards.Count == 0)
         {
             if (handResultText != null)
-                handResultText.text = "Select Cards";
+                handResultText.text = "카드를 선택하세요";
             return;
         }
 
