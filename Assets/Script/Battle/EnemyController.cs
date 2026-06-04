@@ -462,8 +462,8 @@ Player.ApplyEffect(new ShockEffect(duration));
         yield return new WaitForSeconds(0.12f);
         yield return StartCoroutine(ChargeAndReturn());
         new DamageEffect(totalDamage).Apply(Player);
-actionStack = 0;
-        GetComponent<Monster>()?.effectDisplay?.SetStack(actionStack);
+        // actionStack = 0;  ← 삭제
+        // GetComponent<Monster>()?.effectDisplay?.SetStack(actionStack);  ← 삭제
         yield return new WaitForSeconds(0.2f);
     }
 

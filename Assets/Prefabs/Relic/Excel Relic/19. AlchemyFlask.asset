@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48b8861b4d7b634fb29f950311e84c5, type: 3}
   m_Name: 19. AlchemyFlask
   m_EditorClassIdentifier: 
-  relicName: 
-  description: 
+  relicName: "\uC5F0\uAE08\uC220 \uD50C\uB77C\uC2A4\uD06C"
+  description: "\uC804\uD22C \uC885\uB8CC \uD6C4 HP\uAC00 50% \uC774\uD558\uC774\uBA74
+    HP\uB97C 20 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  icon: {fileID: -7340655531593128469, guid: b195e09bd65726045bcd1fc914e41a99, type: 3}
   triggers:
   - triggerType: 5
     conditionType: 5

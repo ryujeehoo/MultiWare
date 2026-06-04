@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48b8861b4d7b634fb29f950311e84c5, type: 3}
   m_Name: 12. HeartGrail
   m_EditorClassIdentifier: 
-  relicName: 
-  description: 
-  icon: {fileID: 0}
+  relicName: "\uD558\uD2B8 \uC131\uBC30"
+  description: "\u2665 \uCE74\uB4DC\uAC00 \uD3EC\uD568\uB41C \uC871\uBCF4\uC758 \uBC29\uC5B4\uB9C9\uC774
+    1.5\uBC30\uAC00 \uB429\uB2C8\uB2E4."
+  icon: {fileID: -2425611285429831578, guid: 2b7325d10310917498bae45212b169fc, type: 3}
   triggers:
   - triggerType: 1
     conditionType: 0

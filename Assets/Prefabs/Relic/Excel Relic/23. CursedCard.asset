@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48b8861b4d7b634fb29f950311e84c5, type: 3}
   m_Name: 23. CursedCard
   m_EditorClassIdentifier: 
-  relicName: 
-  description: 
+  relicName: "\uC800\uC8FC\uBC1B\uC740 \uCE74\uB4DC"
+  description: "\uB9E4 \uD134 HP\uAC00 3 \uAC10\uC18C\uD558\uC9C0\uB9CC, \uBAA8\uB4E0
+    \uC871\uBCF4 \uBC30\uC728\uC774 0.5 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  icon: {fileID: 8221169826032235763, guid: 080bbab824425ac41800ec0afbaa8798, type: 3}
   triggers:
   - triggerType: 2
     conditionType: 0

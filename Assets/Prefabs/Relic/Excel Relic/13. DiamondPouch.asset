@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48b8861b4d7b634fb29f950311e84c5, type: 3}
   m_Name: 13. DiamondPouch
   m_EditorClassIdentifier: 
-  relicName: 
-  description: 
-  icon: {fileID: 0}
+  relicName: "\uB2E4\uC774\uC544 \uC8FC\uBA38\uB2C8"
+  description: "\u2666 \uCE74\uB4DC\uAC00 \uD3EC\uD568\uB41C \uC871\uBCF4\uC758 \uACE8\uB4DC
+    \uD68D\uB4DD\uB7C9\uC774 50% \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  icon: {fileID: -820096332923199631, guid: 88cd529a84fad5740b8065bb480d342c, type: 3}
   triggers:
   - triggerType: 1
     conditionType: 0

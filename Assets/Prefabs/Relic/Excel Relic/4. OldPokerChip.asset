@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48b8861b4d7b634fb29f950311e84c5, type: 3}
   m_Name: 4. OldPokerChip
   m_EditorClassIdentifier: 
-  relicName: 
-  description: 
-  icon: {fileID: 0}
+  relicName: "\uB0A1\uC740 \uD3EC\uCEE4\uCE69"
+  description: "\uD558\uC774\uCE74\uB4DC \uBC1C\uB3D9 \uC2DC \uB2E4\uC74C \uD134\uC5D0
+    \uB4DC\uB85C\uC6B0 \uCE74\uB4DC\uAC00 1\uC7A5 \uCD94\uAC00\uB429\uB2C8\uB2E4."
+  icon: {fileID: -8052529552721171729, guid: 7d83e7daf5567ec45ab5d7efcee64d5b, type: 3}
   triggers:
   - triggerType: 3
     conditionType: 1

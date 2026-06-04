@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
-        SceneManager.LoadScene("BattleScene");
+        SceneManager.LoadScene("BattleScene test 3");
     }
 
     public void OnVictory()

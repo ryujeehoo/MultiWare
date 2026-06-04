@@ -49,8 +49,6 @@ public class Player : MonoBehaviour, IEffectTarget
     {
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
         OnGoldChanged?.Invoke(gold);
-        foreach (var relic in relics)
-            relic.OnBattleStart(this);
     }
 
     public void TakeDamage(float damage)

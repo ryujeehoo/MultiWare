@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48b8861b4d7b634fb29f950311e84c5, type: 3}
   m_Name: 14. CloverMushroom
   m_EditorClassIdentifier: 
-  relicName: 
-  description: 
-  icon: {fileID: 0}
+  relicName: "\uD074\uB85C\uBC84 \uB3C5\uBC84\uC12F"
+  description: "\u2663 \uCE74\uB4DC\uAC00 \uD3EC\uD568\uB41C \uC871\uBCF4\uC758 \uBC29\uC5B4\uB9C9
+    \uBC30\uC728\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4."
+  icon: {fileID: -2948328310556941450, guid: 43deae418168ebd439425a0e071cbd59, type: 3}
   triggers:
   - triggerType: 1
     conditionType: 0

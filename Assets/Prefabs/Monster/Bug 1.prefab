@@ -59,9 +59,9 @@ MonoBehaviour:
   hpBar: {fileID: 144413315010222319}
   hpText: {fileID: 6139371185036124409}
   defenseText: {fileID: 2742803129382782778}
-  hitSound: {fileID: 0}
-  attackSound: {fileID: 0}
-  dieSound: {fileID: 0}
+  hitSound: {fileID: 8300000, guid: b5b7df7dcac423b4aa33c5325702d947, type: 3}
+  attackSound: {fileID: 8300000, guid: 008b27bc79087bd4c8a7ab54af9c2967, type: 3}
+  dieSound: {fileID: 8300000, guid: 274a7edd803eee347a0d07a544a374dc, type: 3}
   isLurking: 0
 --- !u!114 &5325681633866451912
 MonoBehaviour:

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48b8861b4d7b634fb29f950311e84c5, type: 3}
   m_Name: 10. MysteriousEnvelope
   m_EditorClassIdentifier: 
-  relicName: 
-  description: 
-  icon: {fileID: 0}
+  relicName: "\uC218\uC0C1\uD55C \uBD09\uD22C"
+  description: "\uC804\uD22C \uC2DC\uC791 \uC2DC \uCE74\uB4DC\uB97C 1\uC7A5 \uCD94\uAC00\uB85C
+    \uB4DC\uB85C\uC6B0\uD569\uB2C8\uB2E4."
+  icon: {fileID: -4321334183406119107, guid: 7d428c99dbf6041468c34c7e671bb9db, type: 3}
   triggers:
   - triggerType: 1
     conditionType: 0

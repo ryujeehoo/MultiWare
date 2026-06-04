@@ -28,8 +28,20 @@ public class TurnManager : MonoBehaviour
 
     private void Start()
     {
-        SetInputBlock(true); // ← 추가
+        SetInputBlock(true);
         RefreshEnemies();
+        StartCoroutine(InitBattle());
+    }
+
+    IEnumerator InitBattle()
+    {
+        yield return null; // 한 프레임 대기 → Player 완전히 준비됨
+
+        Debug.Log($"relics count: {Player.relics.Count}");
+
+        foreach (var relic in Player.relics)
+            relic.OnBattleStart(Player);
+
         StartPlayerTurn();
     }
 

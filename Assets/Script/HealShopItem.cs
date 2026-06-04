@@ -33,10 +33,11 @@ public class HealShopItem : MonoBehaviour
         {
             Player.Instance.Heal(healAmount);
             purchased = true;
-
+            AudioManager.Instance.PlayGoldSpend();
             buyButton.interactable = false;
-            priceText.text = "구매 완료";
+            priceText.text = "Sold Out";
             Debug.Log($"[상점] 체력 {healAmount} 회복!");
+
         }
         else
         {

@@ -37,7 +37,7 @@ public class RelicShopItem : MonoBehaviour
             relic.OnRelicAcquired(Player.Instance, FindAnyObjectByType<DeckManager>());
             AudioManager.Instance.PlayGoldSpend();
             buyButton.interactable = false;
-            priceText.text = "Sold out";
+            priceText.text = "Sold Out";
 
             // 패널이 열려있을 때만 갱신
             if (RelicPanelUI.Instance != null && RelicPanelUI.Instance.isOpen)
