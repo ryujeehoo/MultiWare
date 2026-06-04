@@ -316,31 +316,31 @@ public class Monster : MonoBehaviour, IDropHandler, IEffectTarget
 
         if (ratio < 0.6f)
         {
-            debuffName = "Expose";
-            debuffDesc = "Enemy DEF -20% (2 turns)";
-            buffName = "Inspiration";
-            buffDesc = "Draw +1 card now";
+            debuffName = "노출";
+            debuffDesc = "적 방어력 -20%(2턴)";
+            buffName = "영감";
+            buffDesc = "즉시 드로우 +1장";
         }
         else if (ratio < 0.8f)
         {
-            debuffName = "Panic";
-            debuffDesc = "Enemy acts randomly (1 turn)";
-            buffName = "Focus";
-            buffDesc = "Next hand DMG +40%";
+            debuffName = "패닉";
+            debuffDesc = "적 랜덤 행동(1턴)";
+            buffName = "집중";
+            buffDesc = "다음 족보 데미지 +40%";
         }
         else if (ratio < 1.0f)
         {
-            debuffName = "Slow";
-            debuffDesc = "Enemy action delayed 1 turn";
-            buffName = "Lucky";
-            buffDesc = "Draw +2 cards now";
+            debuffName = "둔화";
+            debuffDesc = "적 행동 순서 1턴 지연";
+            buffName = "천운";
+            buffDesc = "즉시 드로우 +2장";
         }
         else
         {
-            debuffName = "Curse";
-            debuffDesc = "2 random debuffs applied";
-            buffName = "Invincible";
-            buffDesc = "Take 0 damage this turn";
+            debuffName = "저주";
+            debuffDesc = "디버프 중 랜덤 2종 발동";
+            buffName = "무적";
+            buffDesc = "이번 턴 받는 피해 0";
         }
 
         if (CloverChoiceUI.Instance != null)

@@ -132,15 +132,15 @@ public class CardRerollManager : MonoBehaviour
 
         if (!isRerollMode)
         {
-            rerollButtonText.text = "Reroll";
+            rerollButtonText.text = "리롤";
         }
         else
         {
             int totalCost = rerollCost * selectedForReroll.Count;
             if (selectedForReroll.Count > 0)
-                rerollButtonText.text = $"Confirm\n({selectedForReroll.Count} -{totalCost}G)";
+                rerollButtonText.text = $"확인\n({totalCost}gold)";
             else
-                rerollButtonText.text = "Select\nCards";
+                rerollButtonText.text = "카드\n선택";
         }
     }
 }

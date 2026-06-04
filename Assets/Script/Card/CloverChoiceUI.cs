@@ -35,13 +35,13 @@ public class CloverChoiceUI : MonoBehaviour
         onBuffSelected = onBuff;
 
         if (descriptionText != null)
-            descriptionText.text = "Choose Clover Effect!";
+            descriptionText.text = "원하는 효과를 고르세요!";
 
         if (debuffText != null)
-            debuffText.text = $"[Debuff] {debuffName}\n{debuffDesc}";
+            debuffText.text = $"[디버프] {debuffName}\n{debuffDesc}";
 
         if (buffText != null)
-            buffText.text = $"[Buff] {buffName}\n{buffDesc}";
+            buffText.text = $"[버프] {buffName}\n{buffDesc}";
 
         if (choicePanel != null)
             choicePanel.SetActive(true);
