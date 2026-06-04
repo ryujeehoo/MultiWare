@@ -71,10 +71,11 @@ public class Player : MonoBehaviour, IEffectTarget
             dmg -= absorbed;
             OnDefenseChanged?.Invoke(defense);
         }
+        int finalDamage = dmg;
 
-        if (dmg > 0)
+        if (finalDamage > 0)
         {
-            currentHealth -= dmg;
+            currentHealth -= finalDamage;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         }
 
@@ -82,7 +83,7 @@ public class Player : MonoBehaviour, IEffectTarget
             HitEffectUI.ShowDamageVignetteGlobal();
 
         foreach (var relic in relics)
-            relic.OnTakeDamage(this, dmg);
+            relic.OnTakeDamage(this, finalDamage);
 
         OnHealthChanged?.Invoke(currentHealth, maxHealth);
 

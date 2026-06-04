@@ -1,85 +1,69 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\4-1 Capstone\\MultiWare\\",
+  "WorkspaceRootPath": "D:\\MultiWare\\MultiWare\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\tooltipui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\tooltipui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|c:\\4-1 capstone\\multiware\\assets\\script\\healshopitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\healshopitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\relicshopitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\relicshopitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\card\\deckviewui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\card\\deckviewui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\relic\\relicpanelui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\relicpanelui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\shopmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\shopmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\tooltiptrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\tooltiptrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\relic\\relicui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\relicui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\relic\\bonusbyhandrankreli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\bonusbyhandrankreli.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\relic\\relic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\relic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\monsterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monsterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\turnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\turnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\playereffectdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\playereffectdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\relic\\bonusrelic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\bonusrelic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\monsterintentui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|d:\\multiware\\multiware\\assets\\script\\battle\\monsterintentui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monsterintentui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\battle\\statuseffectdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\tooltiptrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\tooltiptrigger.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\tooltipui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\tooltipui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\card\\deckviewui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\card\\deckviewui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\relic\\relicpanelui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\relicpanelui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\relic\\relicui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\relicui.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\relic\\relic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\relic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\monsterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monsterspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\turnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\turnmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\playereffectdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\playereffectdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\relic\\bonusrelic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\relic\\bonusrelic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\battle\\statuseffectdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\statuseffectdisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\4-1 Capstone\\MultiWare\\assets\\script\\card\\handevaluator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|D:\\MultiWare\\MultiWare\\assets\\script\\card\\handevaluator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\card\\handevaluator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -90,27 +74,76 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DeckViewUI.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Card\\DeckViewUI.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Card\\DeckViewUI.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Card\\DeckViewUI.cs",
-              "RelativeToolTip": "Assets\\Script\\Card\\DeckViewUI.cs",
-              "ViewState": "AgIAAFsAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "Player.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Player.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Player.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Player.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\Player.cs",
+              "ViewState": "AgIAADsAAAAAAAAAAAAhwFAAAAAcAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T18:53:53.415Z"
+              "WhenOpened": "2026-06-02T12:05:29.703Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\GameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\GameManager.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\GameManager.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\GameManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAE0AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T13:11:55.801Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TooltipUI.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\TooltipUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\TooltipUI.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\TooltipUI.cs",
+              "RelativeToolTip": "Assets\\Script\\TooltipUI.cs",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAIwCMAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T14:32:09.725Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "TooltipTrigger.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\TooltipTrigger.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\TooltipTrigger.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\TooltipTrigger.cs",
+              "RelativeToolTip": "Assets\\Script\\TooltipTrigger.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAUwBAAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-01T14:32:26.792Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Monster.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Monster.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Monster.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Monster.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\Monster.cs",
+              "ViewState": "AgIAALgBAAAAAAAAAAAswC0AAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T12:03:11.92Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "RelicPanelUI.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicPanelUI.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicPanelUI.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\RelicPanelUI.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicPanelUI.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicPanelUI.cs",
               "RelativeToolTip": "Assets\\Script\\Battle\\Relic\\RelicPanelUI.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAADwvxkAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -118,109 +151,23 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "RelicShopItem.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\RelicShopItem.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\RelicShopItem.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\RelicShopItem.cs",
-              "RelativeToolTip": "Assets\\Script\\RelicShopItem.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAiwDAAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "DeckViewUI.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Card\\DeckViewUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Card\\DeckViewUI.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Card\\DeckViewUI.cs",
+              "RelativeToolTip": "Assets\\Script\\Card\\DeckViewUI.cs",
+              "ViewState": "AgIAAFsAAAAAAAAAAAAYwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T17:01:21.832Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ShopManager.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\ShopManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\ShopManager.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\ShopManager.cs",
-              "RelativeToolTip": "Assets\\Script\\ShopManager.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAQwD8AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T16:41:07.405Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "HealShopItem.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\HealShopItem.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\HealShopItem.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\HealShopItem.cs",
-              "RelativeToolTip": "Assets\\Script\\HealShopItem.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAADAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T16:40:04.41Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "BonusByHandRankReli.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\BonusByHandRankReli.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\BonusByHandRankReli.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\BonusByHandRankReli.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\Relic\\BonusByHandRankReli.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvwAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T14:48:53.182Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "RelicUI.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicUI.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\RelicUI.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicUI.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\Relic\\RelicUI.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T14:43:51.29Z"
+              "WhenOpened": "2026-06-02T18:53:53.415Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "Player.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Player.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Player.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Player.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\Player.cs",
-              "ViewState": "AgIAAPIAAAAAAAAAAAAkwAoBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T12:05:29.703Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "GameManager.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\GameManager.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\GameManager.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\GameManager.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\GameManager.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAiwE0AAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T13:11:55.801Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TooltipUI.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\TooltipUI.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\TooltipUI.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\TooltipUI.cs",
-              "RelativeToolTip": "Assets\\Script\\TooltipUI.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAIwCMAAAA9AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-01T14:32:09.725Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
               "Title": "MonsterSpawner.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterSpawner.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\MonsterSpawner.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\MonsterSpawner.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterSpawner.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\MonsterSpawner.cs",
               "RelativeToolTip": "Assets\\Script\\Battle\\MonsterSpawner.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAIwBgAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -228,11 +175,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 12,
               "Title": "PlayerEffectDisplay.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\PlayerEffectDisplay.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\PlayerEffectDisplay.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\PlayerEffectDisplay.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\PlayerEffectDisplay.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\PlayerEffectDisplay.cs",
               "RelativeToolTip": "Assets\\Script\\Battle\\PlayerEffectDisplay.cs",
               "ViewState": "AgIAAC0AAAAAAAAAAAAIwFUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -240,23 +187,36 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Monster.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Monster.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Monster.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Monster.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\Monster.cs",
-              "ViewState": "AgIAACMAAAAAAAAAAAAUwC0AAAAxAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "MonsterIntentUI.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\MonsterIntentUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\MonsterIntentUI.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\MonsterIntentUI.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\MonsterIntentUI.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAgwAkAAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T12:03:11.92Z"
+              "WhenOpened": "2026-06-01T14:32:40.282Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 8,
+              "Title": "RelicUI.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicUI.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\RelicUI.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicUI.cs",
+              "RelativeToolTip": "Assets\\Script\\Battle\\Relic\\RelicUI.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T14:43:51.29Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "BonusRelic.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
               "RelativeToolTip": "Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
               "ViewState": "AgIAAJ0AAAAAAAAAAAAUwKkAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -264,23 +224,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "TooltipTrigger.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\TooltipTrigger.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\TooltipTrigger.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\TooltipTrigger.cs",
-              "RelativeToolTip": "Assets\\Script\\TooltipTrigger.cs",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAiwBAAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-01T14:32:26.792Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 11,
               "Title": "TurnManager.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\TurnManager.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\TurnManager.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\TurnManager.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\TurnManager.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\TurnManager.cs",
               "RelativeToolTip": "Assets\\Script\\Battle\\TurnManager.cs",
               "ViewState": "AgIAAHgAAAAAAAAAAAAQwKIAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -290,9 +238,9 @@
               "$type": "Document",
               "DocumentIndex": 9,
               "Title": "Relic.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\Relic.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Relic\\Relic.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\Relic.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\Relic.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\Relic\\Relic.cs",
               "RelativeToolTip": "Assets\\Script\\Battle\\Relic\\Relic.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAADwvw8AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -300,23 +248,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "MonsterIntentUI.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterIntentUI.cs",
-              "RelativeDocumentMoniker": "Assets\\Script\\Battle\\MonsterIntentUI.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterIntentUI.cs",
-              "RelativeToolTip": "Assets\\Script\\Battle\\MonsterIntentUI.cs",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAAwKMAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-01T14:32:40.282Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 14,
               "Title": "StatusEffectDisplay.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\StatusEffectDisplay.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\StatusEffectDisplay.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\StatusEffectDisplay.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Battle\\StatusEffectDisplay.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Battle\\StatusEffectDisplay.cs",
               "RelativeToolTip": "Assets\\Script\\Battle\\StatusEffectDisplay.cs",
               "ViewState": "AgIAAEkAAAAAAAAAAAAiwIkAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -324,11 +260,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 15,
               "Title": "HandEvaluator.cs",
-              "DocumentMoniker": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Card\\HandEvaluator.cs",
+              "DocumentMoniker": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Card\\HandEvaluator.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Card\\HandEvaluator.cs",
-              "ToolTip": "C:\\4-1 Capstone\\MultiWare\\Assets\\Script\\Card\\HandEvaluator.cs",
+              "ToolTip": "D:\\MultiWare\\MultiWare\\Assets\\Script\\Card\\HandEvaluator.cs",
               "RelativeToolTip": "Assets\\Script\\Card\\HandEvaluator.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
