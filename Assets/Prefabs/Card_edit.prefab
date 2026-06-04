@@ -335,6 +335,7 @@ GameObject:
   - component: {fileID: 1420142187563362015}
   - component: {fileID: 2628546367598199279}
   - component: {fileID: 2091919471760032908}
+  - component: {fileID: 2414720285095101575}
   m_Layer: 5
   m_Name: CardBack
   m_TagString: Untagged
@@ -399,6 +400,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2414720285095101575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4895252147223474892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7183509024730663941
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,6 +427,7 @@ GameObject:
   - component: {fileID: 8068687551629772554}
   - component: {fileID: 1027590086342433684}
   - component: {fileID: 4304123286516441530}
+  - component: {fileID: 205547913347470647}
   m_Layer: 5
   m_Name: CardFront
   m_TagString: Untagged
@@ -503,6 +520,21 @@ MonoBehaviour:
   diamondSprite: {fileID: -5618320616253164102, guid: d0c38a29e02b0744ead63580ac97a5f0, type: 3}
   heartSprite: {fileID: 2875701537226824005, guid: 7c0754cd5373c184fb41d790be28c8f3, type: 3}
   clubSprite: {fileID: -8018280662807213188, guid: a8919a6ba7740194aa83bac819035a33, type: 3}
+--- !u!114 &205547913347470647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7183509024730663941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: -2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &8166166578782956366
 GameObject:
   m_ObjectHideFlags: 0

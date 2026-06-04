@@ -59,13 +59,16 @@ public class CardFan : MonoBehaviour
             RectTransform cardTransform = cards[i].GetComponent<RectTransform>();
             if (cardTransform == null) continue;
 
-            // 1자 배치 - spacing만큼 가로로 배치
+            // 겹치게 배치 - spacing을 카드 너비보다 작게 설정
             float normPos = cards.Length == 1 ? 0f :
                 (i / (float)(cards.Length - 1)) - 0.5f;
             float x = spacing * normPos * cards.Length;
 
-            cardTransform.anchoredPosition = new Vector2(x, 0); // y는 0 고정
-            cardTransform.rotation = Quaternion.identity; // 회전 없음
+            cardTransform.anchoredPosition = new Vector2(x, 0);
+            cardTransform.rotation = Quaternion.identity;
+
+            // 오른쪽 카드가 위에 보이도록 순서 설정
+            cards[i].transform.SetSiblingIndex(i);
         }
     }
     [ContextMenu("Draw Card")]

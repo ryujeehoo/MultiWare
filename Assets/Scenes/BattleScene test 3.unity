@@ -6459,7 +6459,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2032831042}
   m_HandleRect: {fileID: 2032831041}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -7794,7 +7794,7 @@ MonoBehaviour:
   cardMax: 5
   cardPrefab: {fileID: 8166166578782956366, guid: c00951bddcfbbe3468b037d3efd995fc, type: 3}
   cardCount: 7
-  spacing: 100
+  spacing: 80
   radius: 1000
   maxAngle: 30
 --- !u!212 &1910074173
@@ -9057,6 +9057,7 @@ MonoBehaviour:
   slotParent: {fileID: 1083507282}
   slotPrefab: {fileID: 6719269696720180796, guid: 4664fb495b54a714180394583882aee9, type: 3}
   toggleButton: {fileID: 156992363}
+  isOpen: 0
 --- !u!1 &2119200794
 GameObject:
   m_ObjectHideFlags: 0
