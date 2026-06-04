@@ -636,21 +636,21 @@ MonoBehaviour:
   intentIcon: {fileID: 8666469367017505857}
   intentText: {fileID: 4267822648743622967}
   intentTooltip: {fileID: 2954028251971607574}
-  iconAttack: {fileID: 0}
-  iconDefend: {fileID: 0}
+  iconAttack: {fileID: 21300000, guid: ad0d5477177be854c8a36bd08efcf51b, type: 3}
+  iconDefend: {fileID: 21300000, guid: 10a6b0f9ed83b544788faab02ece6ee8, type: 3}
   iconPoison: {fileID: 21300000, guid: 07c106bed21217f46bacd155da9b7702, type: 3}
-  iconMultiAttack: {fileID: 0}
-  iconSummon: {fileID: 0}
-  iconHeal: {fileID: 0}
+  iconMultiAttack: {fileID: 21300000, guid: ad0d5477177be854c8a36bd08efcf51b, type: 3}
+  iconSummon: {fileID: 21300000, guid: 1e09ba69e01643b45a4742ea8830815d, type: 3}
+  iconHeal: {fileID: 21300000, guid: e5ea84189c63d1842ae72f40a833ef71, type: 3}
   iconBind: {fileID: 21300000, guid: d3150333be928094eb41a01c871bf089, type: 3}
   iconShock: {fileID: 21300000, guid: 7d1b61271414d3f4d984fea8c3e8fc41, type: 3}
-  iconReflect: {fileID: 21300000, guid: a36d29c6f7e4efa44afe54bdc42a4452, type: 3}
+  iconReflect: {fileID: 21300000, guid: 21e290886c8707247ad8f9844140036c, type: 3}
   iconBuff: {fileID: 0}
-  iconSelfDestruct: {fileID: 0}
-  iconStack: {fileID: 0}
+  iconSelfDestruct: {fileID: 21300000, guid: 9429059ebb604ba4599f3dac8204f3fa, type: 3}
+  iconStack: {fileID: 21300000, guid: 0223655a6d29021489fc66daec284eed, type: 3}
   iconLurk: {fileID: 21300000, guid: 58d2a9a818c273142a2c7f55c6b6781e, type: 3}
   iconUnknown: {fileID: 0}
-  iconAllyDefend: {fileID: 0}
+  iconAllyDefend: {fileID: 21300000, guid: 7c737fd71b2e8924fa96d95cd4433fbf, type: 3}
 --- !u!114 &5110425526005678259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -672,7 +672,7 @@ MonoBehaviour:
   iconExpose: {fileID: 21300000, guid: 67e7e19e9f3e9734ca4054cb160ff03a, type: 3}
   iconPanic: {fileID: 21300000, guid: 379027a4ccdabc24187e648914a3fc74, type: 3}
   iconSlow: {fileID: 21300000, guid: 44fc211b6a6473946bb2a8c34ac37b29, type: 3}
-  iconStack: {fileID: 0}
+  iconStack: {fileID: 21300000, guid: 0223655a6d29021489fc66daec284eed, type: 3}
 --- !u!1001 &6576336512903269512
 PrefabInstance:
   m_ObjectHideFlags: 0
