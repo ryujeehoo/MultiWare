@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEditor.ShaderGraph;
 
 public class CardRerollManager : MonoBehaviour
 {
@@ -57,7 +56,7 @@ public class CardRerollManager : MonoBehaviour
                     cv.ToggleSelect();
             }
 
-            Debug.Log("리롤 모드 ON! 리롤할 카드를 선택하세요.");
+           // Debug.Log("리롤 모드 ON! 리롤할 카드를 선택하세요.");
             UpdateButtonText();
         }
         else
@@ -69,7 +68,7 @@ public class CardRerollManager : MonoBehaviour
 
             if (selectedForReroll.Count == 0)
             {
-                Debug.Log("리롤할 카드를 선택하세요!");
+                // Debug.Log("리롤할 카드를 선택하세요!");
                 isRerollMode = false;
                 UpdateButtonText();
                 return;
@@ -79,12 +78,12 @@ public class CardRerollManager : MonoBehaviour
 
             if (GoldManager.Instance.currentGold < totalCost)
             {
-                Debug.Log($"골드 부족! 필요: {totalCost}G");
+              //  Debug.Log($"골드 부족! 필요: {totalCost}G");
                 return;
             }
 
             GoldManager.Instance.SpendGold(totalCost);
-            Debug.Log($"리롤! -{totalCost}G / {selectedForReroll.Count}장 교체");
+            // Debug.Log($"리롤! -{totalCost}G / {selectedForReroll.Count}장 교체");
 
             // 리롤 소리 재생! ← 여기 추가
             if (AudioManager.Instance != null)

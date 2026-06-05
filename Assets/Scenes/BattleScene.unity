@@ -2373,7 +2373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.59119487, g: 0.59119487, b: 0.59119487, a: 0.7058824}
+  m_Color: {r: 0.59119487, g: 0.59119487, b: 0.59119487, a: 0.8666667}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3535,8 +3535,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB4A4\uB85C\uAC00\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: aceb373742278284593f10a67f268418, type: 2}
-  m_sharedMaterial: {fileID: -2821076013068126012, guid: aceb373742278284593f10a67f268418, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f3f24263803f95b45aba1797e3f61f7d, type: 2}
+  m_sharedMaterial: {fileID: -4199190222416282878, guid: f3f24263803f95b45aba1797e3f61f7d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

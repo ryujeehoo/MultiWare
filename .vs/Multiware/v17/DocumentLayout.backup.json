@@ -3,11 +3,19 @@
   "WorkspaceRootPath": "C:\\capstone\\MultiWare\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\capstone\\MultiWare\\Assets\\Script\\Card\\CardRerollManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Script\\Card\\CardRerollManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\capstone\\MultiWare\\assets\\script\\card\\rerollzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\card\\rerollzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\capstone\\MultiWare\\assets\\script\\battle\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|c:\\capstone\\multiware\\assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|C:\\capstone\\MultiWare\\assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{65255C9C-E35D-68CB-6AAB-EA73D1AA71AB}|Assembly-CSharp.csproj|solutionrelative:assets\\script\\battle\\monster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -98,11 +106,34 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CardRerollManager.cs",
+              "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Card\\CardRerollManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Card\\CardRerollManager.cs",
+              "ToolTip": "C:\\capstone\\MultiWare\\Assets\\Script\\Card\\CardRerollManager.cs",
+              "RelativeToolTip": "Assets\\Script\\Card\\CardRerollManager.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T00:25:06.93Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "RerollZone.cs",
+              "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Card\\RerollZone.cs",
+              "RelativeDocumentMoniker": "Assets\\Script\\Card\\RerollZone.cs",
+              "ToolTip": "C:\\capstone\\MultiWare\\Assets\\Script\\Card\\RerollZone.cs",
+              "RelativeToolTip": "Assets\\Script\\Card\\RerollZone.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-05T00:24:37.91Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Monster.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\Monster.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Monster.cs",
@@ -110,12 +141,11 @@
               "RelativeToolTip": "Assets\\Script\\Battle\\Monster.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T12:03:11.92Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-02T12:03:11.92Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 17,
               "Title": "RelicPanelUI.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicPanelUI.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\RelicPanelUI.cs",
@@ -127,7 +157,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "DeckViewUI.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Card\\DeckViewUI.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Card\\DeckViewUI.cs",
@@ -139,7 +169,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 20,
               "Title": "MonsterSpawner.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterSpawner.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\MonsterSpawner.cs",
@@ -151,7 +181,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "HandEvaluator.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Card\\HandEvaluator.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Card\\HandEvaluator.cs",
@@ -163,7 +193,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "GameManager.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\GameManager.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\GameManager.cs",
@@ -171,12 +201,11 @@
               "RelativeToolTip": "Assets\\Script\\Battle\\GameManager.cs",
               "ViewState": "AgIAAEYAAAAAAAAAAAAkwDAAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-02T13:11:55.801Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-06-02T13:11:55.801Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "GoldManager.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\GoldManager.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\GoldManager.cs",
@@ -188,7 +217,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "PlayerEffectDisplay.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\PlayerEffectDisplay.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\PlayerEffectDisplay.cs",
@@ -200,7 +229,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "TooltipTrigger.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\TooltipTrigger.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\TooltipTrigger.cs",
@@ -212,7 +241,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "TooltipUI.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\TooltipUI.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\TooltipUI.cs",
@@ -224,7 +253,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 15,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\Player.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Player.cs",
@@ -236,7 +265,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 12,
               "Title": "CardFan.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\CardFan.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\CardFan.cs",
@@ -248,7 +277,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 14,
               "Title": "TMP_SDF.shader",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\TextMesh Pro\\Shaders\\TMP_SDF.shader",
               "RelativeDocumentMoniker": "Assets\\TextMesh Pro\\Shaders\\TMP_SDF.shader",
@@ -260,7 +289,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "CardSelectionManager.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\CardSelectionManager.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\CardSelectionManager.cs",
@@ -272,7 +301,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "CardClick.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\CardClick.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\CardClick.cs",
@@ -284,7 +313,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "CloverChoiceUI.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Card\\CloverChoiceUI.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Card\\CloverChoiceUI.cs",
@@ -296,7 +325,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 16,
               "Title": "MonsterIntentUI.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\MonsterIntentUI.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\MonsterIntentUI.cs",
@@ -308,7 +337,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 18,
               "Title": "RelicUI.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\RelicUI.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\RelicUI.cs",
@@ -320,7 +349,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 22,
               "Title": "BonusRelic.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\BonusRelic.cs",
@@ -332,7 +361,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 21,
               "Title": "TurnManager.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\TurnManager.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\TurnManager.cs",
@@ -344,7 +373,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 19,
               "Title": "Relic.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\Relic\\Relic.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\Relic\\Relic.cs",
@@ -356,7 +385,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 23,
               "Title": "StatusEffectDisplay.cs",
               "DocumentMoniker": "C:\\capstone\\MultiWare\\Assets\\Script\\Battle\\StatusEffectDisplay.cs",
               "RelativeDocumentMoniker": "Assets\\Script\\Battle\\StatusEffectDisplay.cs",
