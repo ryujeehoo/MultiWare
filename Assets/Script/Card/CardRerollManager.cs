@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEditor.ShaderGraph;
 
 public class CardRerollManager : MonoBehaviour
 {
@@ -27,15 +28,22 @@ public class CardRerollManager : MonoBehaviour
 
     private void Start()
     {
+        
         UpdateButtonText();
     }
 
     // 리롤 버튼 클릭
     public void OnClickRerollButton()
     {
+        
         if (!isRerollMode)
         {
             isRerollMode = true;
+
+            Image Img = rerollButton.GetComponent<Image>();
+            Color color = Img.color;
+            color.a = 0.5f;
+            Img.color = color;
 
             // 기존 전투 선택 카드 초기화!
             if (CardSelectManager.Instance != null)
@@ -54,6 +62,11 @@ public class CardRerollManager : MonoBehaviour
         }
         else
         {
+            Image Img = rerollButton.GetComponent<Image>();
+            Color color = Img.color;
+            color.a = 1.0f;
+            Img.color = color;
+
             if (selectedForReroll.Count == 0)
             {
                 Debug.Log("리롤할 카드를 선택하세요!");

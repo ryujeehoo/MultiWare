@@ -100,7 +100,6 @@
     <Compile Include="Assets\Script\Card\CardSpriteAssigner.cs" />
     <Compile Include="Assets\Script\OutLine.cs" />
     <Compile Include="Assets\Script\CardFan.cs" />
-    <Compile Include="Assets\Script\CardFanEditor.cs" />
     <Compile Include="Assets\Script\Battle\CameraShake.cs" />
     <Compile Include="Assets\Script\Battle\MonsterData.cs" />
     <Compile Include="Assets\Script\Card\CloverChoiceUI.cs" />

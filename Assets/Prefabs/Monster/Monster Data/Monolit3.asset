@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Monolit3
   m_EditorClassIdentifier: 
   monsterName: Monolit3
-  maxHP: 100
+  maxHP: 340
   gold: 20
   actionPattern:
   - actionType: 0
@@ -22,11 +22,10 @@ MonoBehaviour:
     scaleAmount: 0
     attackCount: 0
     summonPrefab: {fileID: 0}
-    poisonStack: 0
-    shockDamagePerActivation: 0
-    shockDuration: 0
+    effectDuration: 2
     attackEffectType: 0
-    attackPoisonStack: 0
+    attackVFXType: 0
+    attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
     reflectDamage: 0
     reflectDefense: 0
   - actionType: 6
@@ -35,11 +34,10 @@ MonoBehaviour:
     scaleAmount: 0
     attackCount: 0
     summonPrefab: {fileID: 0}
-    poisonStack: 0
-    shockDamagePerActivation: 0
-    shockDuration: 0
+    effectDuration: 2
     attackEffectType: 0
-    attackPoisonStack: 0
+    attackVFXType: 0
+    attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
     reflectDamage: 0
     reflectDefense: 0
   hpTriggers:
@@ -51,11 +49,13 @@ MonoBehaviour:
       scaleAmount: 0
       attackCount: 0
       summonPrefab: {fileID: 0}
-      poisonStack: 0
-      shockDamagePerActivation: 0
-      shockDuration: 0
+      effectDuration: 2
       attackEffectType: 0
-      attackPoisonStack: 0
+      attackVFXType: 0
+      attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
       reflectDamage: 0
       reflectDefense: 0
-  allyDeathTriggers: []
+  chargeDuration: 0.2
+  chargeDistance: 1.5
+  shakeStrength: 0.2
+  hitImage: {fileID: 0}

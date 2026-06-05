@@ -76,6 +76,6 @@ public class GoldManager : MonoBehaviour
     private void UpdateGoldUI()
     {
         if (goldText != null)
-            goldText.text = $"gold: {currentGold}";
+            goldText.text = $"{currentGold}";
     }
 }

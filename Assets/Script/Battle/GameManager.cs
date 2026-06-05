@@ -23,18 +23,18 @@ public class GameManager : MonoBehaviour
     public void GoToTitle()          
     {
         currentStage = 0;            
-        SceneManager.LoadScene("TitleScene");
+        SceneManager.LoadScene("StartScene");
     }
     public void StartGame()
     {
-        SceneManager.LoadScene("BattleScene test 3");
+        SceneManager.LoadScene("BattleScene");
     }
 
     public void OnVictory()
     {
         currentStage++; // 스테이지 증가
         Debug.Log($"전투 승리! 현재 스테이지: {currentStage}");
-        SceneManager.LoadScene("ShopScene 1");
+        SceneManager.LoadScene("ShopScene");
     }
 
     public void OnDefeat()
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     public void OnShopDone()
     {
-        SceneManager.LoadScene("BattleScene test 3");
+        SceneManager.LoadScene("BattleScene");
     }
 
     public float GetStageScaling()

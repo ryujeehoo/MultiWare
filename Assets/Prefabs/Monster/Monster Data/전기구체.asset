@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: "\uC804\uAE30\uAD6C\uCCB4"
   m_EditorClassIdentifier: 
   monsterName: "\uC804\uAE30\uAD6C\uCCB4"
-  maxHP: 150
+  maxHP: 280
   gold: 12
   actionPattern:
   - actionType: 0
@@ -24,6 +24,8 @@ MonoBehaviour:
     summonPrefab: {fileID: 0}
     effectDuration: 2
     attackEffectType: 2
+    attackVFXType: 0
+    attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
     reflectDamage: 0
     reflectDefense: 0
   - actionType: 8
@@ -34,6 +36,8 @@ MonoBehaviour:
     summonPrefab: {fileID: 0}
     effectDuration: 1
     attackEffectType: 0
+    attackVFXType: 0
+    attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
     reflectDamage: 0
     reflectDefense: 0
   hpTriggers:
@@ -47,6 +51,8 @@ MonoBehaviour:
       summonPrefab: {fileID: 0}
       effectDuration: 2
       attackEffectType: 0
+      attackVFXType: 0
+      attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
       reflectDamage: 0
       reflectDefense: 0
   - hpThreshold: 0.4
@@ -59,5 +65,11 @@ MonoBehaviour:
       summonPrefab: {fileID: 0}
       effectDuration: 2
       attackEffectType: 0
+      attackVFXType: 0
+      attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
       reflectDamage: 0
       reflectDefense: 0
+  chargeDuration: 0.2
+  chargeDistance: 1.5
+  shakeStrength: 0.2
+  hitImage: {fileID: 0}

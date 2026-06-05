@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Worm A
   m_EditorClassIdentifier: 
   monsterName: Worm A
-  maxHP: 70
+  maxHP: 270
   gold: 15
   actionPattern:
   - actionType: 15
@@ -24,6 +24,8 @@ MonoBehaviour:
     summonPrefab: {fileID: 0}
     effectDuration: 2
     attackEffectType: 0
+    attackVFXType: 0
+    attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
     reflectDamage: 0
     reflectDefense: 0
   - actionType: 0
@@ -34,6 +36,8 @@ MonoBehaviour:
     summonPrefab: {fileID: 0}
     effectDuration: 2
     attackEffectType: 0
+    attackVFXType: 0
+    attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
     reflectDamage: 0
     reflectDefense: 0
   hpTriggers:
@@ -47,5 +51,11 @@ MonoBehaviour:
       summonPrefab: {fileID: 0}
       effectDuration: 2
       attackEffectType: 0
+      attackVFXType: 0
+      attackVFXColor: {r: 1, g: 1, b: 1, a: 1}
       reflectDamage: 0
       reflectDefense: 0
+  chargeDuration: 0.2
+  chargeDistance: 1.5
+  shakeStrength: 0.2
+  hitImage: {fileID: 0}
