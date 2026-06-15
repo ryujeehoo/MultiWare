@@ -116,7 +116,7 @@
               "RelativeDocumentMoniker": "Assets\\Script\\Card\\CardRerollManager.cs",
               "ToolTip": "C:\\capstone\\MultiWare\\Assets\\Script\\Card\\CardRerollManager.cs",
               "RelativeToolTip": "Assets\\Script\\Card\\CardRerollManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAMAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAADoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-06-05T00:25:06.93Z",
               "EditorCaption": ""
@@ -131,7 +131,8 @@
               "RelativeToolTip": "Assets\\Script\\Card\\RerollZone.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-06-05T00:24:37.91Z"
+              "WhenOpened": "2026-06-05T00:24:37.91Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
